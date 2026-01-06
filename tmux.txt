@@ -1,0 +1,155 @@
+
+Tmux 
+terminal multiplexer
+
+a program that runs inside your terminal and allows other terminals to run inside of it 
+
+# Runs in the background
+
+
+~ apt install tmux 
+# is there by default
+
+
+# Attach to default session
+~ tmux  # start it
+
+
+# Detach from it 
+press ctrl + b and then press d
+
+
+# attach again to the recent session
+~ tmux a
+
+
+# TMUX has three layers.. 
+1. session 
+
+
+# create a named session 
+~ tmux new -s <session_name> # you can see the session name in the bottom left corner
+
+
+# see/list/get all sessions
+~  tmux ls 
+
+# again
+~ tmux a # attach to the recent most session
+
+
+# attach to a specific session
+~ tmux a -t <index_or_name> # see thru command ~ tmux ls
+
+a for attach
+-t for target
+
+
+# kill/delete a session
+~ tmux kill-session # kill the most recent 
+~ tmux kill-session -t <index_or_name> # remove a specific session  
+
+
+Layer 2 - Windows (inside sessions)
+# by default when we create a new session or whe we start tmux .. it creates two things 1st is session that we have already talked about and the 2nd is the window inside the session .. that is bash (next to the bottom left - after the name of the session) 
+
+
+Layer 3 - Panes
+# We can create panes inside the windows to create as many panes as we want to
+
+We use hot keys - here just like we detach using ctrl + b and then d 
+we use here 
+
+# ctrl + b and then press percentage sign / shift + 5 # opens a right pane 
+
+you can create as many s you want
+# to create a below pane do
+# ctrl + b and then double quote / shoft quote 
+
+
+
+What is this `ctrl + b` ?
+it is a prefix key for tmux to send a message before doing an action .. it just ignites tmux to do a task like detach, split etc..
+
+d - detach
+% - pane to right
+" = pane to bottom
+
+on default you will be in the new opened pane .. to move to any specific pane use key
+
+ctrl + b and then up - down - left - right arrows
+
+
+
+But the best way to move in the panes is using 
+ctrl + b and then q 
+
+# it displays the index of the panes and you can jump to any using 
+
+ctrl + b and then q and the index 
+# for example - for 2nd index
+ctrl + b + q + 2
+
+
+To resize your panes you can use
+ctrl + b + press and hold ctrl and press directional arrows to resize 
+
+and for large resizing use alt instead of ctrl
+
+ctrl + b + press and hold alt and directional arrows
+
+
+
+
+If you wanna resize to a pre-selected templates 
+ctrl + b + alt + 1 # 1 to 5 
+
+
+
+Like panes we can create new windows inside the same session .. just press
+ctrl + b and then c 
+
+
+To jump to any windows .. press 
+ctrl + b + n 
+
+
+To rename press
+ctrl + b + , 
+
+
+to move thru `n` or in other words moving sequentially is not fast or boring .. we can try 
+ctrl + b + w
+
+it will give you all sessions and there windows too 
+
+
+
+How to kill pane? 
+ctrl + b + x
+
+To kill window itself
+ctrl + b + & 
+
+
+Fast copy mode .. like just selecting text copies it
+updated tmux conf
+
+~ nano ~/.tmux.conf
+set -g mouse on
+setw -g mode-keys vi
+
+ctrl + x + y + enter
+
+it allows to Copy inside 
+ctrl + b + [ 
+and then move cursor using arrows ... to start copying press `space` and move arrow keys .. and then press `enter` to stop copying and then again .. press Prefix i.e., ctrl + b and ] to copy 
+
+
+
+To kill all sessions at once 
+~ tmux kill-server  
+
+
+
+

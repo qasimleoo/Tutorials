@@ -1,0 +1,27 @@
+
+
+SCP
+secure copy protocol - encrypted and authentication is needed
+command line tool used for securly trasnferrring files between the remote and the local host or between to remote hosts, using ssh encryption and auth
+
+Syntax:
+
+Wanna transfer file?
+~ scp /local/file username@remote_host|IP:/path/
+
+~ scp ./index.html wf-testing@172.235.173.20:/tmp/
+~ scp * wf-testing@172.235.173.20:/tmp/
+
+
+You can add -v (verbose) flag to get the complete details of conenction opening and sending etc...
+
+Wanna get file from remote server?
+~ scp wf-testing@172.235.173.20:/tmp/scp/ .
+
+used . to get files in the current directory you can add a path 
+
+
+You have to add -r flag for directory to upload 
+
+
+scp -r path_to_dir user_name@host:/path

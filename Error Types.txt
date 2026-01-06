@@ -1,0 +1,58 @@
+## **1. Syntax & Parsing Errors**
+
+* **SyntaxError** → Code violates Python grammar.
+* **IndentationError** → Incorrect indentation.
+* **TabError** → Mixing tabs and spaces inconsistently.
+
+---
+
+## **2. Runtime Errors (Exceptions)**
+
+* **NameError** → Variable not defined.
+* **TypeError** → Operation on incompatible types.
+* **ZeroDivisionError** → Division by zero.
+* **IndexError** → List/tuple index out of range.
+* **KeyError** → Dictionary key not found.
+* **AttributeError** → Object has no such attribute.
+* **ValueError** → Function receives inappropriate value.
+* **FileNotFoundError** → File does not exist.
+* **IOError / OSError** → General input/output error.
+* **MemoryError** → Not enough memory to continue.
+* **OverflowError** → Numeric result too large.
+* **FloatingPointError** → Floating-point calculation issue.
+* **ImportError / ModuleNotFoundError** → Module or function cannot be found.
+* **StopIteration** → No more items from an iterator.
+* **RuntimeError** → Generic runtime error.
+* **RecursionError** → Maximum recursion depth exceeded.
+* **KeyboardInterrupt** → Program interrupted by user.
+
+---
+
+## **3. Logical Errors**
+
+* Program runs but produces incorrect output.
+* Examples: wrong formulas, off-by-one errors, incorrect conditions.
+* **No explicit Python exception**, detected through testing or debugging.
+
+---
+
+## **4. Warnings (Non-fatal)**
+
+* **Warning** → Base class for all warnings.
+* **DeprecationWarning** → Feature is deprecated.
+* **SyntaxWarning** → Suspicious syntax.
+* **UserWarning** → General warning triggered by the user.
+* **ResourceWarning** → Unclosed resource warning (files, sockets).
+* **RuntimeWarning** → Runtime situation may be problematic.
+* **FutureWarning** → Feature may break in future versions.
+
+---
+
+### ✅ Summary Table (Expanded)
+
+| Error Type     | Common Exceptions / Notes                                                                                                                                                                                                                                                      |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Syntax Errors  | SyntaxError, IndentationError, TabError                                                                                                                                                                                                                                        |
+| Runtime Errors | NameError, TypeError, ZeroDivisionError, IndexError, KeyError, AttributeError, ValueError, FileNotFoundError, IOError/OSError, MemoryError, OverflowError, FloatingPointError, ImportError/ModuleNotFoundError, StopIteration, RuntimeError, RecursionError, KeyboardInterrupt |
+| Logical Errors | Off-by-one errors, wrong formulas, incorrect logic (no Python exception)                                                                                                                                                                                                       |
+| Warnings       | Warning, DeprecationWarning, SyntaxWarning, UserWarning, ResourceWarning, RuntimeWarning, FutureWarning                                                                                                                                                                        |

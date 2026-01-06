@@ -1,0 +1,45 @@
+
+
+
+Edge computing 
+
+executing/running a code as nearest as possible to a user .. just like cdn (cdn actually supports static content only .. but edge actaully is used for dynamic code that will be rendered only when called) .. server gets up (if it is in edge runtime) when called and then goes down when the request is served .. 
+
+
+Edge runtime  (By default runtime in nextjs is nodejs ) you can test by 
+const export runtime = 'nodejs';
+
+and console.log(process) .. it will print all methods/functions and everything supported by nodejs
+
+But to make a code 'edge compute' you actuall import 'edge' at top of code .. 
+But remember edge runtime doesn't support nodejs modules.. so you can't use any node module inside an edge environment .. 
+
+It is actually used to make code faster for cloud env.. when deployed on a cloud like vercel.. they deploy code on nearest servers to the clients.. 
+
+By default if you use too much nodejs code it becomes slower.. to make it fast you can use edge runtime but with lightweight code (without any node module)
+test by importing edge and consoling process
+
+one more thing middleware which is renamed to proxy in latest nextjs versions .. uses 'edge' env .. becasue it has to be as faster as possible ...
+
+
+in frameworks like Next.js, middleware runs on an Edge Runtime by default, a lightweight environment built on web standards (like fetch, Request, Response) that executes closer to the user for low latency, enabling fast routing, authentication, and request manipulation, though it has API limitations compared to Node.js.
+
+
+Common use cases of middleware.. 
+ Authentication and Authorization.
+ Internationalization (i18n) and Localization
+ URL Rewriting and Redirection
+ A/B Testing and Feature Flagging
+ Logging and Analytics
+ Security and Rate Limiting
+ Modifying Request/Response Headers and Cookies
+
+
+
+Feature 			Zapier						Make							n8n
+User Level			Beginner					Intermediate					Technical/Developer
+Integrations		8000+ (Largest)				2000+ (Moderate)				500+ (Requires Custom Dev)
+Interface			Simple, Linear				Visual, Flexible				Node-based, Technical
+Flexibility			Low (Customization)			High (Visual Logic)				Very High (Scripting, Self-Host)
+Cost				Expensive at scale			Moderate						Free (Self-Hosted) / Cost-Effective
+Key Feature			Ease of Use, Integrations	Advanced Visual Builder			Open-Source, Self-Hosting, Scripting

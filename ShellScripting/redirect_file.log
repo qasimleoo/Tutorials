@@ -1,0 +1,6 @@
+PING google.com (142.250.202.142) 56(84) bytes of data.
+64 bytes from pnfjra-al-in-f14.1e100.net (142.250.202.142): icmp_seq=1 ttl=119 time=107 ms
+
+--- google.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 106.524/106.524/106.524/0.000 ms

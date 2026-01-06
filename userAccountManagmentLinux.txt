@@ -1,0 +1,141 @@
+
+
+Topics
+- useradd
+- userdel
+- usermod
+- groupdadd
+- groupdel
+
+
+Files
+- /etc/passwd
+- /etc/group
+- /etc/shadow
+
+
+How to create a user?
+~ useradd <user_name>
+
+
+first get root access
+~ sudo su
+~ cd 
+~ cd /home
+~ ls
+
+you will see all user directories that are already created there.. these are actually directories .. not all users have them in home .. you can get details in /etc/passwd file.. or 
+~ id <user_name> # to get id of user
+
+
+~ useradd new_user
+~ id new_user
+# uid=1003(hehe) gid=1004(hehe) groups=1004(hehe)
+
+useradd makes group and id at its own... by default
+
+If you want your own config .. you can pass other args
+
+~ useradd -g <group_name> -s /bin/bash -c "description" -m -d /home/<user_name> <user_name>
+
+-m (wanna make home directory for user) if yes pass -d arg with directory path
+
+----
+~ useradd -g new_group -s /bin/bash -c "Part of testing" -m -d /home/victor victor
+~ id victor
+# uid=1004(victor) gid=1005(new_group) groups=1005(new_group)
+
+
+
+
+----
+Deleting a user
+userdel
+
+- userdel <user_name>
+- userdel -r (will remove home directory too)
+- userdel -f (force delete even if it is being used)
+
+~ userdel -r victor
+
+
+-----
+Modifying a user
+usermod
+
+To add user to a new group, but default will remain same
+~ usermod -G <group_name> <user_name>
+
+To change the default group
+~ usermod -g <group_name> <user_name>
+
+~ id hehe
+uid=1003(hehe) gid=1004(hehe) groups=1004(hehe)
+
+~ usermod -G new_user hehe # add a new group
+~ id hehe
+ uid=1003(hehe) gid=1004(hehe) groups=1004(hehe),1005(new_group)
+
+~ usermod -G new_user hehe # change the group
+~ id hehe 
+
+
+---------
+Other mods:
+
+-m -d /home/newfolder (to move the content of home folder to this new folder)
+
+-p (we can use passwd command also)
+-s (shell type)
+-L -U (lock/unlock)
+
+
+
+--------------
+Setting password
+
+~ passwd <user_name>
+# asks for 8 chars .. but can set any if you are a root user 
+
+To test you can login using new user
+
+~ su - user_name
+# if any error related to directiry make sure you are in the users direcoty where you wanna login 
+
+~ whoami # to test current user
+
+
+---------
+Locking the user
+
+~ usermod -L <user_name> # lock the user .. if you are root you can still login to this user by `su - user_name` but to test lock try logging into it outside root previliges
+
+~ su - testing
+Even after password it will not log you in
+
+~ usermod -U testing
+~ su - testing 
+Now you will be logged in
+
+
+
+----------------------
+Creating Groups
+
+
+~ groupadd <grp_name>
+~ groupdel <grp_name>
+
+
+Suppose you have a lotta users .. you can get the list of all inside /etc/passwd file 
+Similarly to get the list of groups.. you can get the list of all inside /etc/group file
+
+
+and in /etc/shadow file 
+
+open and at last you get the detauls of newly created user
+
+testing:$y$j9T$d0Og9.MJM62LK0ytgmHTI0$v/bvmi7jd1hjgbn2qjyDY8xfvuEh9F9Cj5l/.vhrRB/:20422:0:99999:7:::
+
+
+user_name:encrypted_password:last_modified_time_in_unix:min_value_of_valid_password:max_days_of_valid_pass:warning_days::

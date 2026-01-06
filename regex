@@ -1,0 +1,130 @@
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+0123456789
+
+ace    bad    cat    dry    eve 	bat
+away   bent   crow   dove   ends
+attic  brand  crypt  dried  event
+annoys baller camera diving ethics
+
+-------------------------------------------------------------------------
+
+
+~`!@#$%^&*()-_+=<>,./?;:'"[{ 
+
+0123456789
+
+In the future:
+
+your toaster will be Smarter than you.
+Robots will take over the world, but they'll do it in style.
+Augmented reality will let you pet virtual unicorns in your living room.
+Quantum computing will allow you to calculate the meaning of life in seconds.
+Blockchain will make your online shopping experience more secure than Fort Knox.
+Cybersecurity will be so advanced, hackers will have to resort to using actual swords.
+In the future, we'll all communicate through a universal language made up entirely of emojis.
+
+
+[a-z]
+------------------------------------------------------------
+
+KeItH sAyS yOu NeEd To LeArN rEgExEs
+
+wElCoMe To ThE sAlTy SpItOoN, hOw ToUgH aRe YoU?
+
+This is a boring, normal sentence.
+
+lEt Me SeE tHaT sPoNgEbOb MeMe OnE mOrE tImE.
+
+[a-z]?[A-Z]?([a-z]\,?\s?[A-Z]\,?\s?)+[a-z]?[A-Z]?[\.?]?
+
+------------------------------------------------------------
+
+
+
+MM-DD-YYYY (or MM.DD.YYYY -- MM/DD/YYYY)
+
+06-04-2000
+Christmas this year is 12/25/2023
+02-22-2022
+Humans first stepped on the moon July 20, 1969
+10/31/99
+A great movie came out on 02.16.1996
+
+
+\d{2}[-\./]\d{2}[-\./](19|20)\d{2}
+
+
+------------------------------------------------------------
+
+
+123456789
+999000999.matches
+8712388411235
+
+mississippi
+bookkeeping
+aggressive
+words
+
+
+\d*(\d{3})\d*\1\d*
+\w*(\w)\1\w*(\w)\2\w*(\w)\3\w*
+
+
+------------------------------------------------------------
+ 
+
+ qAsIm@coolcasim.com
+ QaSiMLeO@gmail.com
+
+ ([a-z]?[A-Z]?\w*)\@(\w*\.\w*)
+
+
+
+------------------------------------------------------------
+
+ 1, 2, 3, 4, 5
+
+$9 $12 $1,000 $10,000 $3 million
+$60 trillion
+9:30am 10am 1pm 7:45pm 11:20 PM 11:35 pm
+
+
+1 (?<=\$)[\d,\s( million| trillion)]+<
+2 \d*:?\d+(?=\s?(am|pm|PM|AM))
+
+
+
+ sdsd11234555-12-12
+
+
+
+ ^(?:[\p{Alnum}áâäåčđǥǧǩŋõöšŧžʒǯ](?:[\p{Alnum}áâäåčđǥǧǩŋõöšŧžʒǯ-]{0,61}[\p{Alnum}áâäåčđǥǧǩŋõöšŧžʒǯ])?\.)+(\p{Alpha}(?:[\p{Alnum}-]{0,61}\p{Alnum})?)\.?$
+ 
+
+
+10px 20px 10em 20ch
+
+
+$500USD $400 300USD
+
+
+
+--------------------------------------------------------------------
+
+I like to read books and I have read all the books in my library
+dasd ad asd sad sad as das dsad asd sa dsa  da da d asd ads dsds dasd
+ 
+
+
+
+dasd1A234@aAddA
+dasdas@
+
+
+^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\$@#%!])[a-zA-Z0-9@\$!%#]{9,}$
+
+
+
+

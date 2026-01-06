@@ -1,0 +1,1346 @@
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+What is my Shell type
+~ echo $0
+
+Linux Distribution?
+~ cat /etc/os-release
+
+Username
+~ whoami
+
+List of all shells
+~ cat /etc/shells 
+
+What's shell scripting??
+- Set of commands to perform a task
+- all commands execute sequentially
+- some taks like file manipulation, program execution, user interaction, automation, etc...
+
+Present directory
+~ pwd 
+
+
+Shell script doesn't need .sh extension but it is recommended.. for a third user to understand it
+
+
+Shebang? (interpreter to use when running the script)
+#!/bin/bash
+Not mandatory but follow the standard - you can use any other bash but this is widely used
+
+
+How to run?
+~ bash script.sh # no permission needed
+
+# OR
+# First script needs to have permission
+~ rwx   # 421 
+~ chmod +x script.sh
+~ ./script.sh
+
+---------------------------------------
+Comments
+
+Single line
+# Using hash 
+
+Multi line comment
+<<comment
+
+this is 
+multi lined
+comments
+
+comment
+
+----------------------------------------
+Variables
+
+# No spaces aare allowed between var value and identifier
+a=10
+name="Qasim"
+age=28
+
+echo "my name is $name and my age is $age" 
+
+# variables can be changed
+
+name="Ali"
+echo "my name is $name and my age is $age"
+
+ 
+# Storing the commands as variables 
+HOSTNAME=$(hostname)
+USERNAME=$(whoami)
+
+echo "Hostname is $HSOTNAME and username is $USERNAME"
+
+~ hostnamectl # get all details of current host
+
+--------------------------------------------
+Constant variables?
+to make a variable unchangeable/readonly/constant 
+
+readonly var=10;
+
+echo "variable=$var"
+
+var=20; # can't be changed, will get an errorr
+
+echo "variable=$a" # will print 10
+
+------------------------------------------------
+
+Arrays
+How to define arrays?
+
+
+# Index starts from 0
+
+index=2
+myArray=(1 4 3.51 String "Mutiple words string" false);
+echo "Value at index $index is ${myArray[$index]}"
+
+# To get all values from array use * in braces
+echo "Printing all: ${myArray[*]}"
+
+
+# Getting length of the array
+echo "No of values/Length of the array ${#myArray[*]}"
+
+# Getting specific values -- splice like python (last index is not included)
+echo "Values from 2 to 4 are -------- ${myArray[*]:2:4}"
+echo "Values from 3 to End are -------- ${myArray[*]:3}"
+echo "Values from START to 4 are -------- ${myArray[*]::4}"
+
+
+# Updating arrays
+myArray+=(New 8 9)
+
+echo "Updated array ${myArray[*]}"
+
+ 
+----------------------------------------------------
+Key value pairs .. dict array
+
+declare -A keyValue
+keyValue=([name]=Qasim [age]=12 [height]=5.8)
+
+or you can decalre one liner
+declare -A dict=(
+  [name]="qasim"
+  [age]=10
+  [isOld]=false
+  [height]=5.9
+)
+
+
+echo "${keyValue[*]}" # prints all values
+echo "${keyValue[@]}" # prints all values 
+echo "${keyValue[name]}" # gets name
+
+
+* and @ differ in loops .. 
+* prints all values as a single string on a single line
+@ prints them as seprate on each new line
+
+------------------------------------------------
+
+String operations
+
+
+# Length - like arrays
+
+#!/bin/bash # Shebang
+
+myString="Hello this is a string"
+myStringLength=${#myString} # or write inside brackets.. doesn't matter 
+
+echo "$myStringLength" # here brackets are not necessary when you have just single value call using $
+
+
+# Upper
+echo "Upper case is ${myString^^}"
+
+# Lower
+echo "Lower case is ${myString,,}"
+
+
+# Replace
+replace="${myString/charsToReplce/newChars}"
+
+
+# Slice - like arrays
+slice=${myString:startIndex:endIndex}
+startIndex= Default is 0
+endIndex= Default is lenght-1
+
+
+-------------------------------------------
+User Interaction
+
+# Taking Input from user
+
+# echo "What is your Name?" # Instruction to get name
+read var_name
+echo "User name is $var_name"
+
+
+# Or give instructions using read command
+read -p "What is your Name?" var_name
+echo "User name is $var_name"
+
+
+
+---------------------------------------------
+Arithmetic Operations
+
+x=5
+y=10
+
+# `let` is used for arithmetic operations
+let mul=x*y # not string but a math opration
+
+echo "$mul"
+
+# or you can do it without using the let command
+# using double paranthesis
+
+echo "$(($x*$y))"  
+
+
+-------------------------------------
+Conditional Statements
+
+if [ 5>10 ]
+then 
+  echo "Yes"
+else
+  echo "No"
+fi
+
+
+# OR single line
+# if [[ 5 -gt 10 ]]; then echo "Yes"; else echo "No"; fi
+
+gt is used inside square brackets [[]] .. to use symbol use paranthesis  
+
+# You can replace [] with ()
+# if (( 5>10 )); then echo "Yes"; else echo "No"; fi of 
+
+
+Equal                    | -eq / ==
+Greater than or equal to | -ge
+Less than or equal to    | -le
+Not equal tools          | -ne
+Less than                | -lt
+Greater than             | -gt 
+
+-------
+# elif
+
+
+-------------
+#!/bin/bash
+#
+#
+read -p "Enter your marks: " marks
+
+if [[ $marks -gt 80 ]]
+# if (( $marks > 80 ))
+then
+        echo "A"
+
+elif [[ $marks -gt 70 ]]
+then
+        echo "B"
+elif [[ $makrs -gt 60 ]]
+then
+        echo "C"
+elif [[ $marks -gt 50 ]]
+then
+        echo "D"
+else
+        echo "F"
+fi
+
+----------------------------------------------------
+
+# switch case
+
+# Handling multiple if else cases .. 
+
+case $choice in
+  a) date;;
+  b) ls;;
+  c) pwd;;
+  1) ps;;
+  *) echo "Invalid option";;
+esac 
+
+a/b are exact match to user input.. you can change them
+default * always comes at the end
+double semi colon is required
+
+can do in multiple lines
+For example:
+
+a)
+  echo "Current date and time is: "
+  date
+  echo " -- Ending!!!!"
+  ;;
+
+
+---------------------------------------------------------
+Logical Operators
+# &&, ||, !
+
+if [[ $age -eq 18 ]] && [[ $passport == "Pakistan" ]]
+
+-eq, -gt, -lt ... they are used for numeric values only for strings and boolean you have to use symbols like ==, !=, ...
+
+--------------------------------
+Ternary Operator
+
+# cond1 && statement || statement  
+
+
+--------------------------------------------------------
+Loops 
+--------------------------------
+1.
+
+for i in 1 2 3 4 5
+do 
+  echo "Number $i"
+done  
+
+
+# for i in 1 2 3 4 5 6 7 8 9 10
+# do
+#       echo "Number is $i"
+# done
+#
+
+## Strings
+# for i n Qasim Ahmad Nouman Ali
+# do
+#       echo "Name is: $i"
+# done
+
+## Use wild card for length numbers  
+for i in {1..10}
+do 
+  ...
+done
+
+--------------------------------
+2.
+
+# Iterating values of a file
+FILE="/home/leo/myScripts/16_iterator_file.txtx"
+
+j=0
+for i in $(cat $FILE)
+do 
+  echo "$i"
+  # j=$((j + 1))
+  # $(( j++ ))
+  let i++
+done 
+
+-------------------------------
+3.
+
+# For loops with Arrays 
+
+myArray=( 1 4 6 3.14 Qasim false )
+lenght=${#myArray[*]}
+
+for (( i=0; i<$length;i++ ))
+do
+  echo "${myArray[$i]}"
+done  
+
+
+---------------------------------------------------
+While Loop
+
+
+# 
+
+while condition
+do
+  ... 
+done
+
+
+-----------------------------------------------------
+until loop
+
+while loops are suitable when you want to perform actions while a certain state persists.
+until loops are suitable when you want to perform actions until a certain state is achieved.
+
+a=10
+
+
+until condition
+do
+  ---
+  ---
+done
+
+
+works oppositely (supposed to run for lt but works vice versa - gt here)
+a=10
+
+until [[ $a -ge 20 ]]
+do
+  echo "$a"
+  a=$(( a+1 ))
+done
+
+
+---------------------------------------------------
+Infinite loop
+
+We use infinite loops in programming for systems that need to run continuously, such as embedded systems, operating systems, and web servers, where the program must constantly monitor for events or user input.
+
+----------------------------
+1.
+
+# while loop
+
+while true
+do
+  ---
+done
+
+----------------------------
+2. 
+
+for (( ;; ))
+do
+  ---
+done
+
+
+---------------------------------------------------
+
+Reading files using while
+
+
+while read myVar
+do
+  echo $myVar
+done < file_name
+
+
+
+
+---------------------------------------------------
+While loop to read csv files 
+
+IFS - internal field separator 
+
+while IFS="," read c1 c2 c3 c4 # has to be the first column names
+do
+  echo "-----------"
+  echo $c1
+  echo $c2
+  echo $c3
+  echo $c4
+  echo "-----------"
+done < file.csv
+
+# if has more columns .. last one will get all remanining
+like c5,c6 in csv .. but you read first 4 only.. c4,c5,c6 will be in c4
+
+
+To avoid the first row of headers we can use awk comma n d
+cat test.csv | awk 'NR!= {print}' | while IFS="," read c1 c2 c3 c4
+
+----
+try in cli
+----
+cat test.csv | awk 'NR!= {print}'
+cat test.csv | awk 'NR!='
+
+
+
+---------------------------------------------------
+Functions
+
+# DRY
+# repeating tasks
+
+# with fucntion keyword
+function myFunc {
+  -----
+}
+
+
+# without fucntion keyword
+func () {
+  ----
+}
+
+
+-------------------------
+
+# with args
+
+# we pass args space separated when calling it
+
+myFunc() {
+  echo $1
+  echo $2
+  echo $3
+}
+
+myFunc 34 12 Qasim New 
+
+we passed four - but echoed 3 only so first three will be printed only - try to acccess more than passed you will get empty
+like echo $6 
+
+
+-------------------------
+# Calculator 
+fucntions, switch case, read
+
+echo "----------------------"
+echo "Welcome to calculator"
+echo "----------------------"
+
+echo "a) for addition."
+echo "b) for subtraction."
+echo "c) for division."
+echo "d) for multiplication."
+echo "e) for modulus."
+echo "f) for square."
+
+read -p "Choose the operation: " operator
+read -p "Enter first number: " num1
+read -p "Enter second number: "  num2
+
+addition () {
+        echo $(( $1 + $2 ))
+}
+
+subtract () {
+        echo $(( $1 - $2 ))
+}
+
+function div {
+        echo $(( $1 / $2 ))
+}
+
+function product {
+        echo $(( $1 * $2 ))
+}
+
+function mod {
+        echo $(( $1 % $2 ))
+}
+
+function sq {
+        echo $(( $1 ** $2 ))
+}
+
+case $operator in
+        a) addition $num1 $num2;;
+        b) subtract $num1 $num2;;
+        c) div $num1 $num2;;
+        d) product $num1 $num2;;
+        e) mod $num1 $num2;;
+        f) sq $num1 $num2;;
+        *) echo "Invalid";;
+esac
+
+
+---------------------------------------------------
+Arguments in Scripts - when running scripts
+
+# to get no of args: $#
+# to display all args: $@
+# to use multiple args: $1, $2, $3, .....
+
+
+----
+echo "This is first arg $1"
+echo "This is first arg $2"
+
+echo "All args are: $@"
+echo "Number of total args are: $#" 
+
+bash script.sh arg1 arg2 arg3 
+
+
+# for loop to access values from the args - you can use it to backup files
+
+for filename in $@
+do
+  echo "Copying file - $filename"
+done 
+
+
+we can use [quotations] for a string more than 1 word in args
+---------------------------------------------------
+Shifting args
+
+we can use [quotations] for a string more than 1 word in args
+when we pass multiple args, we can shift them  
+
+
+A B C
+shift 
+B C
+
+
+echo "$1"
+shift # will ignore/remove first arg from the list
+echo "$@" # print all others
+
+the number times you use shift - those number of args are removed/ignored
+
+
+---------------------------------------------------
+
+Useful concepts
+
+# break - continue
+--------------------
+1. Break
+
+
+for i in {1..10}
+do
+        if [[ $i -eq 5 ]]
+        then
+                break
+        fi
+        echo $i
+done
+
+ 
+--------------------
+2. Continue
+
+for i in {1..10}
+do
+        if [[ $(($i % 2)) -eq 0 ]]
+        then
+                continue
+        fi
+        echo $i
+done
+
+--------------------
+sleep time_in_seconds
+
+sleep 5
+sleep 5s
+
+
+--------------------
+exit # to stop script at a point 
+--------------------
+
+exit status $? ... status of previous command
+~ pwd 
+~ echo $? - exit status 0 (success)
+
+~ cd /root
+~ echo $? - status 1 (failed)
+
+
+ping google.com [unlimited packets]
+ping -c 1 google.com [only one packet]
+
+
+---------
+read -p "Which site do you wanna check? " site
+
+ping -c 1 $site
+
+if [[ $? -eq 0 ]]
+then
+  echo "Successfully connected to $site"
+else
+  echo "Failed to connect to $site"
+fi
+
+
+--------------------
+
+basename - strip directory info and give only the filename
+
+~ basename /home/username/Downloads/Videos
+outputs: Videos
+
+~ basename /home/username/Downloads/Videos/hello.mp4
+outputs: hello.mp4
+
+--------------------
+
+dirname - strip filename and gives directory path only
+
+~ basename /home/username/Downloads/Videos
+outputs: /home/username/Downloads/
+
+~ basename /home/username/Downloads/Videos/hello.mp4
+outputs: /home/USERNAME/Downloads/Videos
+
+--------------------
+
+realpath - gives you full path for a file
+--------------------
+ 
+~ realpath test.csv 
+outputs: /home/USERNAME/DIR/test.csv
+
+~ realpath 1 # just any random string to check path 
+outputs: /home/USERNAME/DIR/DIR/1
+
+
+--------------------
+Check if a file or directoy exists or not
+like if a file is dependent on a directory 
+
+# to check files
+-f FILEPATH # exists  
+! -f FILEPATH # not exists
+
+# to check directories
+-d DIRPATH
+! -d DIRPATH
+
+
+FILEPATH="/home/leo/ShellScripting/test.csv"
+
+if [[ -f $FILEPATH ]]
+then 
+  echo "Exists"
+else
+  echo "Not exists"
+fi
+
+---------------------------------------------------
+
+Bash Variables
+
+# built in variables in bash
+
+RANDOM - a random number between 0 - 32676
+UID - user id of logged in user
+
+echo $RANDOM
+echo $UID 
+
+for root user UID is always 0
+
+-----------
+# genrating a number between 1-6
+ 
+echo $(( $RANDOM % 6 + 1 ))
+
+-----------
+# root user check
+
+if [[ $UID -eq 0 ]]
+then 
+  echo "A root user"
+else
+  echo "Not a root user"
+fi
+
+
+---------------------------------------------------
+# Redirection in shell - read from a file 
+
+<
+
+~ while IFS= read -r line; do echo "${line}"; done < csv.csv
+
+---------------------------------------------------
+# Redirection in shell - write to files
+
+> >> 
+
+# wanna write outut to a file
+
+~ ls > all_files.txt
+
+# single > overwrites old content of file
+# double >> appends new content to the file 
+
+~ date >> all_files.txt
+
+---------------------
+
+/DEV/NULL
+
+# in case you either dont wanna print the output or to a file
+# we can sue /dev/null
+
+# just vanish it.. will go nowhere
+
+&> 
+
+cd /root &> /dev/null
+
+
+---------------------------------------------------
+Print name of the script
+
+echo "Name of script is ${0}"
+
+---------------------------------------------------
+Log messages
+
+if you wanna maintain the logging for your script you can use logger in scripts
+
+logger "this is log from ${0}"
+
+try reading woth sudo .. just in case
+they are saved in /var/log/syslog
+
+
+---------------------------------------------------
+Debugging
+
+in script write
+set -x
+
+Will tell you each steps that were taken
+have set in 25_calcualtor.sh
+
+.. 
+shows each line with plus that were commanded
+
+# on default other commands keep running 
+# if you want to exit if any error occurs
+
+set -e
+
+---------------------------------------------------
+
+Running scripts in background
+
+nohup
+
+nohup ./script.sh &
+
+keeps running even terminal is closed
+
+---------------------------------------------------
+
+Automate your scripts
+
+at command - useful if you wanna run once (no repeatition)
+crontab - for repeatition
+
+-------------
+at TIME
+
+~ at 18:23 
+> bash FILEPATH
+> ctrl + D
+
+
+~ atq 
+to check if anything is scheduled 
+
+
+To cancel a schedule
+~atq
+get ID 
+
+~ atrm ID
+~ atq # removed  
+
+
+-------------
+Repetitive
+crontab
+
+# to check exisiting jobs
+~ crontab -l
+
+# to add a new job
+~ crontab -e
+
+min hour dom month dow
+0-59 0-23 1-31 1-12 0-6
+* * * * * for any [every minute]
+* 18 * * * [at 18:00 every day]
+
+
+40 18 * * * cd /home/USERNAME/DIR && ./script.sh
+
+
+
+---------------------------------------------------
+Projects
+---------------------------
+1. Monitoring free RAM space
+
+~ free # shows in Bytes
+# to check RAM
+
+~ free -h # to check in MBs/GBs - h means humna readable
+~ free -t # total in bytes
+~ free -mt # total in MBs
+~ free -gt # total in GBs
+
+~ free -mt | grep Total | awk '{print $4}' # get 4th col from total memory
+
+FREE_RAM=$(free -mt | grep Total | awk '{print $4}')
+THRESHOLD=9000
+
+if [[ $THRESHOLD -lt $FREE_RAM ]]
+then
+  echo "OK"
+else
+  echo "LOW"
+fi
+      
+---------------------------
+2. Monitoring freeb disk space and send an email alert
+
+~ df # disk free
+~ df -h or -H # Human readable
+
+# grep to get a line containing the string 
+# egrep to remove a line 
+
+~ df -h | grep -v "string1|string2|string3" # will remove these from results
+
+~ df -H | grep nvme0n1p5 | awk '{print $5}' # has to be single quotes 
+
+~ tr -d STRING # to trim anything from string
+~ echo "421312" | tr -d 2 # will remove all 2s  
+
+# get used disk space
+~ df -H | grep nvme0n1p5 | awk '{print $5}' | tr -d %
+
+---------------------------
+
+Sending mails
+
+1. Install postfix
+2. Install mailutils / mailx
+
+go to /etc/postfix/main.cf 
+search relayhost 
+add 
+relayhost = [smtp.gmail.com]:587 # service to send mails
+add
+myhostname = qasim / HSOTNAME  
+you can get your hostname by ~ hostname -f command
+
+
+Postfix Config lines
+
+Add the following lines
+
+relayhost = [smtp.gmail.com]:587
+myhostname= your_hostname
+
+---------------------------
+
+Create a file under /etc/postfix/sasl/
+
+Filename: sasl_passwd
+
+Add the below line
+[smtp.gmail.com]:587 email@gmail.com:password # get it from your gmail account .. search app password and create a custom one
+
+
+Convert that sasl file into a .db file using 
+postmap command
+
+~ chmod 600 *
+to give read write permission to root only
+
+# start the servive
+~ systemctl start postfix
+
+----------------------------
+
+To send an email using Linux terminal
+
+~ echo "Text test" | mail -s "Testing" qasim@jfreaks.com
+~ echo "File test" | mail -s "Testing" -a filePath qasim@jfreaks.com
+
+
+-a option isn't workign with mail.. so try mutt
+~ sudo apt install mutt
+~ echo "Testing with File" | mutt -s "Test" -a "Error Types.txt" -- qasim@jfreaks.com
+
+---------------------------------------------------
+
+Shell scripting Project
+
+Archive older folders / archive larger files
+
+In the given directory, if you find files more than a given size ex:
+20 MB or files older than given days ex: 10 days
+
+Compress those files and move in a 'archive' folder.
+
+
+Why this script? Purpose?
+Because we have limit on disks space..
+so we can archive, compress, delete
+
+
+Steps:
+- provide the path of the directory
+- check if the directiry is present or not
+- create archive folder 
+- find all files with size more than 20MB
+- compress each files
+- move the compressed files to archive 
+- make a cronjob to run the script everyday at a given time
+
+
+# get file size more than 20MB
+maxdepth is used to get depth inside directory
+1 means same directory
+2 means same dir and inside directories only
+3 means same dir and inside dir and inside of those dirs and so on
+
+-maxdepth 0: Only applies tests and actions to the starting points themselves, without descending into any subdirectories.
+-maxdepth 1: Searches the starting points and their immediate subdirectories, but no deeper.
+-maxdepth N: Searches up to N levels of subdirectories below the starting points.
+
+~ find PATH -maxdepth {0..N} -type {f for file, d for dir} -size +{SIZE in BYTES}
+~ find . -maxdepth 1 -type f -size +2000 # 2000 bytes
+~ find . -maxdepth 1 -type f -size +2M  # 2 MBs
+
+In Linux/Unix, find -type checks the file type.
+b → block special file (like a disk device /dev/sda)
+c → character special file (like /dev/tty)
+d → directory
+f → regular file
+l → symbolic link
+p → named pipe (FIFO)
+s → socket
+
+
+~ gzip file # to compress files as .gz
+~ gzip file || exit 1 # if gzip fails .. files failed to compress
+
+~ mv $i.gz $BASE/archive || exit 1 # move to archive otherwise exit
+
+
+---------------------------------------------------
+
+Creating local users
+
+# Requirements
+
+- Script should be executed with root/sudo user else exit with status 1 and error message
+- Script will take 1st arg as user and rest will be treated as comment
+- Auto generate password for the user
+- Upon successful creation give:
+  - username: <username>
+  - password: <auto_generated_password>
+  - host: 
+
+
+# Steps
+- Check if script is being executed as the superuser priviliges
+- if the user doesn't provide atleast one arg .. hint them
+
+~ $# # to get number of args
+~ $0 # script name 
+
+- the first param is the username
+- the rest of the params are the comments
+- generate the password
+- create the user with the password
+- Check if the useradd command succeeded or not
+- set the password
+- check to see if the passwd command succeeded
+- Force password change on first login
+- display the username, password, and the host where the user is created
+
+
+~ date +%s
+# shows the current time as the number of seconds since 00:00:00 on Jan 1, 1970
+
+~ date +%s%N # in Nanoseconds
+
+
+get all users`
+~ awk -F: '$3 >= 1000 {print $1}' /etc/passwd
+
+
+---------------------------------------------------
+
+
+-z STRING [ if string is empty - length zero]
+-n STRING [ if string is - if string is non empty]
+
+
+[] vs [[]] in condtions
+[] is old way requires quotes "" while calling defined variables like
+if [ -z "$str" ]
+
+[[]] is modern way - doesn't require quotes "" while calling defined variables like
+if [[ -z $str ]]
+
+
+---------------------------------------------------
+Replace a text
+
+line=STRING; echo "${line//CHAR_TO_REPLACE/CHAR_TO_REPLACE_WITH}";
+line=\'Hello\'; echo "${line//\'/ }"; # replaces single quotes with spaces
+line=\'Hello\'; echo "${line//\'/\"}"; # replaces single quotes with double
+line=\'Hello\'; echo "${line//\'/-----}"; # replaces single quotes with 5 dashes 
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Tail command
+
+~ tail file_name # prints last 10 lines
+
+~ tail -n 50 file_name # prints last 50 lines .. input your required lines number
+
+~ tail -f file_name # monitor for file changes
+
+-----------------------------------
+
+Watch Command 
+
+Using watch to periodically print the file
+
+~ watch  "tail -n 20 /var/log/syslog"
+
+~ watch -n 1 "tail -n 20 /var/log/syslog" # with interval in   seconds
+
+
+------------------------------------
+
+less file_name # open as a file in command line
+
+more file_name # prints only
+
+more -2 file_name # with current lines to show
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+AWK
+
+domain specific langauge
+- text processing tool and programming language used for processing, manipulating the data
+
+
+- Using file
+awk options 'pattern {action}' file_nam e
+
+- Using echo - directly
+echo "Hello" | awk options 'pattern {action}
+
+- options
+  -F Field separator
+  -v var=value 
+  -f file
+
+~ awk '${print $2}' file_name # prints 2nd column
+
+# How awk works actually?
+# scans each line and reads each as a seprate field based on spaces
+
+
+Terms used:
+
+- NR # No. of record/row 
+- NF # No. of fields
+- $0 # Print everything
+- $1 $2 # Field/Column no.
+
+
+# Examples
+
+-----------------------------
+
+# print only a given colmun
+
+~ awk '{print $4}' file_name # single column
+~ awk '{print $4, $3}' file_name  # more than one column - comma seprated
+
+-----------------------------
+
+# print last column 
+
+~ awk '{print $NF}' domains.txt # NF total number of fields in this line
+
+-----------------------------
+
+# search a word 
+
+~ awk '{print $0}' domains.txt # print everything
+~ awk '/SEARCH_KEYWORD/{print $0}' domains.txt # prints all lines containing SEARCH_KEYWORD - case sensitive
+
+-----------------------------
+
+# Print only a given line number
+
+~ awk '{print $0}' domains.txt # everything
+~ awk '{print NR, $0}' domains.txt # before each line add a serial number - add a comma to add space after NR variable
+
+# helps to find number of a row containing a specific KEYWORD
+~ awk '/SEARCH_KEYWORD/{print NR, $0}' domains.txt # prints all lines containing SEARCH_KEYWORD - case sensitive
+
+-----------------------------
+
+# Print a given line number
+
+~ awk 'NR==1 {print $0}' domains.csv  # HEADER
+~ awk 'NR==6 {print $0}' domains.csv  # 6th line
+
+-----------------------------
+
+# Print a range of lines
+
+~ awk 'NR==1, NR==3 {print NF, $0}' domains.txt # 1 and 3 will be included
+
+-----------------------------
+
+# on default awk works with spaces .. 
+# for a different delimiter we have to tell it
+ 
+# Working with CSV files or different delimiters 
+
+~ awk '{print $3}' csv.csv  # will print empty lines
+~ awk -F DELIMITER_WITH_NO_SPACE '{print $3}' csv.csv  # will print empty lines
+~ awk -F, '{print $3}' csv.csv  # will print empty lines # comma for csv
+
+-----------------------------
+
+# Print salary greater than equal 15000
+
+~ awk -F, '$NF>=15000 {print $0}' csv.csv
+
+# rows greater than 3 and salary greater than 15k
+~ awk -F, '$NF>15000 && NR>3 {print NR, $0}' csv.csv
+
+
+-----------------------------
+
+What is a file has multiple delimiters
+
+# You can seprate them using a square braces
+
+~ cat multidelimiter.txt 
+This is comma, and this is colon: But this is semicolon: Ok?
+
+~ awk -F[,:\;?] '{print $5}' multidelimiter.txt  
+
+---------------------------------------------------------------------------------------
+Use cases of awk
+---------------------------------------------------------------------------------------
+
+-----------------------------
+
+# how to get only the status of a service. e.g., postfix
+~ sudo systemctl status postfix | awk 'NR==3 {print $2}' 
+
+-----------------------------
+
+How to get a list of files
+~ ls -lt | awk 'NR>1 {print $NF}'
+
+# or simply uou can do to get all files/dir
+~ ls -1
+
+-----------------------------
+
+How to read logs in a range of time
+
+~ sudo less /var/log/syslog
+~ tail -n 20 /var/log/syslog # just print 20 lines
+
+~ tail -n 10 /var/log/syslog | awk -F[.T] '$2>="14:50:00" && $2<"14:52:00" {print $2, $0}' # get only logs between 2:50 to 2:52 PM from last 10 lines
+
+-----------------------------
+
+# Get files modified in Sep
+
+~ ls -ltr | awk 'NR>1 && $6=="Sep" {print $NF}'
+ 
+---------------------------------------------------------------------------------------
+
+Useful functions
+awk built in functions
+
+-----------------------------
+
+Modifying data 
+# How to replace a word?
+
+{gsub} - global substitute (an action like print)
+
+~ awk '{gsub("Jessy", "Pink"); print $0}' file
+
+-----------------------------
+
+# Length of a line of a field 
+
+~ awk '{print length($COLUMN_NUMBER)}' file_name  # length of a column
+~ awk '{print length($0)}' file_name  # each line's length
+
+-----------------------------
+ 
+# Position of a word in a given line
+
+~ awk '/doctor/{print $0}' csv.csv   # lines containing doctor
+~ awk '/doctor/{print NR, $0}' csv.csv   # lines with each row number
+~ awk '/doctor/{print NR, index(WHICH_LINE_TO_FIND, WHAT_CHAR_OR_WORDS_START_CHAR_TO_FIND)}' csv.csv   # lines with each row number
+~ awk '/doctor/{print NR, index($0, "J")}' csv.csv
+
+-----------------------------
+
+# print values in upper or lower case 
+
+~ awk '{print tolower($0)}' csv.csv
+~ awk '{print toupper($0)}' csv.csv
+
+---------------------------------------------------------------------------------------
+awk scripting concepts
+---------------------------------------------------------------------------------------
+
+# to do somethign before and after reading a file
+
+awk 
+  'BEGIN{start_action}
+    pattern/condition {action}
+  END{stop_action}'
+file_name
+
+~ awk 'BEGIN{print "--------} {print $0} END{print "-------- csv.csv 
+
+-----------------------------
+
+# Other programming concepts we can user here 
+- Vars 
+- Condition
+s- Lists
+- Loops
+- Functions
+
+-----------------------------
+
+-----------------------------
+
+-----------------------------
+-----------------------------
+---------------------------------------------------------------------------------------
+
+
+
+https://youtu.be/F4Zo1NuE_rY?list=PL0tP8lerTbX3MeIyMxGW2sLhWnPdn_xhd&t=2452

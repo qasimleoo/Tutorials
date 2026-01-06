@@ -1,0 +1,110 @@
+
+
+Websockets?
+persistent connection between client and server .. 
+once connection is established .. both can send data to each other anytime.. 'cause it is a full duplex connection .. 
+Both can send anytime even if one is already sending.. 
+used in real time.. 
+
+Examples: 
+Trading apps (where data is updated even after millisecond)
+
+
+You can test by going to any trading web app and in dev tools you can see WebSockets (WS) in Network tab e.g., wsj (market)
+
+Even in messaging apps (whatsapp, telegram) we use websockets.. also in online games
+
+
+
+
+-----------
+How web sockets work.. how they differ from HTTP? 
+
+HTTP is used most of the times .. our websites are built using http .. 
+
+For an HTTP request
+
+		
+		  ---- Open ---->
+Client -------- TCP -------- Server
+	      <---- Close ----
+
+Client requests the response .. TCP connection is opened and then closed once the respone comes back
+
+For a new info .. a new request would have to be sent
+
+HTTP is a uni-directional.. stateless.. protocol
+
+HTTP is enough for most of the websites.. but for a real-time data transfer like chatting/trading app.. we will have to send a lotta of requests thru HTTP.. which is not affordabale of a right...
+
+To solve the problem we have 2 types of pollings..
+
+-------
+Short and Long Pollings 
+-----
+We set a time for the response to comes .. short or long .. but they can occur in timeout in case there is no response from the other side .. causing a lotta resources in waste
+
+
+
+'cause it is also not a good or lasting solution there comes another solution that is SSE...
+-------
+Server sent events (used somewhat)
+-------
+
+Server can push data to client anytime anymuch..
+but the problem is .. it is unidirectional and which is not good .. for client .. as only server can send the data .. but it is suitable for servers .. 
+like instagram feed..(Chatgpt also uses SSE) 
+SSE is optimal for LLMs .. as LLMs generate text .. token by token .. and SSE is ideal for pushing each generated chunk to the client as it becomes available ratehr than waiting for the entire response to be completed
+
+
+And to send bi-directional data .. there comes the websockets .. just like a phone call
+
+
+To establish conenction .. client sends a request to server .. (that is HTTP) .. and client tells the server that let's upgrade to the Websockets .. and in reponse server replies with 101 response that is status 101 (Switching protocol response)
+
+
+
+Http 						Websockets
+Sending email				Phone call
+Stateless					Statefull
+uni-directional				Bi-directional
+Half-duplex					Full duplex
+
+
+
+----------------
+Let's build a websocket server
+
+open an empty folder
+create a .js file 
+and init node .. install express and ws
+
+~ mkdir ws && cd ws
+~ touch index.js
+~ npm init -y 
+~ npm express, ws
+
+Now inside `index.js`:
+
+import express from 'express';
+import { WebSocketServer } from 'ws';
+
+const app = express();
+const port = 8080;
+
+const server = app.listen(port, () => {
+	console.log("Listening on port: ", port);
+})
+
+const wss = new WebSocketServer({ server }); // to listen on same port as HTTP otherwise you can change it like ({port: 3030})
+
+wss.on('connection', (ws) => {
+	ws.on('message', (data) => {
+		console.log('Data sent from server is: ', data) // data will be buffered .. use %s to get string
+		ws.send("Thanks"); // Client's response to server
+	})
+})
+
+
+
+To establish conenction with Websockets we have WebSocketApi like Fetch api for HTTP requests

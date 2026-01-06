@@ -1,0 +1,2863 @@
+basics of aws (free tutorial - aws batches) - free tier account of aws
+aws cloud platitionor - architect
+
+docker 
+kubernetes
+
+ci/cd pipeline of projects 
+
+
+AOP
+
+
+
+
+-------------------------------------------------
+
+WHOIS DB
+     
+{country} whois database - sub pages
+
+first 3 
+IP 
+
+active - domain whois in features - asn 
+want to search whois recod for a specific country
+
+quality (2,3 lines like a slogan) over content - for all 3 whois dbs  - with CTAs
+
+try better visibilty 
+
+
+
+-------------------------------
+domainer - sub pages  (newly with country support)
+
+
+
+// 
+Support vector machine (SVM)
+Deep learning 
+Binomial Distribution 
+Poisson Dist.
+
+
+Omnisend Tool to send prompts to the user whenever they add something into the cart
+
+
+------------------------
+
+phishing
+cyber security vendors 
+splunk
+
+
+-------------------------
+
+Domain Search Tool
+
+min 5 non wild card
+max 2 wild card
+
+----------
+
+Product Page
+Domain Discovery API
+
+Tool
+Domain Discovery Tool
+
+------
+Contact Us Services
+
+whois and dns database serveices
+domain an ip intelligenece 
+data redcation request 
+ip and security
+billoing and subscription
+ 
+
+-----------
+what are whois databases - content (make it large but minimum and focused)
+
+
+file download in firefox
+
+
+
+
+------
+bulk domain discovery tool
+
+
+
+
+---------------------
+billing 
+confiramtion mail to subscriptions and apis
+
+
+
+--------
+1 credit per dns record
+
+
+------------
+
+
+
+
+tlds - dns list (weekly check for servers)
+
+mt - https://www.nic.org.mt/dotmt/
+
+
+
+
+---------------
+files to download (newly/expired/deleted - only prev 3 days)
+
+
+
+https://yaninatrekhleb.github.io/restaurant-website/#reservations
+https://vivek9patel.github.io/
+
+---------------------------
+Regex
+
+we use regular expressions to match patterns .. in any language
+
+
+
+
+
+-------------------
+Logical Practice Problems
+
+Positional vs Keyword Arguments
+Using *args and **kwargs Together
+Local vs Global Variables
+Code Reuse and Modular Programming
+Importing Modules
+
+
+Different types of errors 
+
+
+
+
+
+--------------------------------------------------------------------
+Whereever in our life there are repeating manual tasks to do.. we try to automate those tasks to save time
+
+
+touch
+ls
+ls -ltr
+
+man ls (man command is used to get details of any command)
+man touch
+
+
+we can use vim to create files .. but it is only for manual thing .. and actually it opens file .. so making a lot of files will open them and might crash the system .. that is why we use touch to first create them 
+
+
+
+_________________
+script.sh
+
+#! -> shebang 
+
+#!/bin/ksh (in all shell scripts) Why?
+because .. there has to be an executer to execute files here we are using ksh
+but can use bash (most widely used).. sh.. ksh..
+
+so 
+
+#!/bin/sh  |   #!/bin/bash   (why different?)
+#!/bin/sh was using linking .. it was forwarded to #!/bin/bash
+
+but in modern systems (e.g., linux) it is forawrded to #!/bin/dash
+
+so use 
+#!/bin/bash always
+
+-----------------------------------------
+~ vim script.sh
+---------------------
+#!/bin/bash
+
+echo "Hello"
+
+:wq (save and close)
+-----------------------------------------
+~ ./script.sh
+or 
+~ sh script.sh
+### permission denied
+
+in linux although you created and wrote the file but ssytem will have to know which user/grp can execute that file 
+so we will first have to grant permissions to that file
+
+
+~ chmod [is used to change permissions] c h mod
+three things are required in chmod 
+
+
+Divided in 3 categories
+
+what are permissions for you
+which group has access
+which user already has access - root/admin
+
+chmod # # # - you grp "all users" hashes are numbers here 
+
+to give access to all users use 777
+~ chmod 777 
+use 
+~ man chmod 
+
+what are 7 (all permissions) ... in linux it has a formula.. 4 2 1 .. read write execute
+
+~ chmod 444 fileName (only read) OR
+~ chmod +r fileName 
+
+~ history
+
+
+-------------
+
+~ touch - is used in automation 
+~ vim - to create and open 
+~ cat - just get content of file without opening
+~ ls - list all files and dir
+~ chmod - changing/granting the permissions
+~ man - manual .. docs for commans
+
+--------------------------------
+
+~ pwd (current/present/parent/print working directory)
+
+
+------------------------------
+Creating folders/directories
+
+~ mkdir myFolder
+~ ls -ltr (see for latest dir)
+~ cd (chnage directory)
+
+
+---- 
+
+why shell scripting in dev ops
+
+you can write scripts to maintain the cpu, processing .. using scripts to manage them widely on a lot of servers without getting caught in manual work - like managing a thousnads of machines at a single time 
+
+node health/status of a lotta VMs
+
+
+and to monitor the health we use commands like 
+
+nproc - total cores
+free -g, free -h - ran
+top - all usages 
+df -h (HDD)
+
+
+=======================
+Some advanced concepts
+
+Trap signal - like ctrl C stops .. but trapping won't let it stop
+
+
+
+---------------------------------------------------------
+Part II
+---------------------------------------------------------
+
+We have to provide the details of the shell script (Metadata) as comments although they won't be executeable but they are kinda required
+
+#!/bin/bash
+
+################################################
+# Author: Test
+# Creatuib Date: 01/01/2025
+#
+# Purpose: This script outputs the node health
+#
+# Version: v1
+################################################
+
+It will help users the understand what this particular script actually do.
+
+
+We can use echo statements for better understanding but not recommended *what if you have a lot of commands
+Use
+
+set -x 			# debug mode
+
+ 
+-----------------------------------------------------------
+
+There are like a hundereds of microservices running in the big techs
+
+to find all those running ones you can use 
+commnd
+
+ps 
+ps -ef (all even bg and zombie processes)
+
+ps -ef | grep "amazon"
+
+to kill/heap dump/thread dump - use the process id always
+
+
+Pipe param is used as a connector
+it sends the output of the first command to the 2nd command
+
+
+
+--------------
+
+
+
+we can Add more resources in resource block of terraform script 
+visit hashicorp docs for that resource and you will get the code 
+
+copy syntax from that and add that in your script file
+
+all of the things should not be put inside the main.tf .. 
+like name, load balanncer config, cidr block, subnet.. they should be inside in input.tf .. so that in future if those are chaned based on new config .. only those details will be updated in input.tf .. 
+
+input and output are actually used in terraform to manage and exchange data within and between terraform configurations and modules, primarily thru the input and output variables...
+
+
+Input variables are used as parameters to your terraform files... act as args allowing you to pass values to your terraform modules and configs from external srcs... 
+
+you can write these vars inside variables.tf
+
+    variable "region" {
+      description = "AWS region for resource deployment"
+      type        = string
+      default     = "us-east-1"
+    }
+
+
+and you can set these values at the runtime to your terraform files using the flag -var 
+
+
+Output files are actually used to expose specific data by your terraform configs .. they are liuke return values of a function that will be used by any other configs, srcs, modules etc...
+like exposing an IP via a `output.tf` file
+
+    output "instance_public_ip" {
+      description = "Public IP address of the EC2 instance"
+      value       = aws_instance.example.public_ip
+    }
+
+
+---
+
+run `terraform init` in the repo where you have your main.tf... 
+it will initialize the terraform 
+
+
+after that run 
+`terraform plan` .. it will give everything that will be happening on `terraform apply`
+
+
+...
+how does terraform authenticate your connection to your cloud provider ... 
+'cause in your main.tf you have given only region .. no other thing
+
+
+
+To authenticate terraform you will have to first authenticate your cloud provider .. 
+configure your cloud provider
+
+
+like
+~ aws configure
+and set your keys .. 
+
+
+-----
+
+terraform apply
+
+we will create an ec2 instance using terraform
+
+
+--- 
+get your public IP
+
+curl ifconfig.me 
+-----
+
+
+to get IPs or any other data of this created instance we will write an output.tf file
+
+--- 
+
+terraform is all about tracking the infrastructure .. all the things that terraform has done.. it will put that things config a file named terraform.tfstate [the file where terrafrom tracks the infrastructure]
+
+
+you should store your state file in a centeralized place (remote backends - remote storage services) .. not local/github .. it is not a good idea .. isolate it and organize it to reduce the blast radius.. (isolte prod and dev files properly)
+
+and don't manipulate your state file .. cause it contains too much sensitive info...
+and try to give read permissions to the state file
+
+
+------
+Ideally Terraform Setup
+
+DevOps eng. writes terraform script  -> Jenkins pipeline (watches github/src control) -> Terraform + Github -> Created Instance/Any other task
+Terraform + Github -> Automatically Store state file to your s3 (bucket) -> Dynamo DB (NoSQL DB) 
+Dont allow parallel execution to the terraform scripts (can cause conflicts)
+
+Dynamoc DB - will be used to lock state files (so that only one execution can be done at a time) ... once the executuon is done it will unlock for new execution
+
+
+Be carefull in each steup
+----------------------
+
+How to do remote backend
+
+utilize the terraform scripts to create s3 and dynamoDB
+
+---------------
+
+Modules
+
+- Existing Modules
+Already exisiting repeated blocks/components can be used as modules in any terraform scripts
+
+OR you can Write your own modules
+
+
+--------------
+
+Problems of Terraform?
+
+- State file is single source of truth - src of truth means the single authoritative and reliable data source where every one can access the latest data information ... can't be compromised or manipulated
+
+- Manual changes to the cloud provider cant be identified and auto corrected (changes on cloud proivider can't be seen by terraform - it is in simple terms a uni directional not bi)
+
+- Not a GitOps firendly tool, Don't play well with the Flux or Argo CD.
+
+- Can become very complex and difficult to manage (is't good if you have multiple accounts for a large number of aws users)
+
+- Trying to position as a config management tool as well (which is wrong .. should only be for IaC.. not config management that is done by ansible)
+
+----------------
+
+Interview questions
+
+
+
+
+--------
+
+CI/CD?
+
+Continous Integration/Continous Delivery
+
+- Developed the application -> How to deliever to customer over the world???
+ci -> Developed - Tested - Scanned for security - reports that it works fine - ok working <- cd
+steps might increase or decrease based on your org rules
+
+Main Steps:
+- Unit testing - Testing Addition in calculator
+- Static code analysis - declared 20 vars but can be done using 4-5 vars.. formatting, identation, no unnecessary vars, 
+- code quality/security vulnerability - no data breach etc.. proper security measurements - security testing
+- automation - functioanl testing (new feature doesn't affect old ones) 
+- reports - like how many and which tests passed/ code quality
+- deployment (mandatory/requried) - where customer can access the app 
+
+
+Doing all this manually takes a lotta time .. we can do all this using CI/CD
+So CI/CD is executed when you push your code to any cloud storage (GH, GL, BB) via VCS (Git, Mercurial) and all above steps are taken care of using CI/CD (Jenkins) - keeps looking at the repo/branch .. jenkins do gets notified and does the magic
+
+What jenkins do.. is act is a orchestrator/pipelines (integrates mnutiple tools in it)
+- maven  (building)
+- Junit, jacoco (tests)
+- Sonar - static code analysis tool
+- ALM (Reporting) application lifecycle management
+- K8s, Docker, EC2 instance
+
+
+Jenkins promotes the application to different environments.. 
+- Dev  (Local/simple environemnt - like a single ec2 instance - 1 Master (where the jenkins is installed) and 1 Worker Node)
+- Staging  (Kuber Clsuter - 3 Master and 5 Worker Node) - can't copy like prod as it is very cost process
+- Production (3 Master and 30 Worker Node)
+
+Jenkins is a legacy tool though there are a lotta other tools available new ones with new features but still jenkins is widely used
+
+Jenkins is a Binary .. install your jenkins master on 1 host and then you keep connecting the multiple instances to it
+
+compute - RAM, CPU, Hardware
+Costly, Maintainence
+
+Suppose we have 10 jenkins setups for 10 teams and they keep working when changes are done.. but on weekends there are zero changes and should be zero vms created /.. jenkins can't be downed to 0 .. in that case jenkins is not useful
+- Jenkins cannot scale itself to 0 like serverless CI/CD.
+- But you can scale agents to 0, leaving just one lightweight controller running.
+- If you want true zero-cost when idle, Jenkins may not be the right choice — you’d look at SaaS CI/CD (GitHub Actions, GitLab.com CI, CircleCI).
+
+
+How Kubernetes devs handle this CI/CD thing .. as they push code on github .. they use Github actions
+Most of the open src project use GH actions .. 
+
+But we will start with jenkins          
+
+---------------
+Install Jenkins .. configure Docker as slave.. setup CI/CD, deply applications to k8s 
+
+Reference: https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero
+
+on your ec2 instnace
+Jenkins is a java based app so we need to install java first 
+then jenkins 
+
+allow traffic for port 8080 with TCP or all traffic - you can change IP to your only or anywhere 
+
+now connect using Public IP and port 8080
+
+http://PUBLIC_IP:8080
+
+Initial password is in:
+/var/lib/jenkins/secrets/initialAdminPassword
+
+cat and copy to login
+
+
+
+we have master node installed on one server and make worker nodes 
+like there are three teams 
+one wants java 7
+other wants java 8
+third one wants java 21
+
+they can't do it on a single server .. 
+that's why we have to make worker nodes to categorize it
+
+          
+          ________ Worker Node
+          |
+Master ----------- Worker Node
+          |
+          |_______ Worker Node
+          
+But this architecture has issues - with advancements of kubernetes, microservices.. some worker nodes might become idle as they are not needed so that ec2 instance is not being used and cost is being paid
+
+Pipleines - a series of automated, connected processing steps where the output of one step becomes the input for the next
+
+Like 3rd worker node is idle or is being used very rarely.. you can say you can activate or stop it anytime but you never knwo when you might have to use it
+
+
+So to solve this problem where your resources might be being wasted we will see a modern approach
+
+we will use Jenkins with Docker containers as agents (light weight)
+containers are easy to handle .. can be created deleted anytime 
+will be cost-efficient
+
+We will see how to configure docker containers
+
+Install docker 
+
+~ sudo apt update
+~ sudo apt install docker.io
+
+
+Grant Jenkins user and Ubuntu user permission to docker deamon.
+sudo su - 
+usermod -aG docker jenkins
+usermod -aG docker ubuntu
+systemctl restart docker
+
+switch user to jenkins # jekons user is auto created when we install jenkins
+~ su - jenkins
+~ docker run hello-world # command to check if docker is installed and has permissions
+
+if permission failed
+~ exit # logout from user jenkins 
+
+give access to jenkins for group docker
+~ usermod -aG docker jenkins
+
+switch to jenkins user again and try docker run hello-world again
+~ docker run hello-world # hopefully it will run 
+
+# the changes you made on your master node/ec2 instance might not be picked up by the jenkins running locally .. so restart jenkins locally in your browser
+
+once docker is installed on your ec2 .. install it as a plugin too in your local jenkins to run docker as agent.. to understand pipelines
+
+everything is set now...
+
+let's right our first jenkins pipeline
+
+in old times ..there was only freestyle  projects where we had to do everything
+- too many details 
+- jenkins gives you a lotta boxes to do the tasks .. you can check boxes.. 
+- as developer you don;t have to code here
+- if you wanna change code this approach can't do much
+
+You had to do a lotta things .. 
+liek changing code will have to create a PR from master etc...
+
+
+But using PIPELINES
+You can write decalrative/scripted piplelines .. you can write pipeline as a code here .. keeps track of changes 
+
+you can write you own stages .. put all in github, use scripts 
+will allow you to track history as it is on github 
+
+uses groovy scripting 
+
+you can try some samples in PipleLine
+like Github + Maven one
+
+---
+lets create pipelines
+
+in github fork 
+see my-first-pipeline 
+
+a jenkins pipeline to check if a docker config slave is working perfect or not 
+
+Jenkins is all about picking your code from development and putting it in the production or somewhere in between like staging environment where inside there are automated stages
+
+if there are 10 stages you have to automate those 10 stages - jenkins acts as an orchestrator [An orchestrator is a software or system that connects and automates disparate IT tasks and procedures.]
+
+----
+you can try some samples in PipleLine
+like Github + Maven one
+
+there are multiple stages  
+- scm checkout
+- build
+- testing
+- deployement
+
+stage('Build')
+stage('Test')
+
+SCM - source code managment like Git
+
+Jenkins provides -- Pipeline Syntax.. you can try that
+
+like writing shellScripts, github checkout
+
+
+In configure Jenkins .. pipeline defination choose Pipeline script from SCM and pass gh url of jenkins code
+
+pipeline {
+  agent {
+    docker { image 'node:16-alpine' }
+  }
+  stages {
+    stage('Test') {
+      steps {
+        sh 'node --version'
+      }
+    }
+  }
+}
+
+Try this in SCM and click Build Now in Jenlkins - https://github.com/qasimleoo/Jenkins/blob/main/my-first-pipeline/Jenkinsfile
+
+
+it will create a docker container will check image of node 16 and after success it will delete the docker container - cose effecient
+
+
+Let's create a multi stage multi agent pipeline
+for a three tier app (front end, backend, database) each stage is run on a unique agent not only one like docker
+
+
+# set main ~ agent none # and and inside stages set your main agent
+
+pipeline {
+  agent none
+  stages {
+    stage('Back-end') {
+      agent {
+        docker { image 'maven:3.8.1-adoptopenjdk-11' }
+      }
+      steps {
+        sh 'mvn --version'
+      }
+    }
+    stage('Front-end') {
+      agent {
+        docker { image 'node:16-alpine' }
+      }
+      steps {
+        sh 'node --version'
+      }
+    }
+    stage('DB') {
+      agent {
+        docker { image 'mysql:latest' }
+      }
+      steps {
+        sh 'SELECT * FROM TABLE;' 
+      }
+    }
+  }
+}
+
+while building you can test it on your server using 
+~ docker ps .. creates containers and deletes them after the task is completed
+
+ansible - config management tool
+argocd (modern)- config management and monitors the app
+
+github -> jenkins <- argo cd -> k8s
+
+
+[Both are for deployment tools] argo cd keeps looking at github or jenkins and monitors any changes and deploys auto on k8s - makes git repo a single source of truth
+
+
+
+--------------------------
+Interview questions
+
+1. CI/CD process
+2. how do you handle issues in worker nodes - like going down .. not responsive
+3. How to install it.. how to open port to the world
+
+
+
+----------------------------------------------------
+
+GITHUB actions  - another CI/CD solution
+
+alternative for Jenkins .. but platform oriented (only used on github) .. like Gitlab CI (for gitlab only) .. they are very powerful on their own platforms .. 
+we prefer them if we know or decide to not change our code hosting service in near future.. 
+
+Jenkins (Multi platform) Github Actions, Gitlab CI (Platform oriented)
+just like terraform over CFT
+
+
+as you will face alotta problems/issues.. while migrating your app from github to any self hposted service, amazon, aws, azure etc.. 
+issues in ACTIONS file to Jenkins files etc...
+
+
+for github action files you dont have to install any plugins 
+
+
+to create action files 
+- go to root of your directory/repo
+- create .github/workflows/ folder
+- create actions-file-name.yml
+
+inside you write code .. like what to do on github actions .. 
+like push, pull, etc..
+
+you can put more than one action files
+
+
+
+in .yml file 
+you do 
+
+on: [push]
+OR
+on: [push, pull, issue] 
+
+
+pytest to test python files 
+
+
+Example 
+https://github.com/iam-veeramalla/GitHub-Actions-Zero-to-Hero/blob/main/src/addition.py
+
+
+Advantages of GH actions over Jenkins:
+Hosting: Jenkins is self hosted meaning it requires its own server to run .. while GH actiobs is hosted by Github and runs directly ub your GH repo.
+
+user interface: jenkins is complex and sophisticarted UI while GH has more streamlined and user friendly .. 
+
+Cost: jenkins can be expensive .. GH actions is open src and has tiered pricing for private repos
+
+
+Jenkins advantage over GH actions:
+Integration: Jenkins can integrate with a wide range of tools and services , but gh actions is lightly with a GH platform making it easier to automate tasks related to your GH workflow.
+
+
+
+--------------------------------------------------------------------
+Jenklins - Interview questions
+
+
+-----------------
+
+Q: Can you explain the CI/CD process in your current project? or Can you talk about any CI/CD process that you have implememnted?
+
+A: 
+In the current project we use the following tools orchestrated with Jenkins to achieve CI/CD. 
+- Maven -> Sonar -> AppScan -> ArgoCD -> Kubernetes
+
+Coming to the implementation the entire process takes palce in 8 steps
+
+1. Code commit to any hosting service like Github
+2. Jenkins Build: triggered to build the code using Maven. Builds and runs Unit tests.
+3. Code Analysis: Sonar is used to perform static code analysis to identify any code quality issues, security vulnerabilites, etc..
+4. Security Scan: a security scan to applciation to identofy security vulnerabilites..
+5. Deploy to Dev Envirenment: If build and scan completes .. deploy code to a test environement managed by kubernetes...
+6. Continous Deployment: ArgoCD used to manage continous deploymenet .. makes watch of Git and on each commit or new changes .. automatically deploys to the dev environment 
+7. Promote to Production: When code is ready for prodctuon it is manuallym promoted using ArgoCD to prod.
+8. Monitoring: Monitored for performance and availability using kubernetes tools and the other monitoring tools ...
+
+
+-----------------
+
+Q: Different ways to trigger jenkins pipelines?
+
+Version control system is differnet from Jenkins so how will it will recognize to trigger any pipeline 
+
+A:
+Can be done in different ways .. to briefly explain about differnet options: 
+- Poll SCM: uses cronjobs.. but at fixed times like what if cronjob runs before or after chnages .. 
+
+- Build Triggers (Costly): Jenkins can be configured to use the Git Plugin, whihc allows you to specify a git repoand beanch to build.. can be configured to automatically build when changes are pushed to the repo.. sees every minute .. so costly ..
+
+- Webhooks (Better): can be created in github to notify jenkins when changes are pushed to the repo.. can then automatically build and update code.. can be set uo in the "Build Triggeres" section of a job and Github settings" .. you can use payload with some data for the details.. etc...
+
+
+-----------------
+
+Q: How to backup Jenkins?
+A: 
+Backing up Jenkins is very easy process .. there are multiple default and configured files and folders in jenkins that you might to backup...
+
+- Configuration: `~/.jenkins` folder.. you can use tools like *rsync* to backup the entire directory to another location
+- Plugins: Backup the installed plugins by copying the directory of plugins .. location in JENKINS_HOME/plugins to another location..
+- Jobs: jenkins jobs by copying the jobs directory location at JENKINS_HOME/jobs
+- User Content: If you have any custom content like build artifacts, scripts, job configurations... 
+- Database Backups: if you are using database to store any info like build results.. you will need to backup the db separately .. this typically involves using a db backup tool .. such as mysqldump for mysql .. to export
+
+
+-----------------
+
+Q: How to store/secure/handle the secrets in Jenkins?
+A: 
+
+- Credentials Plugin: can be integrated with jenkins and it fetches whenever needed... secrets like API Keys.. passwords.. certificates
+- Environment variables: less secure 'cause some variabls are visible in the build logs
+- Hashicorp vault: can be integrated with hashicorp vault .. whihc is secure managment tool
+- Third-party secret management tools: can used third party like aws secret manager .. google cloud key management .. azure key vault etc..
+
+
+-----------------
+
+Q: Latest version of Jenkins?
+
+If you use it on day to day basis .. you should be ready to answer this one..  
+as of 20th Oct 2025 it is 2.531
+
+
+-----------------
+
+Q: Shared modules in Jenkins?
+
+A: Refer to a collection of reuseable code and resourcers that can be shared across multiple jenkins jobs.. allows easier maintenance, reduced duplication, improved consistency.. 
+
+- Libraries: 
+- JenkinsFiles:
+- Plugins: 
+- GLobal variables: 
+- Scripts:
+
+
+-----------------
+
+Q: Can you use Jenkins to build apps with mutiple programming langauges  using differnet agents in differnet stages?
+
+like 
+- Front-end in React/Flutter/Node
+- Backend in Java
+- Scripts in Python
+
+A: Yes can do it.. supports multi build agents which can be used to run buold jobs on differnet platforms and with different configurations.
+e.g., you can use one agent for compiling the Java code .. another for bullding a Node.js app. the agents can be configured to use differnet OSs, different versions of Programming languages .. and different libraries and tools.
+
+Overall, jenkins is flexible and powerful tool that can be used to build apps with multiple programming languages and support for differnet stages of the build process..
+
+Efficient way of doing this is using docker agents .. no wastage of modules ..
+each docker agent is deleted once the purpose is achieved .. also maintenance overhead isn gone .. no change in master node.. 
+
+
+
+-----------------
+
+Q: How to setup auto-scaling group for Jenkins in AWS?
+A: 
+
+Used when there is low or high traffic.. like in festivel days
+
+Here is a high level overview of how to set up an auto scaling group for jenkins in AWS: 
+
+- Launch EC2 Instance: Create an Amazon elastic cloud compute isntance with desired configurations.. and install jenkins on it .. this instace will be used as the base image for autoscaling..
+- Create Launch Configuration: Create a launch configuration in AWS Auto Scaling that specifies the EC2 instance type, the base image (created in step 1), and any additional configuration settings such as storage, security groups, and key pairs...
+- Create Autoscaling Group: Create an autoscaling group in AWS Auto Scaling and specify the launch configuration created in step 2. Also, specify the desired number of instances, the minimum number of instances, and the maximum number of instances for the autoscaling group.
+- Configure Scaling Policy: Configure a scaling policy for the autoscaling group to determine when new instances should be added or removed from the group. This can be based on the average CPU utilization of the instances or other performance metrics.
+- Load Balancer: Create a load balancer in Amazon Elastic Load Balancer (ELB) and configure it to forward traffic to the autoscaling group.
+- Connect to Jenkins: Connect to the Jenkins instance using the load balancer endpoint or the public IP address of one of the instances in the autoscaling group.
+- Monitoring: Monitor the instances in the autoscaling group using Amazon CloudWatch to ensure that they are healthy and that the autoscaling policy is functioning as expected.
+
+
+By using an autoscaling group for Jenkins, you can ensure that you have the appropriate number of instances available to handle the load on your build processes, and that new instances can be added or removed automatically as needed. This helps to ensure the reliability and scalability of your Jenkins environment.
+
+
+-----------------
+
+Q: How to add a worker node in Jekins?
+
+A: Log in to the Jenkins master and navigate to the 
+Manage Jenkins > Manage Nodes > New Node.. Enter a name for a new node and select Permanent agent .. Configure SSH and click on Launch.. 
+
+-----------------
+
+Q: How to add a new Plugin in Jenkins?
+
+A: 
+- Using CLI..  (Efficient- 'cause you may not have access to UI)
+_ Using UI
+
+
+-----------------
+
+Q: What is JNLP and why is it used in Jenkins?
+
+
+A: How master node talks to the slave nodes..
+JNLP (Java network launch protocol) is used to allow agents aka Slave nodes to be launched and managed remotely by the Jenkins master instance. This allows Jenkins to distribute build tasks to multiple agents, providing scalability and improving performance.
+
+When a Jenkins agent is launched using JNLP, it connects to the Jenkins master and receives build tasks, which it then executes. The results of the build are then sent back to the master and displayed in the Jenkins user interface.
+
+
+-----------------
+
+Q: What are some common plugins that you can use in Jennkins?
+
+A: 
+- Docker Plugin
+- Kubernetes
+- Pipeline
+- JUnit
+- Maven Integration
+- Maven Integration
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+Project Management Tools for DevOps
+
+JIRA
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+Containers - Day 23
+
+- Intro/Basics
+- Docker
+- Buildah
+
+You should have some basic knowledge of VMs - 
+Your laptop is Physical server ..
+To avoid the problems where physical srcs where being wasted VMs came into to help.. minimize the cost of srcs 
+Also there came the concept of Hypervisior - uses a concept of virtualization (a software that runs virtual machines (a virtual/logical isolation), allowing multiple OSs to run on  a single physical server by sharing its sources like RAM, CPU, processors)
+
+Now the question comes if we have VMs and they work fine .. so why don't we just use them instead of containers .. or why do we need containers actually
+
+
+Physical Server (you have installed hypervisor like xen) - you have 100 RAM, 100 CPUs
+this all RAM and CPUs can't be used by a single user.. 
+so you decide to make 4 partitions VMs of 25 RAM nd CPUs
+
+
+AWS is an example of this actually.. where they have a physical server and make VMs (EC2) for you on request
+
+now that you have made 4 partitions .. but maybe you are also not using all those 4 machines .. like maybe one or 2 are just being wasted .. like not being used to fullest capacity
+
+like at max 10 GB and 6 CPUs were being used .. so less resources are being used .. 
+
+so this is one of the major drawbecks of VMs/EC2
+
+suppose an org is using 1 million instaces .. and most of them are just wasting the resources .. so it's a heavvy loss
+
+
+Containers are also like logical separated (partially) but not like VMs where we have a cmplt separate machine .. 
+
+Contanerization packages an app and its dependencies together, sharing the host OS's kenel for lightweight and portable solutions .. 
+like a building with many apartments .. but with same base foundation
+
+VMs like separate houses with own foudnations 
+
+
+Architecture of Containers:
+Containers can be created on top of VMs and even on Physical Servers 
+
+
+Physical Servers - like HP/IBM (OSs, Dockers, Containers (1,2,3,4,...))
+
+Preferred
+Physical Servers (self hosted/ (AWS/AZURE - no maintenance overhead)) - VMs - (OSs, Dockers, Containers (1,2,3,4,...))
+
+
+Containers are very light-weight .. they dont have a complete OS.. they use resources from the base/host system.. they do have a mimimal OS or a Base Image .. It's a package/bundle which is  a combo of your app.. libraries/dependencies.. and system dependencies (python)... they use some shared libraries/dependecies from the host system like /etc/ files etc...
+
+
+To take backup or to make an image of your virtual machine .. you make a snapshot of your 
+
+A snap shot is a copy of an applciation's state at a point-in-time  including its data, configuration, current status which can be used to restore the app to that exact state if needed .. creating a file size like 1,2,3 GBs
+
+
+but in containers this size goes to MBs like 100/500 MBs ... they are more easy to ship/trasfer .. and then deploy
+
+
+Docker is a containerization platform .. 
+just write a dockerfile like (script, jenkins file).. 
+
+Command -> Containers -> Docker File -> Docker Engine ---- converts to an image ---- and again using commands those iamges can be converted to docker container
+
+commands like
+~ docker build
+~ docker run 
+are used
+
+
+Docker is basically depends on Docker Engine .. SPOF 
+makes it SPOF - single point of failure ... Dokcer engine down makes everything down
+
+to avoid this SPOF .. when image is being created it makes a lot of layers .. and each of those layers take memory etc.. 
+
+that's where Buildah comes into play
+
+Buildah aims to solve the SPOF, layers problem .. works on commands .. shell-script .. creates an image .. docker images/OCI images.. 
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Docker - Terminologies 
+
+A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another. A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
+
+
+A container is a bundle of Application, Application libraries required to run your application and the minimum system dependencies.
+
+Containers vs Virtual Machine
+Containers and virtual machines are both technologies used to isolate applications and their dependencies, but they have some key differences:
+
+
+Containerized application - can be hacked easily as they are in the same partition
+----------------------------------------------------
+|         |         |         |          |         |
+|         |         |         |          |         |
+|  App A  |  App B  |  App C  |  App D   |  App E  |
+|         |         |         |          |         |
+|         |         |         |          |         |
+----------------------------------------------------
+|                     Docker                       |
+----------------------------------------------------
+|               Host Operating System              |
+----------------------------------------------------
+|                   Infrastructure                 |
+----------------------------------------------------
+
+
+Non containerized app
+-------------------------------------------------------------
+|  Virtual Machine  |  Virtual Machine  |  Virtual Machine  |
+|                   |                   |                   |
+|       App A       |       App B       |       App C       |
+|                   |                   |                   |
+|      Guest OS     |      Guest OS     |     Guest OS      |
+-------------------------------------------------------------
+|                         HyperVisior                       |
+-------------------------------------------------------------
+|                       Infrastructure                      |
+-------------------------------------------------------------
+
+1. Resource Utilization: Containers share the host operating system kernel, making them lighter and faster than VMs. VMs have a full-fledged OS and hypervisor, making them more resource-intensive.
+
+2. Portability: Containers are designed to be portable and can run on any system with a compatible host operating system. VMs are less portable as they need a compatible hypervisor to run.
+
+3. Security: VMs provide a higher level of security as each VM has its own operating system and can be isolated from the host and other VMs. Containers provide less isolation, as they share the host operating system.
+
+4. Management: Managing containers is typically easier than managing VMs, as containers are designed to be lightweight and fast-moving.
+
+---------------
+
+Why are containers light weight ?
+Containers are lightweight because they use a technology called containerization, which allows them to share the host operating system's kernel and libraries, while still providing isolation for the application and its dependencies. This results in a smaller footprint compared to traditional virtual machines, as the containers do not need to include a full operating system. Additionally, Docker containers are designed to be minimal, only including what is necessary for the application to run, further reducing their size.
+
+Example: dokcer pull ubuntu ..  is the official ubuntu base image which you can use for your container. It's just ~ 22 MB, isn't it very small ? on a contrary if you look at official ubuntu VM image it will be close to ~ 2.3 GB. So the container base image is almost 100 times less than VM image.
+
+
+'cause they don't waste the resources like VMs.. don;t user kernel whihc actually is the heart of your OS ..
+
+Do containers have the OSs .. no don't directly .. they share 
+
+Files and Folders in containers' base images
+To provide a better picture of files and folders that containers base images have and files and folders that containers use from host operating system (not 100 percent accurate -> varies from base image to base image). Refer below.
+
+
+
+- /bin: contains binary executable files, such as the ls, cp, and ps commands.
+- /sbin: contains system binary executable files, such as the init and shutdown commands.
+- /etc: contains configuration files for various system services.
+- /lib: contains library files that are used by the binary executables.
+- /usr: contains user-related files and utilities, such as applications, libraries, and documentation.
+- /var: contains variable data, such as log files, spool files (holds output data until it can be printed), and temporary files.
+- /root: is the home directory of the root user.
+
+
+They are basically part of your container .. as they can't be shared cuz of security reasons..
+
+
+Files and Folders that containers use from host operating system:
+
+The host's file system: Docker containers can access the host file system using bind mounts, which allow the container to read and write files in the host file system.
+
+Networking stack: The host's networking stack is used to provide network connectivity to the container. Docker containers can be connected to the host's network directly or through a virtual network.
+
+System calls: The host's kernel handles system calls from the container, which is how the container accesses the host's resources, such as CPU, memory, and I/O.
+
+Namespaces: Docker containers use Linux namespaces to create isolated environments for the container's processes. Namespaces provide isolation for resources such as the file system, process ID, and network.
+
+Control groups (cgroups): Docker containers use cgroups to limit and control the amount of resources, such as CPU, memory, and I/O, that a container can access.
+
+
+
+It's important to note that while a container uses resources from the host operating system, it is still isolated from the host and other containers, so changes to the container do not affect the host or other containers.
+
+
+Note: There are multiple ways to reduce your VM image size as well, but I am just talking about the default for easy comparision and understanding.
+
+so, in a nutshell, container base images are typically smaller compared to VM images because they are designed to be minimalist and only contain the necessary components for running a specific application or service. VMs, on the other hand, emulate an entire operating system, including all its libraries, utilities, and system files, resulting in a much larger size.
+
+Now it should be clear why containers are light weight in nature.
+
+--------------------
+
+What is Docker ? | another competitor is podman/builda/scorpio
+
+Docker is a containerization platform that provides easy way to containerize your applications, which means, using Docker you can build container images, run the images to create containers and also push these containers to container regestries such as DockerHub, Quay.io and so on.
+
+In simple words, you can understand as `containerization is a concept or technology` and `Docker Implements Containerization`.
+
+
+Docker Architecture ?
+
+------------------------------------------------------------
+|  Client (CLI)  |        DOCKER_HOST         |  Registry
+------------------------------------------------------------
+|  docker build  |       Dokcer Daemon        |  Ubuntu 
+|  docker pull   |----------------------------|  Redis
+|  docker run    |   Containers   |  Images   |  Nginx 
+|  docker push   |      C-1       |  Ubuntu   |
+|                |      C-2       |  Redis    |
+|                |      C-3                   |
+|                |      C-4                   |
+-------------------------------------------------------------
+
+
+The above infographic, clearly indicates that Docker Deamon is brain of Docker. If Docker Deamon is killed, stops working for some reasons, Docker is brain dead :p (sarcasm intended).
+
+
+Dokcer is centarlized on dockerd or docker daemon
+
+Dokcer Lifcycle:
+
+There are three important things:
+docker build -> builds docker images from Dockerfile
+docker run -> runs container from docker images
+docker push -> push the container image to public/private regestries to share the docker images.
+
+
+
+file containing the commands to do tasks (like installations) -------(Submit to client - CLI)------> Docker Image (Snapshot) ------(dcoker run)----> Dokcker Container (shareable)
+
+
+-------
+
+Understanding terminology
+
+Dokcer Daemon:
+The Docker daemon (dockerd) listens for Docker API requests and manages Docker objects such as images, containers, networks, and volumes. A daemon can also communicate with other daemons to manage Docker services.
+
+
+Docker client:
+The Docker client (docker) is the primary way that many Docker users interact with Docker. When you use commands such as docker run, the client sends these commands to dockerd, which carries them out. The docker command uses the Docker API. The Docker client can communicate with more than one daemon.
+
+
+Docker Desktop:
+Docker Desktop is an easy-to-install application for your Mac, Windows or Linux environment that enables you to build and share containerized applications and microservices. Docker Desktop includes the Docker daemon (dockerd), the Docker client (docker), Docker Compose, Docker Content Trust, Kubernetes, and Credential Helper. For more information, see Docker Desktop.
+
+
+Docker registries: Platform used to share your dokcer images .. contianers 
+A Docker registry stores Docker images. Docker Hub is a public registry that anyone can use, and Docker is configured to look for images on Docker Hub by default. You can even run your own private registry.
+
+When you use the docker pull or docker run commands, the required images are pulled from your configured registry. When you use the docker push command, your image is pushed to your configured registry. 
+
+
+
+Docker objects
+When you use Docker, you are creating and using images, containers, networks, volumes, plugins, and other objects. This section is a brief overview of some of those objects.
+
+
+Dockerfile
+Dockerfile is a file where you provide the steps to build your Docker Image.
+
+
+Images:
+An image is a read-only template with instructions for creating a Docker container. Often, an image is based on another image, with some additional customization. For example, you may build an image which is based on the ubuntu image, but installs the Apache web server and your application, as well as the configuration details needed to make your application run.
+
+You might create your own images or you might only use those created by others and published in a registry. To build your own image, you create a Dockerfile with a simple syntax for defining the steps needed to create the image and run it. Each instruction in a Dockerfile creates a layer in the image. When you change the Dockerfile and rebuild the image, only those layers which have changed are rebuilt. This is part of what makes images so lightweight, small, and fast, when compared to other virtualization technologies.
+
+
+
+Differnece between Github and DockerHub?
+
+Both are version control systems but Github is for source code .. and docker hub is for storing docker images...
+ 
+
+Install docker 
+docker is installed as root .. can be used as root only .. another drawbeck
+
+
+DockerFile  to run a file named app.py
+
+FROM ubuntu:latest # ubuntu image 
+
+# Set the working directory in the image
+WORKDIR /app # move to app dirctory
+
+# Copy the files from the host file system to the image file system
+COPY . /app # move all content inside the newly created folder /app
+ 
+# Install the necessary packages
+RUN apt-get update && apt-get install -y python3 python3-pip
+
+# Set environment variables
+ENV NAME World
+
+# Run a command to start the application
+CMD ["python3", "app.py"]
+~                                                                                                                                                     
+
+Build docker image using
+~ docker build -t reop_name:tag location_where_dockerfile_is
+~ docker build -t qasimleoo/my-first-docker-image:latest .
+
+
+Run file inside container
+~ docker run -it qasimleoo/my-first-docker-image
+
+
+~ docker images
+
+# Create an account on DockerHub to share images ..
+
+~ docker login 
+~ docker login -u username
+
+~ docker push username/repo_name
+
+go to repositories in docker hub and see
+
+Helping repo: https://github.com/iam-veeramalla/Docker-Zero-to-Hero#
+Cheatsheet: https://docs.docker.com/get-started/docker_cheatsheet.pdf
+-------------------
+
+~ sudo docker system df # to see cache size files 
+~ docker builder prune -a # to remove all cache of docker 
+
+
+
+
+----------------------
+Docker containerization for Django app
+
+
+ENTRYPOINT .. 
+CMD .. 
+used for starting .. CMD is configurable but entrypoint can not be changed
+
+ENTRYPOINT["python3"] # can't be changed
+CMD["file1.py", "runserver", "0.0.0.0:8000"] 
+ 
+can be written as 
+CMD["python3", "file1.py", "runserver", "0.0.0.0:8000"]
+
+but dont want python to change
+
+When to use which:
+Use CMD when you want to provide a default command or arguments that users might want to easily change when running the container (e.g., a utility image where users might want to run different commands).
+Use ENTRYPOINT when you want to ensure a specific application or script always runs when the container starts, and you want user-provided arguments to be passed to that application (e.g., a web server image where nginx is always the main process).
+Use both ENTRYPOINT and CMD together for a fixed executable and easily overridable default arguments (e.g., ENTRYPOINT ["java", "-jar"] and CMD ["my-app.jar", "--port", "8080"]).
+
+
+let's build it 
+
+~ docker build .
+~ docker images
+~ docker run -it <image_id>
+~ docker run -p browser_port:container_port -it <image_id>
+~ docker run -d -p browser_port:container_port -it <image_id> # run in background as daemon
+
+# If you just want a full cleanup (containers + images + volumes + networks)
+~ docker system prune -a 
+# use -f flag to force
+
+How many ec2 instances can you run on a free aws account?
+
+You can run multiple EC2 instances on a free AWS account as long as the total usage across all of them does not exceed the 750 hours of a specific instance type (e.g., t2.micro or t3.micro) per month. For example, you could run two instances simultaneously for about 375 hours each in a month, or you could run multiple instances for shorter periods as long as the total time stays within the 750-hour limit. 
+
+---------------------------------------
+
+Multi Stage Docker Builds
+
+- Multistage docker builds
+- Distroless images
+
+
+Multistage docker builds 
+
+What happens in a basic docker file is that you add all other things that are not basically required to run the application.. e.g., you have a python code of a calculator .. what you actually need is only the python runtime.. not the other images like.. 
+
+
+----
+FROM ubuntu:latest.. as base 
+
+RUN apt install python 
+.. pip 
+
+other libraries
+---
+
+so here you ara actually installing and adding extra things that are not needed .. like ubuntu will come with it's own dependecies and other libs making the basicc docker image for calculator app as a big size image .. 
+here comes the multi stage (docker) build 
+
+you split docker file into multiple parts .. let's start with 2 parts only
+
+---------------------------------------------
+Stage 1 (main image) - base image is rich 
+---------------------------------------------
+|FROM ubuntu:latest as build
+|
+|RUN ------ (curl, wget, ...)
+|       
+|
+---------------------------------------------
+Stage 2 (here you choose a very minimal image)
+---------------------------------------------
+|FROM python ... (any runtime like py, java) / or you can have distroless image
+|
+| + copy --from build (from stage 1)
+|
+| CMD /app .. ENTRYPOINT
+---------------------------------------------
+
+
+
+Another example: 3 tier app
+Frontend - react 
+Backend - Java/Sprint boot
+Database - MySQL
+
+If you don't use Multi stage docker build you will make very large a single image 
+
+---------------------------------------------
+Stage 1 (Base image/Rich image)
+---------------------------------------------
+| FROM ubuntu:latest as build
+| Java
+| REACT
+| MySQL
+|
+---------------------------------------------
+Stage 2 
+---------------------------------------------
+| FROM openjdk:11
+|
+| copy --from build
+|
+| ENTRYPOINT
+
+---------------------------------------------
+
+
+there can be n number of images .. but the final image is very minimalist image...
+
+---------------------------------------------
+Front end (stage 1)
+---------------------------------------------
+Back end (stage 2)
+---------------------------------------------
+Final (stage 3)
+---------------------------------------------
+
+
+
+---- Distroless (Images) -----
+Basically a very minimalistic images that will hardly have any packages.. and have only the runtime environment
+
+like Pyhton image will have only python runtime... 
+
+and statically types applications dont even need runtime like go, js, etc...
+
+Advantage.. low image size, highest security (cause not exposed to any OS vulnerabilities)     
+
+---------------------------
+Example for a go calculator app
+---------------------------
+################
+# BASE IMAGE
+################
+
+FROM ubuntu AS build
+
+RUN apt-get update && apt-get install -y golang-go
+
+ENV GO111MODULE=off
+
+COPY . .
+
+RUN CGO_ENABLED=0 go build -o /app .
+
+################
+# HERE STARTS THE MAGIC OF MULTI STAGE BUILD
+################
+
+FROM scratch
+
+# Copy the compiled binary from the build stage
+COPY --from=build /app /app
+
+# Set the entrypoint for the container to run the binary
+ENTRYPOINT ["/app"]
+---------------------------
+
+
+GitHub Repo for Multi Stage Builds
+==============================
+https://github.com/GoogleContainerTools/distroless/tree/main/java
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+Docker Volumes and Bind Mounts|Persistent Storage for Docker
+
+
+1. we have installed nginx application inside a container  .. (continously pushed the logs in a logn file which is obviously very important)
+
+for instance this container has gone down .. makes the log file disappear also.. 'cause they don't maintain the files anywhere .. they are emphermal (shortlived) .. they have their own (CPU/memory/storage).. 
+
+this is problem 1 here 
+
+2. another could be like we have to containers .. 
+one for FE.. one for BE 
+
+now suppose BE container keeps writing a file and FE have to read that file .. like any JSON/XML/(Dynamic)HTML file..
+
+Now suppose BE container has gone down .. while writing the file 
+
+so now FE also doesn't have anything to show
+
+
+3. Another example could be .. you have a file that is on in container but is being read by container .. For example any cronjob file..  
+
+Container reads from CRON / local files of system but how can we access them inside contaners
+
+........
+So we have to create a connection between DOCKER and file systems
+
+we can use 
+1. Bind mounts
+2. Docker voumes 
+
+
+1. Bind mounts
+allows you to bind a directory inside your container ..
+
+-------------------------
+|                 Host  |
+| -------------         |
+| | Container |         |
+| |           |         |
+| |           |         |
+| |     /app  |         |
+| -------------         |
+|                 /app  |
+-------------------------
+
+Contianer writing inside /app of container will reflect chanegs to the /app directory of Host .. so now your changes won't get lost
+
+
+2. Volumes 
+gives you a better lifecycle
+
+using Docker CLI (commands)
+you can use commands to create volume / distroy it .. you can attach volume from c1 to c2 container .. here you don't have to give access to your local directories.. here you have logical disk/volume .. 
+that volume is mounted to the container (volumes have lifecycle and docker cli advantage)
+
+Bind mounts are for the same host only.. 
+but volumes allow connection to external srcs too.. like s3, EC2, host, nfs (network file systems) .. you can even manage it without getting insdie the container .. as they have their independent lifecycle.. they also are very high performative
+
+........
+in docker volumes there is some common misunderstanding .. what you would see is that .. 
+
+~ docker -v <arguments>
+~ docker --mount
+
+they both are same.. in | docker -v <args> | you pass everything in args .. like src.. dest.. separated via colons 
+
+in 
+~ docker --mount..  you provide verbose (more details).. alllows users to understand the commnad in more real wolrd way
+
+--mount is the best one 
+.................
+
+
+~ docker volume ls # list all running volumes
+
+~ docker volume create voume_name # create a volume
+# means there is a logical partition on your host which you can't see .. you can dedicate created partiton/volume to any container .. 
+there is a usecase you wanna understand a volume created by anyone else ... 
+
+like where is the volume .. is it for internal files or for extenral  .. for that you use 
+
+~ docker volume inspect volume_name # proivdes a JSON with volume details
+
+to delete volume you can use .. 
+~ docker volume rm volume_name
+
+can delete multiple at once
+
+~ dokcer volume rm v1 v2 v3 ... 
+
+
+Now let's mount these volumes to any container 
+
+REMEMBER: file name has to be Dokcerfile always to make an image    
+
+after creating an image (try with a simple ubuntu image only np entrypoint for now) .. let's mount volume
+
+create a volume
+
+docker run -d --mount source=volume_name,target=/app image_details(~ name or id) # no spaces between commas
+
+if container not found it will fetch from publics 
+
+~ docker run -d --mount source=qasim,target=/app nginx 
+
+now just like
+~ docker volume inspect voume_name
+
+you can do 
+docker inspect container_name/id # to inspect a container 
+and see section Mounts for volumes
+
+Source.. shows the path where your files are in your system and destination is where your changes/files are in your container
+
+
+you can add more options after target using commas like mode, type etc.. 
+
+if a connection is there between images/containres/volumes.. you can't delete one if they are being used by any other
+you have to stop and delete first the parent one 
+
+
+# connect to a docker
+
+~ docker exec -it image_name/id bash
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+Docker networking
+
+Bridge/Host/Overlay 
+
+
+Why, What?
+
+in a usual container 
+you have 
+
+host, ec2
+---
+docker
+---
+c1, c2, c3
+
+
+there can be a reason 
+
+1. where one container has to talk to another
+2. a conitaner has to be completely isolated  (finance)
+
+so there has to be a common way.. that is newtworking system to interact with IPs of contaienrs.. in VMs we have isolated systems so they have isolated networks..
+
+in containers .. suppose you have a container for finance .. whihc should be isolated 
+
+
+Concept:
+How container can talk to your host system?
+ 
+-------------------------
+|                 Host  |
+| -------------         |
+| | Container |         |
+| |           |         |
+| |           |         |
+| |           |         |
+| -------------         |
+|                       |
+-------------------------
+
+each host has an eth0: let's say 192.16.1.2
+and container has eth0: 172.12.3.55
+
+so here is so much differnce even subnet
+if you try to ping .. you will get error
+
+so to solve this problme ..what docekr has done is.. when you create a container you will get a veth (virtual ethernet)
+
+ping docker IP in you host .. it will recieve packets..
+
+~ this is called Bridge (veth) - default one # auto while creating docker
+
+if you try manipulate this IP of container .. it will stop talking to your container .. as the connection is being done using Bridge netwrok 
+
+
+
+2. Host 
+same subnet .. or cidr block .. this is less secure as IP might get leaked and application can get attack easily .. which isn obviosuly against container policy (they have to be secured)
+
+
+3. Overlay networking (complicated) .. will learn in kubernetes or docker swarm (CoE - container orchestration engines)
+
+Creates a common network between hosts in clusters 
+
+
+Now let's move back to our problem .. we habe to secure our container containing the finance part of the application .. 
+'cause there is only one veth/docker0-network that will be used by all containers .. like login, signup etc.. 
+so that common part veth might compromise the fiannce container ..
+
+
+with default veth/bridge .. all containers can talk to each other and also to host 'cause of the same veth
+
+
+this islocation can be acheive through the Bridge 
+what docker does it allows you to create your own custom bridge networks
+
+
+on default docker run ----- command.. container gets connected to veth automatically.. 
+
+for your custom network you create it and pass it to the args as network using --network .. this will connect using bridge network ..
+
+
+Practical:
+
+start with a basic container 
+
+docker run -d --name login nginx:latest
+
+connect 
+docker exec -it container_name /bin/bash # or bash
+
+install ping inside container
+~ apt update
+~ apt install inetutils-ping
+
+
+connect to another container 
+
+your all containers will have the same cidr/subnet on default .. you can check using 
+~ docker inspect container_name # look for IPAddress
+
+you can ping both/all from eachother and even host and vice versa 
+
+you can list all networks using 
+~ docker network ls 
+
+all network types .. including custom ones
+
+you can remove one by 
+docker network rm network_name
+
+
+now let's make a custom one
+
+
+docker network create network_name # bridge by default
+
+docker network ls
+
+let's connect to a container 
+docker run -d --name container_name --network=network_name image_name
+
+now inspect new container .. you will see in Networks section the attached network .. even IP will get down 
+
+try to ping IP of new container in any other container .. you will not be able to reach it .. but yeah host can .. as obviusoly there has to be a connection
+
+
+You can try with host network instead of bridge .. the IP address will be 
+
+~ docker run -d --name container_name --network=host image_name
+~ docker inspect container_name
+
+there won't be any IPQAddress as eit is bind to host itself
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+Docker Interview Questions
+
+Scenario based questions
+
+1. What is docker/Container?
+Open src containerization platform . used to manage the lifecycle of containers.. enables developers to package the applications into containers..containerize the application.. 
+
+2. How containers diff from VM?
+
+Containerized application - can be hacked easily as they are in the same partition
+----------------------------------------------------
+|         |         |         |          |         |
+|         |         |         |          |         |
+|  App A  |  App B  |  App C  |  App D   |  App E  |
+|         |         |         |          |         |
+|         |         |         |          |         |
+----------------------------------------------------
+|                     Docker                       |
+----------------------------------------------------
+|               Host Operating System              |
+----------------------------------------------------
+|                   Infrastructure                 |
+----------------------------------------------------
+
+
+Non containerized app
+-------------------------------------------------------------
+|  Virtual Machine  |  Virtual Machine  |  Virtual Machine  |
+|                   |                   |                   |
+|       App A       |       App B       |       App C       |
+|                   |                   |                   |
+|      Guest OS     |      Guest OS     |     Guest OS      |
+-------------------------------------------------------------
+|                         HyperVisior                       |
+-------------------------------------------------------------
+|                       Infrastructure                      |
+-------------------------------------------------------------
+
+
+Containers are lightweight in nature cause they dont have complete OS .. just have some libraries.. dependencies..
+
+like java app needs dependency, libraries, mimimal files, folders. etc.. 
+
+
+
+3. What is Docker Lifecycle?
+ways to manage we use Podman (to manage), Builda (for building the images) .. 
+Users would create a Dockerfile with a set of instructions or commands that defines a docker image. for example: which base image to choose? what dependencies should be installled for the application to run ? etc...
+
+Docker Images act as a set of instructions to build a docker container .. it can be compared to a snapshot in a VM.. 
+
+Dockerfile => Docker Image => Docker container 
+
+
+
+4. Different Docker Components?
+Docker Architecture ?
+
+------------------------------------------------------------
+|  Client (CLI)  |        DOCKER_HOST         |  Registry
+------------------------------------------------------------
+|  docker build  |       Dokcer Daemon        |  Ubuntu 
+|  docker pull   |----------------------------|  Redis
+|  docker run    |   Containers   |  Images   |  Nginx 
+|  docker push   |      C-1       |  Ubuntu   |
+|                |      C-2       |  Redis    |
+|                |      C-3                   |
+|                |      C-4                   |
+-------------------------------------------------------------
+
+when you install docker .. you various comp.. 
+client is CLI ..
+using client you install docker daemon as DOCKER_HOST .. responsible for doing the tasks/actions recieves the requests
+
+when you do 
+docker build .
+it is sent to docker daemon to execute the task (it knows that it have to do that thing) and if docker daemon is down .. containers will be down .. as it is the main thing ..
+
+then you have Docker Registry: to store the images.. push/pull
+
+
+
+5. What are docker ADD and docker COPY?
+Docker ADD can copy the files from a URL unlike Dokcer COPY whihc can copy files from only the host system into the container...
+like getting something from internet/aws s3 or any other URL
+
+
+
+6. What is differnce between CMD and Entrypoint?
+
+ENTRYPOINT .. 
+CMD .. 
+used for starting .. CMD is configurable but entrypoint can not be changed
+
+ENTRYPOINT["python3"] # can't be changed
+CMD["file1.py", "runserver", "0.0.0.0:8000"] 
+ 
+can be written as 
+CMD["python3", "file1.py", "runserver", "0.0.0.0:8000"]
+
+but dont want python to change
+
+When to use which:
+Use CMD when you want to provide a default command or arguments that users might want to easily change when running the container (e.g., a utility image where users might want to run different commands).
+Use ENTRYPOINT when you want to ensure a specific application or script always runs when the container starts, and you want user-provided arguments to be passed to that application (e.g., a web server image where nginx is always the main process).
+Use both ENTRYPOINT and CMD together for a fixed executable and easily overridable default arguments (e.g., ENTRYPOINT ["java", "-jar"] and CMD ["my-app.jar", "--port", "8080"]).
+
+
+- CLI args using docker run command will override the args specified using the CMD instruction...
+- Whereas Entrypoint instruction in the shell form will override additional args provided in the CLI params or even through the CMD commands.
+
+
+Example:
+for a python calculator app .. you wanna read args from user .. like instructions (addition)
+in such case for Entrypoint .. you can pass name of function as it is not changed.. 
+but param - the operands can be changed so use them in CMD
+
+you can use either one of them or both as combination
+
+Entrypoint=['python', 'manage.py']
+CMD=['--port']
+
+
+
+7. What are the networking types in Docker and which is default?
+- Bridge [default] a default veth is created for a container to interact with host and the other containers.. docker0 
+- Overlay - complicated .. used in docker swarm , kubernetes .. actually it is like a tunnel type networking
+- Host - you bind contianer with host itself .. 
+- MacVlan - allows a container to appear as physical host rather than a container.. should only be used in special cases .. 
+- Custom ..
+
+
+
+8. how to isolate networking bw containers?
+default is bridge (docker0) with veth.. 
+you can create a network isolation to secure your container from others ... 
+they are already isolated in VMs as they are cpltly on separate machines
+
+
+
+9. What is a multi stage build in docker?
+we can reduce our image size to much lower than the default or a single build.. 
+doesn't have any OS .. or any runtime dependencies
+
+Multi stage allows you to build your container in multiple stages allowing to copy artifacts from one stage to another.. the major advantage is to build light weight images.. and final image is much lower.. 
+
+like runtime dependecies were required in build stage only not in the final stage .. here we can utilize multi-stage
+
+
+
+10. Distroless images ?
+concept: docker containers had a security vulnerability .. like what people were doing is they were installing all packages, dbs, reactm  other system dependencies, all required and non required.. in a single container .. more packages more risk .. 
+
+
+to solve this problem .. people thought of a way to shrink images .. 
+
+distroless images contain only your application and its runtime dependencies witha very minimum OS libraries. They do not containt package managers, shells or any other programs you would expect to find in a standard linux distributuon.. they are very small to find in a standard and lightweight...
+
+
+for example
+[scrath] image is a distroless image .. size would be like 1-2 MB .. not basic folders, commands, pakcghe managers( apt, yum, dnf)
+
+
+
+
+11. Real time challanges with Docker?
+
+- Docker is a single Daemon process. which can cause a single point of failue (SPF) .. if daemon goes down for some reason all the applications are down.. we use podman to solve this daemon problem .. 
+podman has commands kinda docker itself like
+podman build
+podman run
+
+- Docker daemon runs as a root user.. Which is a security threat.. Any process running as a root can have diverse effects.. when it is compromised for security reasons, it can impact other applications or containers on the host.. again this problem is solved using podman as it doesn't run as root
+
+- Resource Constraint: if you're running too many containers on a single host.. you may experience issues with resource constraints.. this can result in slow performance crashes..
+you have to configure resources very well..
+
+
+
+12. What steps would you take to secure containers?
+Security is very serious problem in contairens .. they are not as secure as VMs
+
+Some of the steps:
+- Use distroless or images with not too many packages as your final image in multi stage build, so that there is less chance of CVE (Common Vulnerabilities and Exposures) or security issues...
+
+- Ensure that the networking is configured properly.. this is one of the most common reasons for security issues.. if required configured custom bridge networks and assign them to isolate containers.. 
+
+- you can use sync .. to scan images before staging or prod env
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+Docker Compose and diff with k8s 
+
+first of all .. What is Docker?
+
+Docker is a container platform that is developed by docker NIC .. main goal is to manage the lifecycle of containers.. using docker platform .. 
+docker desktop .. docker CLI .. can be used to - start, run, build, daemon
+
+let's say we have a Flask app that runs calculator app
+.. you say to a devops eng.. to containerize it 
+
+Dockerfile is created with all fields like
+FROM
+RUN
+COPY/ADD
+ENTRYPOINT
+CMD
+
+we create image and them we run it using 
+docker run ... -p .. -v.. 
+
+we do all these things with DOCKER 
+
+so docker is responsible and actually can handle the lifecycle of containers ..
+
+
+So do we need docker compose ??
+
+Docker compose is a tool that is developed by docker NIC .. but it is used to manage multi container application
+
+
+like before we talked of flask app with calculator inside it .. that could be done with docker easily
+
+
+but now suppose you have an e-commerce app ... here you won't have a single containers => more than one microservices .. like containers for 
+sql, python app, finance app, redis, python app, react etc..
+
+now for all these we will have to do all things for each docker .. considering dependencies into the account
+
+
+now suppose payment/finance container requiers DB .. but DB is down .. so first DB is needed to be installed  
+
+so containerzing doesn't just mean to make container but to create/run them in a proper order ..
+
+the problem with traditional docker are:
+- so many docker build/run commands 
+- managing the lifecycle of containers 
+- you share your shellscripts (that do all docker tasks) with developers .. now suppose after a while like 6 months docker have changed.. now changing shell scripts is not a good/declarative approach 
+
+instead of running 20 commands .. you can have a yaml file that is provided by the docker itself.. that doesn't break actually on changes.. as it is standard by docker itself
+
+https://github.com/iam-veeramalla/three-tier-architecture-demo
+
+now here in this repo we have 3 tier application where we have 12 services in it .. but they all are handled by the docker compose .. yaml file..
+
+clone repo
+and here simply run 
+~ docker-compose up
+
+it will create all your containers .. takes some time as there are so many apps and their dependencies .. binding.. mounts .. etc.. 
+
+.. to stop it use simple ctrl + C
+
+
+once you are done .. you can run command 
+docker-compose down
+
+stop all containers .. even stale ones
+
+-----------------
+How does docker compose work??
+
+Most of the times .. docker-compose comes with your docker installation 
+
+.. docker desktop is best as it is more stable and is being updated continously.. 
+
+Docker compose is not a replacement to docker .. 
+you have to wirte Dockerfile(s).. have to run a single compose (.yaml) files .. 
+it is just to manage your containers in best way without way too much work 
+.. runs docker commands internally
+
+you need a compose.yaml file to run it 
+
+
+----
+How to write a docker compose for a simple application
+
+lets say we have a python application .. or NodeJS
+NodeJs app runs as two replicas or instances.. we have load balanver nginx and you have redis as cache
+
+    nginx
+      |
+node    node 
+      |
+    redis
+
+from nginx request is routed to the node instaces .. and again we have redis for cache
+
+https://github.com/docker/awesome-compose
+repo which contains examples for docker compose 
+These samples provide a starting point for how to integrate different services using a Compose file and to manage their deployment with Docker Compose.
+
+
+Let's start with 
+node-nginx-redis directory
+
+~ git clone https://github.com/docker/awesome-compose
+~ cd awesome-compose/nginx-nodejs-redis/
+~ docker-compose up
+wait till app starts
+
+.. its application that shows how many users visited
+remebers using redis
+
+web1: Number of visits is: 1
+web2: Number of visits is: 2
+
+round robin load balancing mechanism is being used .. from 2 node instances 
+
+
+----------
+
+How to write compose file for it 
+
+first understand architecture .. no need to udnerstand code as a non techinal .. but do need to know the strcuture
+
+How do we make two instances is actually:
+we copy our redis implementation .. server.js here 
+first install as web-1 .. run at port 81 .. 
+second install as web-2 .. run at port 82
+
+
+Application is running on port 5000 
+when we install first copy we run at 81 and map container port 5000 to it
+and then we install second copy we run at 82 and map container port 5000 to it
+
+Nginx handles requests once on web-1 and then on web-2
+
+in nginx.conf we have load balancing mechanism 
+
+------------
+upstream loadbalancer {
+  server web1:5000;
+  server web2:5000;
+}
+
+server {
+  listen 80; # where load balancing is listening
+  server_name localhost;
+  location / {
+    proxy_pass http://loadbalancers;
+  }
+}
+------------
+
+
+Now how to write the docker compose file
+first we have files inside each service .. like 
+- for nginx inside nginx directory
+- for server inside server directory
+- for web inside web directory
+
+
+Without compose you will do:
+
+docker build -t web .
+docker build -t nginx .
+
+To start the web
+docker run -d -p 5000:81 web1
+docker run -d -p 5000:82 web2
+
+Run nginx
+docker run .....
+
+------------
+So how it maps to compose
+
+Service: # mandatory field - names of services
+  example:
+    restart: on-failure
+    build: # location_of_dockerfile
+    hostname: #name of host 
+    ports:
+      - # port mapping .. if dont wanna map.. dont use it 
+
+    deploy: # you can add deployment related policies .. like what to do always .. what to do on failure .. use deploye
+
+    image: # not required - but can use in case you have image publically available or wanna use your image 
+
+
+  web2: 
+    restart: on-failure
+    build: ./web
+    hostname: web1
+    ports:
+      - '81:5000'
+
+  web2: 
+    restart: on-failure
+    build: ./web
+    hostname: web2
+    ports:
+      - '82:5000'
+
+  nginx: 
+    build: ./nginx
+    ports: 
+      - '80:80'
+    depends_on: # specially for nginx .. but first web1 and web2 should be running.. requires web1 and web2
+      - web1
+      - web2
+
+
+you can see pther exampels in github repo above 
+try to read docker compose docs 
+
+----------------------
+When to use docker compose .. how is it different from Kubernetes (K8s)?
+
+
+One of the most popular use case of docker compose is 
+1. Local Developement ..
+Basically developers dont use kubernetes directly to test apps .. they just go with docker container for a single app ... or docker composer for multi-stage app
+
+2. CI/CD
+let's say you dont wanna setup k8s .. but just wanna test on VM .. as it is tedious to setup and costly 
+so to test on VM you use again docker 
+
+3. A quick Testing (QE Team wanna test)
+
+
+Docker Compose vs Kubernetes 
+So in terms of docker .. Docker Swarm is equivalent to Kubernetes (which is basically an orchestration platform .. very powerful thing ..that has mechanism for auto healing.. [load balancing .. auto scaling, replicas])
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Containerizing a MERN Stack Application and Deploying using Docker Compose
+
+
+- three tier app
+- docker file for mern stack 
+- docker compose 
+
+
+https://github.com/iam-veeramalla/MERN-docker-compose
+
+`main` branch contains only the code.. 
+`compose` file contains the docker-compose and dockerfile(s)
+
+
+
+MERN stack - A Three tier app 
+end to end application which has 
+- Presentation layer (UI/Frontend tier)
+- Business logic (Server/Backend tier)
+- Data tier (DB)
+
+For example: Amazon is also a three tier app
+Enter thru `frontend` UI .. instruction sent to `backend` .. saved/fetched in/from the database
+
+For a three tier Website 
+
+    UI
+    |
+  Logic 
+    |
+    DB
+
+
+What is MERN stack???
+Mongo DB - Data layer
+Express JS - Backend/Logic Layer - deploy using Node JS
+React JS - Frontend/UI
+Node JS - Used for Express
+
+
+Why has this become very popular?
+- Open source
+- Free 
+- Easy to learn .. learning curve is straight forward
+- Javascript
+- Simplicity / Security
+
+
+Let's do code walkthrough
+https://github.com/iam-veeramalla/MERN-docker-compose
+
+
+
+------------------
+Frontend Dockerfile
+------------------
+# User base node BASE Image .. best practice is not to use the latest version.. try a particular version
+
+FROM node:18.9.1
+
+# Make sure to have a working directory .. whatever you do will be in /app
+WORKDIR /app
+
+# Copy Dependencies .. for example in java pom.xml, etc.. here package.json
+COPY package.json . 
+# . is Work directory
+
+RUN npm install 
+# will install all node_modules 
+
+# Copy complete src code
+COPY . .
+
+# Expose port where your application will run on
+EXPOSE 5173
+
+# run dev command .. or whatever you want .. like build, start etc..
+CMD ["npm", "run", "dev"] 
+----------------------
+
+now change dir and run
+~ docker build -t docker-frontend . 
+to buiild the image
+
+
+Instead of executing instructions one by one .. we can do this in docker-compose file .. but we have to know the basics
+
+We have to create a network here 
+When you create docker containers they have differnet network than your host network 
+.. 
+you can use a bridge to connect your host to your container .. 
+but for more comntainers it is kinda not OK .. that is why we need a common network when you are running a three tier application
+
+so let's create a network
+
+~ docker network create mern
+
+
+Now run the container
+~ docker run --name=frontend --network=mern -d -p 5173:5173 mern-frontend
+
+.. Now your frontend is up
+check details using 
+~ docker logs frontend
+
+
+-----
+But we dont have backend .. so you can't add records here or you can see errors in console 
+
+
+
+-----
+Backend requires DB so first start Database 
+---
+
+So let's start mongo with a base image .. we dont have to write a Dockerfile for it 
+
+
+docker run --network=mern --name mongodb -d -p 27017:27107 -v ~/opt/data:/data/db mongo:latest
+
+Here volume is needed to give some space to database to store data 
+
+test locally now using localhost:27107
+
+if doesn't work .. you can try 
+~ mongosh mongodb://localhost:27017
+
+---------------------------------------------------
+Now create Dockerfile for your Backend 
+---------------------------------------------------
+# Both frontend and backend have somehow the same file as they belong to same JS env
+
+FROM node:18.9.1
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 5050
+
+CMD ["npm", "start"]
+---------------------------------------------------
+
+
+~ docker build -t backend .
+Now run this Image
+
+~ docker run -d --network=mern --name=backend -p 5050:5050 backend:latest
+
+Now your all three containers are running and can be used 
+
+
+
+----------------------------------------------------
+Points to note here:
+
+Make sure:
+1. to create network .. (if you dont .. it is difficult for containers to talk) .. on default containers can talk using docker0 .. bridge - veth .. with the host .. but for each other they need a secure network to talk
+
+
+2. Dockerfile - frontend
+3. Start the database .. (volume mounted for storage)
+4. Dockerfile - Backend
+
+---------------
+we have done so many commands and steps to run this application .. and we had to do it in multiple steps with order
+
+
+Here comes the docker compose .. we can do all this using a single file using docker compose .. yaml file
+
+
+So to do this .. first let's delete all containers
+
+~ docker rm -f $(docker ps -q)
+
+you can force using -f or can stop and them rm 
+
+services:
+  frontend:
+    ---
+
+  backend:
+    ---
+    depends_on: db # can only be executed if db block is done
+
+  db: 
+    ----
+
+network:
+  ---
+
+volume: # driver block .. which volume to use (local/s3/any other)
+---
+
+Refer to: 
+https://github.com/iam-veeramalla/MERN-docker-compose/blob/compose/docker-compose.yaml .. 
+in compose branch
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Kubernetes
+---------------
+
+Kubernetes is easy .. future of devops 
+wanna do short sprints? just learn basics .. but for a long run .. Kubernetes is future
+
+People move towards microservices .. pre requisites are docker (containers)
+
+Learn the basics of containers.. 
+
+-------
+Docker vs Kubernetes?
+
+Docker is a container platform .. makes container journey very easy
+
+Kubernets is orchestration platform (textbook def)
+
+Let's deep dive
+
+Containers are ephimeral in nature (Something that is shortliving)
+die and revive anytime
+
+Suppose you have 100 contianres and 1 is getting to much memeory it effects others that are with low mem.. they might die 
+'cause there is one host which has many containers .. gets deleted by kernal in linux as this is how it works and kills a process..
+
+Problem 1: Single host (scoped to one host)
+
+Someone kills a contianer .. the app running inside can't be accessible .. as it is down .. 
+Now unless a user/dev restarts the container .. 
+SO this is called auto healing .. where container should start by itself.. but doesn't happen in docker as a devops eng can't monitor all containers .. which are in thousands numbers .. so there has to be a mechanism to do auto-healing
+
+Problem 2: Auto healing
+
+You have ec2 instance .. you installed docker .. you created a single container.. and this ec2 host has 4GB ram and 4CPU .. now this single container can utilize max of all mem and cpus .. though containers don't use that much .. 
+but again suppose on any occasion there are so many users .. requests.. like in millions .. here comes the scaling problem .. either you can manually increase load from 1 cont to 10 cont to handle the load or it has to happen automatically.. but docker can't do eitehr of the things.. 
+you have to create more containers and also load balancer to balance the load on the containers 
+
+Problem 3: Auto scaling
+
+Docker is a very minimalistic platform .. it doesn't support any of your enterprise level support.. 
+On enterprise level we need to have 
+                              | load balancer.. 
+                              | firewall
+Enterprise level standards ---| auto scale
+                              | auto healing 
+                              | api gateways
+
+Problem 4: Enterprise
+
+--------
+All these are being solved by the kubernetes itself
+
+Solution to all these probs..
+Now let's try to understand how kub resolves these:
+
+By default kubernetes is a cluster.. ( cluster means group of nodes ).. Kub in general is installed as master node architecture .. just like jenkins
+Master -- Multiple nodes
+
+To practice kub you can install kub in single node but in general it is installed as a clsuter ... multiple nodes
+
+Problem 1 (Single host):
+Now take examole of first problem .. in case kub seees .. notices that any single container is affecting the others .. it puts that one in a seprate node .. (Faulty node).. just so to keep the others safe from itsm behaviour
+
+
+Problem 2 (Auto scaling): 
+Kubernetes has replica set .. 
+it is basically depedent on yaml file.. in replication/replica set/deployment.. yaml file.. you just go to this yaml file manually and set the replicas to new value like from 1 to 10 on any festival .. also you kub supports this automatically .. using HPA - horizontal pod autoscaler .. using this you can directly say that if there is load .. if one container is 80% threshold .. spin up another container..
+
+
+Problem 3 (Auto Healing):
+kub controls the damage.. fixes it .. what does it mean? it notices if your container is going down or is going to go down .. 
+it starts a new contianer .. how does it knows container is going to go down .. There is a API server that has the ability to udnerstand .. notice .. that container might go down.. so it lets kub to start another contianer.. 
+
+
+Problem 4 (Enterprise):
+Kubernetes is basically tool that was originated from Google .. Borg was another solution.. of which kubernetes is actually a part.. Borg is not open src.. 
+Google people built an 
+(Kubernetes) Enterprise level container orcherstration platform .. that supports enterprise level.. 
+
+Docker is not used in production as it is not enterprise level container managing as it doesnt have all features of enterprise .. the problems we discussed 
+
+Kub solves this problem .. But again kub is also not 100% solution to this .. it is still evolving..
+
+As compared to containers .. VMs are much secure .. 
+
+Kubernetes is backed by a community CNCF.. goal is to make kubernetes a better place.. everyday there so much changes .. 
+
+By default kub doesn't support Advanced load balancing mechanisms.. but they are handled by kub tools .. Ingres controllers.. 
+
+--------------------------------------------
+
+Day 31
+KUBERNETES (K8s) ARCHITECTURE USING EXAMPLES .. kinda complicated concept 
+
+Why is it called k8s?
+middle 8 letters are replaced with 8 .. just using the neumronym method .. to read it easy way
+
+
+First you should know the diff between docker and k8s .. like why does docker is there and what makes us to move towards k8s
+
+On a very high level k8s offers 4 advantages over docker
+
+1. Cluster (over a single host)
+2. Auto healing 
+3. Auto scaling
+4. (Multiple) Enterprise (level support)
+
+Let's understand architecture using these 4 examples...
+
+
+There are multiple components in below planes
+-------------------------------------------------------
+|       Control plane       |       Data Plane        |
+-------------------------------------------------------
+API Servers                 |  Kubelet
+etcd                        |  Kube-Proxy
+schedualr                   |  Container runtime (Dockershim, containerD, crio)
+controller manager (cm)
+ccm (cloud cm)
+-------------------------------------------------------
+
+
+we can't understand these unless we use them practically.. or compare with the docker .. 
+that way we will understand advantage of all these componenets .. 
+
+
+Lets start with 
+1. Creation and running of a container in Docker .. 
+what is happening under the hood .. lets say you install a java app.. your app won't run or even container can't run .. 'cause you need to have a container runtime .. in docker we have container runtime that is called Dockershim 
+In kub also needs to do the same behaviour .. but as it is adanved in k8s .. you create a master and a single/multiple worker node comp 
+
+suppose we have one master and one worker node .. 
+in kub request goes thru master before the worker node .. that master is also called as Control plane 
+
+
+            ---------------     ---------------------
+            |             |     |                   |
+   Pod      |             |     |                   |
+-------------Request -----------------------------------
+            |             |     |                   |
+            |             |     |                   |
+            ---------------     ---------------------
+                Master                  Worker 
+
+Pod is smallest level of deployment in cluster .. it is like container of docker that is smallest level in docker .. 
+but Pod can have nore than one containers in it .. Containers package software and pods provide an orchestration layer that groups containers .. giivng them a shared network namespaces and storage .. allowing to run a single cohesive unit ..
+
+When use tries to deploy a pod .. similar to container .. pod is deployed ... But you have comp in k8s that is called kublet.. that is responsible for running/managing your pod 
+
+KUBELET monitors pod that tells k8s if pod is running or not .. 'cause of the auto-healing feature .. 
+Pod has containers .. and to run containers we need container runtime.. so here you can either use Dockershim.. (or alternatively containerD, crio, etc...)
+
+another thing that Pod needs is KUBE-PROXY.. it is like the docker0, bridge network .. It handles the auto-scaling .. like if replica goes from 1 to 2 .. 2 to 3 .. kuber-proxy balances the networking/ load balancing.. uses IP tables for networkign related config
+
+Container runtime .. KUBELET and KUBE-PROXY are on the worker node to handle the Pod 
+That is all in DATA PLANE
+
+
+Let's move to Master or Control Plane
+Why do we need control plane .. see clsuter is an enterprise level component .. and it is there to manage the things .. like someone has to decide where the Pod will be deployed ..on what node it should be deployed .. there has to be a core component to do all this .. here comes the API SERVER... this comp is present in your master/control.. a component that exposes your k8s .. to the public .. it is the heart 
+API server decides that Node 1 is free let's deply the Pod on it but to schedule the Pod to deploy we need a scheduler.. responsible for scheduling your pods or resources.. 
+
+API SERVER 
+SCHEDULAR
+
+Now we are deploying our prod level app in k8s we need a backup server .. a backing store of all/entire your cluster info .. 
+whihc is called 
+etcd
+whihc is key value-pair.. you can restore everything using it .. 
+
+Controller manager - to do the managing .. like auto scaling .. auto healing .. thre has to be some managers that is CM ..  
+Replica set is one of the examples .. maintains the state of pods .. 
+there are also many other controller managers in k8s
+ 
+Cloud controller manager (CCM)
+we can run k8s on .. EKS (elastic k8s services), AKS (azure k8s ser...)
+
+we are running k8s on cloud platforms .. 
+there is a request to create storage OR a load balancer .. if you direclty send this to k8s .. it has to understand the underlying cloud provider.. 
+it has to translate the user request to cloud provider's API SERVER.. it has to implemented on your CCM.. 
+CCM is open src.. e.g., you create a cloud provider you make a ccm for that so that k8s can be run on that and everyone can use it.. write logic inside ccm to support k8s 
+..
+if your k8s is on-premise.. this component is not required..
+
+
+Lets summarize it 
+
+
+        Master Node                  Worker Node 
+-------------------------------------------------------
+|       Control plane       |       Data Plane        |
+-------------------------------------------------------
+API Servers                 |  Kubelet
+etcd                        |  Kube-Proxy
+Scheduler                   |  Container runtime (Dockershim, containerD, crio)
+Controller manager (cm)
+ccm (cloud cm)
+-------------------------------------------------------
+
+Each worker node has all three components on right 
+
+Contole plane .. controlling the actions 
+Data plane is executing the actions
+
+
+----------------------------------------------------------------
+---------------------------------
+K8s Production Systems
+
+
+How to manage hundreds of k8s clusters?? KOPS
+
+Managing the lifecycle of k8s clsuters .. 
+
+Creation, deletion, upgradation, configuration of Clusters in Production .. why is this important ??
+people practice on (local k8s setups)
+
+Minikube ..
+k3s
+k&nd
+k3d
+Micro 8ks 
+
+they all clusters but not high level.. dont ensure prod .. They are actually dev environments .. so dont use in prod environments 
+
+Let's try to udnerstand how organization/cloud/devops engineers manage their clusters in production systems
+
+
+Q: What is a distribution? 
+for any opern src platform .. (Linux) .. people have created distributions over it .. like
+Amazon Linux
+Redhat
+CentOS
+
+They are paid but safe in sense of security as they are not open source
+
+Similarly K8s is Open src .. CoE .. container orchestration engine .. and people have made distributions over it .. like 
+Amazon (EKS, openshift)
+tanzu
+rancher
+
+Better customer experience as they are paid and licensed .. 
+
+--------
+What is order? Which is more popular? What/Which to use?
+
+Kubernetes is on top to use in staging/pre prod or production itself
+
+      |---- Kubernetes
+      |---- Openshift
+      |---- Rancher
+------|---- Tanzo VMware
+------|---- EKS
+      |---- AKS
+      |---- GKE
+      |---- DKE
+
+Also docker swarm which is not kubernetes distribution
+
+Diff between installing k8s and installing minikube?
+When you install k8s .. you isntall k8s with all capabilities for a enterprise level
+
+e.g., minikube can run on any system like with 2 CPUs and 4GB ram 
+
+whereas if you isntall k8s .. it requires a lot .. memory/storage ... 
+
+we will use KOPS (k8s operations)
+
+k8s vs EKS?
+if you install k8s .. it's you managing everything .. but with EKS .. amazon helps you resolve the problems you get into
+
+Q: What k8s distribution system have you used in your system???
+
+
+How devops manage 100s of clusters on their systems?
+Primary tool is KOPS..
+there are also other tools like Kubeadm , Kubersquash.. but KOPS is mostly used
+
+what kops bring you .. other than installation .. it supports upgradation, deletion, modification.. of k8s
+
+let's install KOPS
+
+Install all dependencies listed here:
+https://github.com/iam-veeramalla/Kubernetes-Zero-to-Hero
+
+
+~ aws configure 
+.. to give access to aws-cli .. get access keys from security credentials
+
+
+Kubernetes Cluster Installation
+Create S3 bucket for storing the KOPS objects.
+~ aws s3api create-bucket --bucket kops-abhi-storage --region us-east-1
+
+change name as it might already be taken 
+
+-------------------------------
+Installing Kubernetes with kops (Kubernetes Operations) is a common and reliable way to create and manage production-grade Kubernetes clusters—especially on AWS. Below is a step-by-step guide to installing Kubernetes using kops on AWS (though it can also be used with GCP and other providers).
+
+Ensure you have the following:
+
+- AWS account with IAM permissions (EC2, S3, Route53, IAM, VPC)
+- kubectl installed
+- kops installed
+- AWS CLI configured
+
+In case of error (TLS/ELB issues) 
+:
+
+Try to update / create the cluster EC2 instances
+
+Run:
+
+export KOPS_STATE_STORE=s3://<your-bucket-name>
+kops update cluster demok8scluster.k8s.local --yes
+
+
+- This command tells kOps to create the master and node instances in AWS.
+- You should see output like “Launching instance …” for masters and nodes.
+
+In case any issue reference:
+https://github.com/Venkateshd279/Kubernetes/tree/main/Day%202
+----------------------------------
+
+
+Deploy your first app ???
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DAY-43 | AWS LIVE PROJECT | DEPLOY APP USING HTTPD |Feat. Varun Bansal | #aws #devops #apache #http
+
+VPC vs VPN 
+
+VPC is to secure data like ec2
+VPN is to transfer your data thru a secure tunnel
+
+Firewall is like a security gaurd ,,, allow only authorized people
+
+
+----
+Deploy an app using httpd .. create instance (preferably red hat) .. clone repo .. install httpd (http daemon) to run apps in bg .. it is actually appache server
+
+but httpd has a condition .. if you wanna run apps in bg .. you need to place them in  /var/www/html/ dirc 
+you can also host other than static projects like node js .. just put everything in httpd and it will be live thru your instace's Public IP
+
+
+
+to install in redhat.. use
+~ yum install httpd
+~ sudo systemctl start httpd
+~ sudo systemctl status httpd
+
+for ubuntu try 
+~ sudo apt install apache2 -y
+
+~ sudo systemctl start apache2
+~ sudo systemctl status apache2
+
+move files to 
+/var/www/html
+
+conf files are in 
+/etc/apache2|httpd/
+
+
+-- in case nginx is already isntalled .. first disable it .. and vice versa to use any
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+OSI Model
+
+
+how does request goes from browser .. domain .. and response comes back behind the hood
+
+.. componenets? Layers?? that are in there for the Journey of data
+
+OSI model explains entrire thing in 7 layers.. 
+
+for sending it is from 
+layer 1 to 7
+
+but on receiving-end it is layer 7 to 1.
+
+
+But even before OSI layers there comes .. 
+- DNS resolution .. and 
+- TCP handshake
+
+You make request..
+https://www.google.com
+Router/browser checks .. if this https domain maps to any IP??
+
+DNS has 
+IPs against domains 
+checks in local cache .. else it checks in ISP (DNS server)
+
+If mapping is valid.. only than it moves to 2nd stage .. i.e., TCP handshake
+
+Laptop --- request --> Google Server
+YOu send request but does the receiving server is ready to accept the request? 
+What if it denies the request??
+
+so there is a TCP handshake .. called 3 way handshake .. 
+that comes even before the request is initiated.. 
+initially it sends a Hi (sync) 
+
+
+Laptop ------> sync ------> Server 
+              Ready?
+Laptop <---- sync-ack <---- Server
+                Ok
+Laptop ------> ack -------> Server
+
+So there is a 3 way handshake .. (Common one)
+there are also other handshakes that are 2 way and 4 way hand shakes 
+
+| Model                    | Purpose                  | Notes                |
+| ------------------------ | ------------------------ | -------------------- |
+| **3-Way Handshake**      | Connection establishment | Standard             |
+| **4-Way Handshake**      | Connection termination   | Standard             |
+| **Simultaneous Open**    | P2P or rare edge cases   | Both send SYN        |
+| **Simultaneous Close**   | Rare termination case    | Both send FIN        |
+| **TCP Fast Open**        | Low latency              | Can send data in SYN |
+| **SYN Cookies**          | DDOS protection          | Encodes state        |
+| **Half-Open Connection** | Timeout/attack/scan      | No ACK               |
+| **RST Abort**            | Instant close            | No FIN               |
+
+
+
+
+-----------------------
+
+So first two steps in a request are DNS resolution and TCP handshake
+
+then comes OSI model
+
+when you search 
+https://www.google.com
+
+after dns resolution and tcp handshake
+.. 
+after that
+your browser initiates (doesn't send yet) a 
+http or https request to the server .. 
+or if you ask it to initiate a FTP request it will initiate that one
+
+
+this particular stage is Layer 7 called .. 
+7. Application layer.. (headers are passed here -- authentication)
+
+
+then comes the 
+data encryption/fotmatting.. 
+
+6. Presentation layer
+
+
+then we have the 5th layer where we have session layer .. where a session is created for keeping transffering the data .. like logging into the social media app.. where we signin once and our session is kept connected .. Or banking apps where there is a limit on logging in time for more security
+
+5. Session Layer
+
+
+(all these first three are maintained by your browsers - chrome/edge etc.. you can test it by logging into facebook and after two minites clear cookies and it will ask you again to pass the credentials) 
+
+
+After that .. your data that you wanna transfer is segmented .. e.g., you have 10GB file to upload .. it is segmented because it cant be uplaoded at once ... here comes the next layer .. and at this layer the protocol is also defined 
+
+4. Transport Layer (TCP/UDP .. these are widely used) - segments
+
+Now the data is ready to be sent .. here we have multiple routes to send the data (like travelling from a city to anotyher.. you have alotta ways to travel.. and there are many transport resources included) A lot of routers are used to transfer the data.. like from pakistan to usa.. 
+what happens is we add the IP of both receiving end and sending end (source and reciever IPs) to each segment .. once we add IPs we call these data segments as Packets .. they have clear instructions of how to send .. where to send .. etc...
+
+3. Network Layer
+
+
+data is transferred and is also converted from packets to frames .. (also adding MAC address)
+
+2. Data-link layer
+
+
+Now data is transmitted to optical cables for fast travel.. in electronic signals 
+
+1. Physical Layer
+
+
+
+----------
+In simple
+
+7. Type of request (http)
+6. Encryption
+5. Session with server
+4. Segmentation - Protocol
+3. Routers (path is added - IPs) Packets
+2. Switchers (Frames - MAC)
+1. Optical cables (Electronic signls)
+
+
+
+Laptop -------- L7 - L1 ---------- Server
+
+at server it decods everything from L1 to L7 and finally returns the requests' response back to Laptop
+
+for sender it's L7 to L1
+for reciever end it is L1 to L7
+
+
+OSI is and old model
+there are some modern models .. like TCP-IP Model (where L7-L5 is combined with first 4 as it is) .. which is based on OSI Model

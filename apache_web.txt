@@ -1,0 +1,51 @@
+
+
+- Installing Achae (httpd)
+- Custom domain
+- HTTPS/SSL enable
+- Multiple Webistes (on single web)
+- Reverse Proxy
+- Load balancer
+
+--------------------
+
+Intro?
+What is Apchae server?
+also know as httpd .. is an open-src web server that helps deliver the web pages to users over the internet.. 
+IT processes requests from browseres and serves websites using the http protocol..
+
+for example.. you have an html file .. you can test it locally but to test it on the internet for anyone .. you can use apache web server (httpd)
+HTTPD ... stands for.. http request over a daemon server .. that runs in background ...
+
+
+Market Demnand .. Popularity.. usage in market
+Nginx
+Apache
+Cloudflare Server
+Litespeed
+Node.js
+
+
+Common use cases.. 
+----------------------------------------------------------------------------
+| 			Use cases				  |				How Apahce helps
+----------------------------------------------------------------------------
+- Hossting static websites			  | Serves HTML, CSS, JS .. simple, fast
+- Dynamic Content with PHP			  | Integrates with PHP via mod_php or php_fpm
+- Reverse proxy and load balancing 	  | Distributres traffiv to backedn via mod_proxy
+- multi-site hosting (shared hosting) | Uses virtual hosts to serve multiple domains from one server
+- secure web hosting (https)		  | full support for TLS/SSL certs.. with Let's encrypt
+- serving apps behind proxies		  | Works with backend app servers.. (node.js, django)
+- access control/auth				  | built in basic & digest, IP wihtelisting
+----------------------------------------------------------------------------
+
+
+----------
+Practical
+----------
+
+Pre-requiste: AWS Account
+
+
+
+

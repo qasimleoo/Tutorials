@@ -1,0 +1,180 @@
+
+src: gate smashers
+Proxy and Reverse Proxy
+
+proxy is like asking your frind to mark your attendance on your behalf
+
+private network --------->> public network
+Mbl, laptop 	--------->> internet
+
+Now you want to hide your private network from public so you need an interemediar 
+
+private --->> proxy (forward proxy) ---->> network
+now that response is also filtered by proxy server
+private -->> proxy (filtered response) --> network
+
+and also logs the traffic 
+caches the requests like (movie trailer .. sends that in case of next request) .. saves bandwidth
+
+Proxy is between Client and Internet (Squid is famous one)
+
+
+Reverse proxy is between Internet and Server
+
+internent --->> reverse proxy --->> server (backend)
+
+reverse proxy example is (apache server, nginx)
+
+
+
+-----
+Firewall vs Proxies
+Can we use the same server as proxy and reverse proxy
+
+
+
+Firewall
+controls the traffic based on rules (IPs, Protocols, Ports) 
+works at 3,4 layers from bottom to top or at network and transport layers 
+
+Proxy
+an intermidary that sends request on behlaf of clients
+Proxies work at the application (http/https) layer that is the top one where the request actually comes from ..
+- Hiding traffic
+- Logging it
+- Caching
+
+
+Firewall = security gate
+Proxy = middleman that communicates for you
+
+
+OSI Model (Open systems interconnection)
+
+Application
+Presentation 
+Session 
+Transport
+Network
+Data Link
+Physical
+
+
+--------------------
+Can we use the same server as both a proxy and a reverse proxy?
+
+Yes, you can.
+
+A single server (e.g., running Nginx, HAProxy, Squid, or Traefik) can function as:
+
+A forward proxy for internal clients
+
+
+A reverse proxy for external users
+----------
+However, consider:
+1. Security concerns
+- Forward proxies often allow internal users to access external networks.
+- Reverse proxies receive public-facing traffic.
+- Mixing both can increase risk if not isolated properly.
+
+--------------
+2. Performance and resource usage
+- Proxies can be CPU/memory intensive (TLS termination, caching, filtering).
+- Running both roles on one machine may require tuning.
+
+-----------
+3. Separation of duties
+Best practice:
+Keep forward and reverse proxies separate, unless your environment is small or controlled.
+
+----------
+4. Configuration complexity
+- One misconfiguration could expose internal networks.
+
+-----------
+When using one server for both is acceptable
+- Small organizations or home labs
+- Low traffic
+- Clear separation of ports/services (e.g., reverse proxy on 80/443, forward proxy on 3128)
+- Proper firewall rules to prevent unauthorized internal access
+
+---------
+When you should NOT combine them
+- High-security environments
+- High-traffic production systems
+- Situations requiring network segregation
+
+
+-------------------------------------
+
+Not all proxies rotate/change IPs on each requests.. There are four main types of proxies ..
+
+- Standard (Single IP) Proxy (Single static IP)
+- Proxy having multiple IPs (Have multiple IPs but can send each request from the same IP)
+- Residential (Mobile) Proxy (Rotate on every request)
+- Transportational Proxies (Dont chnage IP at all)
+
+A proxy changes your IP only if:
+- It has multiple IPs and
+- It is configured to rotate or choose among them.
+
+
+----------------------
+
+
+Proxy vs VPN
+
+Proxy
+- Routes sepcific traffic only
+- Changes IP for that traffic only
+- No encyption at all
+- used mainly for bypassing geo-blocks, caching, filtering
+
+
+VPN
+- Routes all traffic
+- Changes your IP at network level
+- Uses strong encryption
+- Hides activity from networks, ISPs, attackers
+- Used fro privact, security, remote access
+
+
+Use a proxy if:
+- You only want to route a specific app.
+- You need speed and don’t need encryption.
+- You want to test geo-locations or IP rotation.
+
+Use a VPN if:
+- You want full privacy.
+- You’re on public Wi-Fi.
+- You need to secure all traffic.
+- You want to hide activity from your ISP.
+
+
+
+------------------------
+When connected to VPN ->
+
+✔ Your ISP cannot see (But they do know you connected to which VPN and at what time):
+- Websites you visit
+- Content you send/receive
+- Your online activity
+- Your destination IPs
+- What apps you use
+
+✔ A VPN effectively hides:
+- Your real IP (from websites/services)
+- Your online activity (from ISP/network admins)
+
+❌ Your ISP still sees:
+- That you use a VPN
+- When you use it
+- How much data you use
+
+❌ A VPN cannot hide:
+- Activity inside logged-in accounts
+- Activity from malware
+- Anything you directly reveal
+
+

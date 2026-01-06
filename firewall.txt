@@ -1,0 +1,167 @@
+What is firewall?
+Types of firewall
+Firewall service in linux
+Enable/Disbale Firewall
+How to see the existing firewall rules?
+Adding & deleting Firewall rules (allowing/disallowing ip, ports, etc..)
+Adding/removing ports
+BLock incoming/outgoing traffic
+Block ICMP (internet cloud message protocol)
+
+
+
+1. Firewall?
+A network security system that monitors and controls incoming and outgoing network traffic based on the rules defined.
+
+Basically a security system to determine and  block untrusted network traffic to access out system.
+
+
+				               Only allowed Traffic
+Private Network ---> Firewall <----------------------- Internet
+
+though not 100% secure but yeah used for security
+
+
+2. Types of Firewall?
+	i. Software based 
+		Running on OS itself
+
+	ii. Hardware based
+		A dedicated physical appliance with Firewall software between diff networks (mostly used by network team)
+
+
+Case Study:
+
+			Data				  Data
+Server A -----------> Firewall -----------> Server B
+Firewall									Firewall
+(Software-based)						    (Software-based)
+
+So there might be 3 firewalls here .. 1 of each and 1 in between ... 
+Here comes the troubleshooting issue .. like Server A sends data .. firewall sends too But Server B doesn't recieve it .. here we have to troubleshoot it 
+
+
+3. Tools on Linux for Managing Firewall?
+	i. iptables (old systems)
+	ii. firewalld - newer version of Centos, Redhat, Fedora
+
+
+Listing, Adding, Deleting firewalld rules..
+Check if firewalld service is installed 
+~ rpm -qa | grep firewall # for redhat
+~ dpkg -l | grep firewall # for ubuntu
+
+Or install using
+~ yum install firewalld
+~ apt install firewalld
+
+
+Stop/Start firewalld service?
+~ systemctl start/enable firewalld
+~ systemctl stop/disable firewalld
+~ systemctl status firewalld
+~ systemctl restart firewalld
+
+
+Check the rules of firewalld
+main command is: firewall-cmd
+
+~ firewall-cmd --list-all
+gives you a zone that is public (has some rules)
+	- interfaces: wlp3s0 # thru which the communication is actually possible 
+	- services: cockpit dhcpv6-client ssh # `ssh` is to let you connect to outer servers (virtual servers)
+	# if you remove `ssh` np one will be able to connect to your server 
+	- and so on 
+
+
+# Listing of all the services firewalld is aware of:
+~ firewall-cmd --get-services
+# You will get a lotta of services.. what's the purpose ? from your previous command i.e., --list-all you can see services section it contains all the allowed services.. you can put the services in that .. which you wanna allow
+
+
+
+# Reload the config of firewalld (after making any changes)
+~ firewall-cmd --reload
+
+
+# Firewall has multiple zones, to get list
+~ firewall-cmd --get-zones 
+# zones under which you can add firewall zones 
+
+
+# To see the list of active zones 
+~ firewall-cmd --get-active-zones
+# list of active zones
+
+
+# To get the list of a specific zone
+~ firewall-cmd --zone=public 
+
+
+
+####
+# Practical
+
+# To add a service
+~ firewall-cmd --add-service=<name_of_service>
+
+# To remove a service
+~ firewall-cmd --remove-service=<name_of_service>
+
+
+lets test with http (httpd service that is on port 80)
+~ firewall-cmd --add-service=http
+
+~ firewall-cmd --list-services # get all services
+
+and similarly you can remove it 
+
+
+# Now try to reload the config with new services added ... 
+~ sudo firewall-cmd --reload
+
+list again and you will see the new services added are gone... but why??
+Because the thing is it adds temporary
+
+To add it permanently add a param ..
+~ firewall-cmd --add-service=http --permanent
+
+Now to see changes you will first have to reload them as it makes changes once relaoded unlike adding a service without --permanent attribute
+
+
+
+# To add or remove a port 
+~ firewall-cmd --add-port=20201/tcp --permanent # type of protocol like tcp/udp or any other
+~ firewall-cmd --remove-port=20201/tcp
+
+
+
+# To block incoming traffic from an IP .. we add rich rules .. at the end of --list-all commmand
+~ firewall-cmd --add-rich-rule='rule family="ipv4" source address="192.168.0.0" reject'
+
+
+# To accept traffic from a specific IP
+Similarly replace `reject` with `accept` to allow any IP to access your server and drop all other IPs to block them using 
+
+
+# Similarly you can remove rules .. can't be removed all at once you have to delete one by one
+get list using 
+firewall-cmd --list-rich-rules
+
+and now delete one by one passing the strings 
+
+~ firewall-cmd --remove-rich-rule='rule family="ipv4" source address="192.168.0.0" reject'
+
+# To block all IPs 
+~ firewall-cmd --set-default-zone=drop --permanent
+
+
+--permanent can be moved before command (but after firewall-cmd)
+
+
+
+# To block outgoing traffic (from your server to outer source) to an IP or URL 
+~ firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -d <IP> -j DROP
+
+
+# replace DROP with ACCEPT to revert

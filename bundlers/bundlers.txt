@@ -1,0 +1,63 @@
+
+
+Bundlers:
+What is a bundler?
+
+
+we write our code in so many files in next/react .. like css, jsx, sass, jpg, png.. 
+all these modules/files/dependencies.. are actually bundled/optimized 
+
+Webpack is a module bundler for web applications. Its role is to take many separate frontend assets and dependencies and bundle, transform, and optimize them into files that browsers can efficiently load.
+
+What Webpack actually does?
+
+1. Module bundling
+
+Webpack starts from one or more entry points and builds a dependency graph.
+
+Example:
+main.js
+ ├─ utils.js
+ ├─ api.js
+ └─ styles.css
+
+
+Webpack outputs something like:
+bundle.js
+
+
+Modern alternatives
+
+| Tool        | Notes                           |
+| ----------- | ------------------------------- |
+| **Vite**    | Faster, simpler, modern default |
+| **Parcel**  | Zero-config bundling            |
+| **Rollup**  | Excellent for libraries         |
+| **esbuild** | Extremely fast, lower-level     |
+
+
+Used in `React, Angular, VueJS`
+
+Slower bundler as compared to the modern ones 
+
+
+Another bundler is `Parcel` 
+Quick setup (within minutes)
+
+
+
+Esbuild
+10-100 times faster than webpack
+
+They also mention it on their website
+esbuild.github.io
+
+that how much fast is esbuild as compared to  all other (parcel, vite, webpack)
+
+used under the hood in other tools that are (vite, bun)
+(Limited as it doesn't run alone)
+
+
+
+Vite (Rollup and Vite)
+-- too fast  

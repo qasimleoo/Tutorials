@@ -1,0 +1,164 @@
+Babel
+RSC
+
+Client vs Server 
+Production mode .. build 
+Strictmode - Twice log
+Ctrl shift p 
+Bundler - webpack
+Interactivity... useClient
+Hydration error
+SEO
+React v next 
+React static .. next dynamic 
+
+routing .. nested routing (how)
+entry point - layout
+is the function name important for a default react comp?
+anchor vs Link
+page names case sensitive?
+dynamic routing
+
+dynamic routing (hard coded?)
+props (simple obj sync) - searchParam and param (promises - async)
+destruct directly or using props
+searchParams ? (query params)
+await ? async ? props allow it?
+slug
+params inside a [slug] comp .. 
+getting slug name (destruct params it self or access using dot)
+
+nested dynamic routes
+example
+(parent) params in nested route
+1+ level routes
+we get access to parent and child params both
+
+catch all routes - does it affect other routes that are already there 
+what's in the params?
+how much nesting?
+required vs optional catch all
+optional chaining operator
+optional catch all at root level - how to allow it at root 
+
+Layout
+requires html/body
+ctrl + shift + R
+inline styling?
+more than one layouts? layouts in inner file paths (avoid <html> in inner layouts
+semantic divs
+
+metadata api (avoid using head, title, meta tags directly - use api)
+export metadata comp from layout (applies to all routes) or page itself (applicable to related route only)
+if you have metadata var in both .. same file overrides layout one
+template and default values in title metadata %s (get from page.js metadata and append with layout.js ones title: {template: '%s | Web', default: 'Web'}
+
+how to make dynamic metadata? for dynamic pages ..
+generateMetadata .. takes {params}
+absolute in title (to override the whole title even of layout that was set using %s
+- you can add all other seo/meta tags here like desc
+
+custom 404
+next built in notFound() from next/navigation
+not-found.jsx - custom
+more than one - allowed in sub pages
+
+getting path name in not-found - can't use params .. have to make it client side with usePathname()
+
+Route groups () 
+jsx fragment <>
+cache?
+own layouts.. metadata etc.. in groups
+
+Private folders _
+page.js is required to make a page as route
+https://www.ascii-code.com/ 
+to enforce a page with udnerscore we can use URI encoded value (% hex)
+URI - special chars to hex ascii 
+
+
+{{}}
+const myStyles = { color: 'red', fontSize: '16px' };
+<div style={myStyles}>
+  Hello World!
+</div>
+
+which typpa routes we covered till now?
+
+adv - parallel and intercepting routes
+parallel routing
+https://www.youtube.com/watch?v=05jrkY2UuxQ
+@slots to make sections in the same page using layout
+
+Intercepting routes
+https://www.youtube.com/watch?v=00v5W01qHAM
+(.) same level      (..) one level above   (..)(..) two level above    (...) from root app dir
+
+
+
+Rendering Paradigms
+Express - SSR
+React - CSR
+Next - 4 (all)
+
+server side in early 90s 20s
+client was introduced after .. 1st framework was angular than react, vue
+website/web-app
+CSR | SSR - SSG and ISR 
+vite??
+dev mode .. all files - no bundling 
+prod mode.. only a few files that are needed (in both csr and ssr)
+_rsc comes for only pages that are behind the scenes .. for current page server sends html itself.. you can modify rsc files in .next/server and see the behaviour by directly accessing a file or indirectly thru links
+
+next ... loads rsc data of those links that are visible in the screen 
+rsc is loaded using fetch (with x-component as content-type)
+
+reconciliation 
+virtual dom 
+diffing (get the difference bw two things) algo
+console.dir (to get as object)
+const h1_virtual = <h1>Hello</h1> # simple properties 
+const h1_real = document.createElement('h1'); # detailed properties 
+h1_real.innerText = 'Hello'
+
+'cause of diffing .. react always creates virtual dom
+to see virtual dom .. you can console component name (as in SSR)
+computing/doing diffing of virtual doms is called reconciliation 
+
+
+static/dynamic rendering
+server side/ client side  (on these rendering - both)
+~ npm run build (o, f) console runs (static vs dynamic)
+build time vs run time
+
+SSG - making pages at build time 
+export function generateStaticParams() {
+  return  [{id: 1}, {id: 2}] //  using jsonplaceholder as example for  many pages 
+}
+build will take this function and make pages outta of it (filled circles on build pages)
+
+for first request. dynamic pages are generated and placed inside ssr for ssg pages
+to stop this from happening we can do `export const dynamicParams = false;`
+in dev all pages are dynamic .. no static page
+it will start giving 404 for new dynamic pages 
+
+ISR extended version of SSG
+routes/pages where we do SSG can be ISR
+once a page is made using SSG can't be refereshed with new data unless we rebuild it .. But we can regenerate using ISR after some time using a varible like
+dynamicParamas .. revalidate (regenrate) default is false 
+`export const revalidate = false` // never regenerate - at whole page level
+`export const revalidate = 5` // regenerate after 5s when a user comes
+remains same for the time but when user comes it revalidates after given time and regenerates page and shows update content on next reload .. not on same 
+
+can pass in fetch .. fetch('endpoint', {next: {revalidate: 5}}) // works at fetch level
+
+
+Rendering static pages - dynamically 
+by default static pages without [] names are statically rendered and with [] are dynamically rendered .. we can force static to be generated dynamically too
+like consoling anything in static runs once on build .. never again.. to make dynamic
+`export const dynamic = "force-dynamic"` // auto (based on other methods) | force-static (even using other methods) | error (if other methods are used - throw)
+there are more methods there to make a page dynamic
+Another method to make dynamic is getting searchParams in fun ({searchParams})
+just passing keeps it client side .. you have to await and consume it to make dynamic - other methods are
+using cookies/headers from next/headers
+fetch with revalidate: 0 .. fetch without caching no-store

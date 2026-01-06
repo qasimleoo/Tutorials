@@ -1,0 +1,87 @@
+Redux ek **state management library** hai jo React apps me use hoti hai.
+Iska kaam hai **app ki state ko ek central store me rakhna** jahan se har component aasaani se data le ya update kar sake.
+
+### Problem Redux solve karta hai
+
+Agar app me bohot saare components hongay, to ek component se doosre ko data bhejna mushkil ho jata hai (props drilling).
+
+---------------------
+
+
+Props Drilling:
+Ek component se bohot neeche wale component tak data pohanchane ke liye beech ke components ko zabardasti props dena.
+
+Yani jo components ko vo data chahiye hi nahi, unko bhi props pass karna padta hai sirf isliye ke aakhri component ko data mil jaye.
+
+
+-----------------
+Redux ek **single global store** deta hai jahan sab data hota hai.
+
+### Redux ke 3 main parts
+
+1. **Store** – jahan saari state hoti hai
+2. **Actions** – jo batate hain kya karna hai
+3. **Reducers** – jo batate hain state ko kaise update karna hai
+
+---
+
+## Chhota sa example (simple counter)
+
+### 1. Action
+
+```js
+const increment = () => ({ type: 'INCREMENT' })
+```
+
+### 2. Reducer
+
+```js
+function counterReducer(state = 0, action) {
+  if (action.type === 'INCREMENT') {
+    return state + 1
+  }
+  return state
+}
+```
+
+### 3. Store banana
+
+```js
+import { createStore } from 'redux'
+
+const store = createStore(counterReducer)
+```
+
+### 4. Store use karna
+
+```js
+console.log(store.getState()) 
+store.dispatch(increment())
+console.log(store.getState()) 
+```
+
+Output:
+
+```
+0
+1
+```
+
+---
+
+## Real-world example (Roman Urdu explanation)
+
+Socho tumhaari app me **user login info**, **products list**, **cart**, **theme**, wagaira bohot jagah use ho rahe hain.
+Agar har jagah props bhejna pade to bohot messy ho jata.
+
+Redux me tum sab store me rakh dete ho:
+
+```js
+{
+  user: { name: "Qasim", loggedIn: true },
+  cart: [ { id: 1, qty: 2 } ],
+  theme: "dark"
+}
+```
+
+Aur ab koi bhi component seedha store se data le sakta hai **without props drilling**.

@@ -1,0 +1,677 @@
+
+
+Nginx is a web server 
+for most of the requests to a website they go to nginx first .. (if there is an nginx in the BTS)
+
+- Web Server
+- Gateway
+- Reverse Proxy
+- Caching 
+- Rate limiting
+- Host static sites
+- Host multiple sites
+- SSL
+- Load Balancer
+
+- Too much powerful .. Extendable .. 
+- Supports .. Lua Language (also JS as NJS for nginx)
+
+
+------------
+Install nginx .. will be better to try in a fresh server .. (ec2 instance)
+
+~ sudo apt update
+~ sudo apt install nginx -y
+
+check status
+~ sudo systemctl status nginx
+
+Try opening your server in web browser and you will see
+in case apache2 / httpd is also installed first disable it to run nginx 
+Welcome to nginx!
+
+How does this happen ??
+in server 
+
+in /etc we have all configs of all apps
+so after isntallation /nginx is created inside it 
+	
+~ cd /etc/nginx
+~ ls 
+diff machines different folders here .. like sites-available may not be in mac OS but will be in ubuntu
+
+so here we have important files 
+1. nginx.conf # starting point of nginx file
+
+~ vim nginx.conf
+
+inside file you will see .. include 
+`include` is called directive in nginx .. 
+
+so include adds/imports/inserts all files to your nginx.conf
+
+lets visit sites-enabled dir now
+
+cd sites-enabled 
+here we have a file named default.. 
+it also has alotta of configs.. 
+
+`server` block .. contains some configs.. 
+`listen` is a directive here .. for ports
+
+listen 80 default_server;   # handles all requests connections that come on the port 80 
+.. with IPv4 and IPv6 respectively..
+
+another directive is.. `root` .. wuth lcoation  /var/www/html
+
+`server_name` another dir..
+
+so what does it all do .. 
+
+for all requests on (listen) IPv4 or 6 ... and port 80 (default)
+go to (root) /var/www/html here 
+and get any files from below
+index index.htm index.html index.nginx-debian.html;
+
+port 80 is default for http (not secure) but 443 is default for http (secure) 
+
+--------------------------------------
+let's understand config blocks 
+
+blocks are also called contexts .. here we have a tree strcuture
+
+first of all .. top block/context.. is a `main` block
+nginx runs master and workders processors and .. main context handles the workers processors
+
+nginx.conf # entrypoint
+Contexts:
++------+
+| main |
++------+
+	|
+	+--------> the number of workers processors (WP)
+	+--------> the user who runs the process
+	+--------> PID (for optimization we may change)
+	+--------> logs locations
+	|
+	|
+	| Inner Context/Block
+	+-----------------> +--------+
+	|					| events |
+	|					+--------+
+	|						 |
+	|						 +--------> num of connections per WP (we may need to change based on server capacity.. don't change (recommended))
+	|
+	| Inner Context/Block
+	+-----------------> +--------+
+	|					| stream |
+	|					+--------+
+	|						 |
+	|						 +--------> Requests can be TCP/UDP (Level 3/4 in OSI Model)
+	| Inner Context/Block
+	+-----------------> +------+
+						| http | (mostly used .. changed (how to process that comes to nginx .. contains Virtual servers))
+						+------+
+							 |
+							 +--------> logs locations
+							 |
+							 |
+							 | Inner contexts (Can have more than 1 server blocks based on need)
+							 +-----------------> +--------+
+							 |					 | server |
+							 |					 +--------+
+							 |						  |
+							 |						  +--------> (Virtual serevrs/hosts.. for diff sites of diff domain names)
+							 |						  |
+							 |						  |
+							 |						  +-----------------> +----------+
+							 |						  					  | location |
+							 |						  					  +----------+
+							 |						  							|
+							 |						  							| VIP
+							 |												  	+--------> Used for routing
+							 |												  	+--------> URI
+							 |
+							 +-----------------> +--------+
+							 |					 | server |
+							 |					 +--------+
+							 |
+							 +-----------------> +--------+
+							 |					 | server |
+							 |					 +--------+
+							 |
+							 +-----------------> +--------+
+							 |					 | server |
+							 |					 +--------+
+							 |
+							 |
+							 +-----------------> +----------+
+							 |					 | upstream |
+							 |					 +----------+
+							 |						  |
+							 |						  +--------> (when you use nginx as reverse proxy.. e.g., we send request to forntend and nginx sends to node server) 
+							 |						  +--------> Load balancer
+
+
+Location block can contain nested location blocks
+
+You can verify this strucutre by visting /etc/nginx/nginx.conf file
+
+so main context is the file itself 
+anything outside blocks
+
+user (which user is running nginx)
+worker_processes auto; (should be equal to cores of system) but auto is best
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+	worker_connections 768; # no of coneections per WP
+	#	 multi_accept on;
+}
+
+http {
+
+	# we embed all files below
+	include /etc/nginx/conf.d/*.conf;
+	include /etc/nginx/sites-enabled/*;
+	# these are actually upstream/server blocks
+	# look for both
+	
+}
+
+# visit https://nginx.org/en/docs for details (recommended)
+
+recommended suggestion is to make servers and upstrream blocks inside conf.d 
+
+but default one is 
+/etc/nginx/sites-enabled/*;
+
+
+So let's comment default and make config in /conf.d
+
+After commenting reload nginx .. you can restart.. but it stops nginx and starts .. so the between requests are failed and 'causes down time .. that's why reload is prefered .. 
+
+also before reoloading or restarting .. test/validate your changes ..
+~ sudo nginx -t 
+
+and do 
+~ sudo systemctl reload nginx
+Run '~ sudo systemctl daemon-reload' to reload units.
+
+Now go to 
+/etc/nginx/conf.d
+
+you can make different files for your domains / subdomains / subpages 
+there is a convention to make like for a `cafe.com` domain website make file as `cafe.com.conf` 
+
+sudo vim cafe.com.conf
+
+-------------------------------------------------------------------------
+# first of all let's make server/host block (also called virtual server/host) as this file will be included in http block
+
+# you can make server blocks for different domains and mention that this server block will handle this domain 
+
+server {
+	# first we add a `listen` directive
+	listen 80 default_server; # for default port requests and a default server
+
+	root /var/www/cafe; # where we have our content
+
+	server_name _; # we mention our domain name here.. if we don't have any we can add underscore .. to catch all .. refer to docs for details
+
+	# server_name www.cafe.com cafe.com;
+
+	# another directive that is kinda special directive.. to mention which file to send on request
+	# you can add this in child .. that will simply override this one 
+	index index.html index.htm;
+
+
+	# now we have inner block .. slash means to handle all requests .. you can add path like /api, /login, /signup, etc.
+	# also we can add regex too.. like tilde sign ~ .. 
+	location / {
+		try_files $uri $uri/ =404; # $uri will search in root path for the path requests like https://cafe.com/products .. sees in root and matches if found returns otherwise 404
+	}
+
+	# Till now save here and test nginx and reload and check your IP
+	# you will get 404 as we don't have index.html in root
+
+	# for testing you can clone https://github.com/codersgyan/Responsive-restaurant-website.git to your 
+	# /var/www/cafe
+}
+
+
+
+
+-----------------------------------------------------------------------------------------------
+| Directive     | Match Type            | Case-Sensitive?           | Typical Use             |
+| ------------- | --------------------- | ------------------------- | ----------------------- |
+| `location /`  | Prefix match (normal) | Yes                       | General/default rule    |
+| `location =`  | **Exact** match       | Yes                       | One specific URL only   |
+| `location ~`  | **Regex match**       | **Yes**                   | When you need regex     |
+| `location ~*` | **Regex match**       | **No** (case-insensitive) | Regex that ignores case |
+Example Block
+
+server {
+    listen 80;
+    server_name example.com;
+
+    location = /status {
+        return 200 "Exact status endpoint";
+    }
+
+    location / {
+        return 200 "Default location prefix match";
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /var/www/html$fastcgi_script_name;
+    }
+
+    location ~* \.(jpg|jpeg|png|gif|webp)$ {
+        root /var/www/images;
+    }
+}
+| URL Requested                                | Which Rule Runs      | Why                                |     |     |         |                                    |
+| -------------------------------------------- | -------------------- | ---------------------------------- | --- | --- | ------- | ---------------------------------- |
+| `/status`                                    | `location = /status` | Exact match wins first             |     |     |         |                                    |
+| `/about`                                     | `location /`         | Prefix match handles general pages |     |     |         |                                    |
+| `/index.php`                                 | `location ~ \.php$`  | Regex for `.php` files             |     |     |         |                                    |
+| `/photo.JPG`                                 | `location ~* .(jpg   | jpeg                               | png | gif | webp)$` | Case-insensitive regex matches JPG |
+| `/images/file.png` (uppercase extension too) | Same as above        | Because `~*` ignores case          |     |     |         |                                    |
+
+-------------------------------------------------------------------------
+
+
+To point IP to your domain name.. go to your domain providers dashboard and in DNS records .. create a subdomain and add A record to it .. or if your main domain is at same IP as subdomain you can use CNAME record instead of A.. 
+
+after that 
+go to your 
+/etc/nginx/conf.d/YOUR_FILE.conf
+
+and replace underscore after server_name with your domain name
+it checks via request headers of request to compare with server_name
+
+validate and reload nginx
+
+
+
+OK, lets try to host multiple sites using nginx
+
+go to /var/www/
+clone 
+https://github.com/codersgyan/responsive-portfolio-website.git
+
+for this to run we need to add config for this too
+~ cd /etc/nginx/conf.d
+
+we can make server block inside same file of .conf but it's good practice to make new for each website
+
+you can copy old file .. just chnage server_name based on domain/subdomain and root based on files path.. remove default_server.. as for a single port we have only one default_server.. or change port to another one like 8000 
+also add this port in inbound rules in security groups of instance
+
+you can give more than one server names in case one is not available the other works
+
+like 
+server_name web1.com web2.com web2.com ('cause they are virtual servers)
+
+
+.. to deploy another website follow the same steps
+
+you can use all config using
+sudo nginx -T
+it lists all configs in nginx order
+
+
+--------------
+How to secure website using nginx??
+
+make a dev config and add a sample h1 tag to test it .. use any other port. e.g., 
+-----------------------
+server {
+	listen 4000;
+
+	root /var/www/admin;
+
+	server_name _;
+	# `auth_basic` directive is used to for authentication purpose built-in feature in browsers.. also added in headers
+	
+	auth_basic "Under development site";
+	auth_basic_user_file /etc/nginc/.htpasswd; # to make secure connection we seprate this username and pass ...
+
+	# we can use apache2utils .. containing htpasswd utility 
+	# but we can use opemssl that is in our server system
+
+	# So run following command  .. to create passwd with username 
+	# sudo  sh -c "echo -n 'qasimleoo:' >> /etc/nginx/.htpasswd"
+	# will write username in file .htpassswd
+	# let's create password using openssl
+	# Run command 
+	# sudo sh -c "openssl passwd -apr1 >> /etc/nginx/.htpasswd"
+	# you can see generated passsword with username in file
+
+	# validate changes and reload
+
+	# you can add more than 1 users and passwords and also allow some paths with auth and open some without it 
+
+	# for that .. make a block that needs to be accessed using password .. and open others 
+	# use `auth_basic off` for disallowing
+	# or move auth_basic config inside blocks
+
+
+	index index.html index.htm index.php;
+
+	location / {
+		try_files $uri $uri/ =404; 
+	}
+}
+----------------------
+
+
+-----------------------------------------------
+How to use nginx as reverse proxy?
+What is reverse proxy?
+
+
+
+Client (Mobile, PC, TV)   <---- Request ---->    Server (running on a port e.g., 3000)
+
+
+problem is if we have to request from client we will also have to pass it in client
+
+like
+
+http://IP|DOMAIN:3000/product
+
+Problem is security .. we can't expose ports except 80,443,22
+80 -> http, 443 -> https, 22 -> ssl
+
+
+we have to mention port 3000 in url .. 
+one solution is we can run app on port 80/443 
+
+for https|443 we have to setup TLS/SSL.. we have to config it.
+
+suppose we have to scale app and deploy a new app.. but with 80/443 port we can't deploy another app.. as one port
+one port cannot be used by multiple applications at the same time for a single IP address
+
+Why one app per port???
+Exclusive use: When an application starts and needs to receive data, it "binds" to a specific port, which essentially reserves it.
+"Port in use" error: If a second application tries to bind to that same port on the same IP address, the operating system will deny the request with an error, as it would conflict with the first application. 
+
+Ways to have multiple applications...
+Use a reverse proxy: You can run a single program, like Nginx, on one port (e.g., port 80) to listen for incoming requests. The reverse proxy can then inspect the URL and route the request to different applications running on different ports in the background.
+Use different IP addresses: If a machine has multiple network cards or multiple IP addresses assigned to one network card, each application can listen on the same port number, but on a different IP address. For example, one app could use 10.0.1.1:443 and another could use 10.0.1.2:443.
+Run applications on different ports: The most common method is to simply have each application use a different port number. For example, you could have one web server on port 80 and another on port 8080.
+Use a single application: If the applications are related, it may be possible to combine their functionality into a single application that runs on one port. 
+
+
+
+Let's understand Reverse proxy here and Nginx can be used for that ..
+
+
+----------		     
+| Client |
+----------
+	|
+ request goes to nginx and nginx forwards request to port where app is deployed  (acts as [REVERSE PROXY] here)
+	|
+	|
+ secure traffic
+	|
+---------
+| Nginx |
+---------
+| :80   |
+| :443  |
+|       |
+| +--+  |
+| |  |------- TLS/SSL
+| +--+  |
+---------
+	|
+	+------  (TLS termination here)
+	|
+	+------ here we use MTLS (to secure/encrypt the connection/traffic between two services)
+	|
+ Forwards
+ 	|
+ 	|    Firewall (no need to add ssl here)
+----+---------------------------------
+ 	|
+ can be http only as it is hidden
+ 	|
+ 	|
+----+------ Behind the reverse proxy - Hidden layer + and we will config SSL/TLS in nginx 
+ 	|
+ 	|  we can add load balancer and divide the traffic here 
+ 	|--------------------------------------------------------
+ 	|									 |
+ 	|									 |
+----------							----------
+| Server |							| Server |
+----------							----------
+| :3000  |							| :3000  |
+|        |							|        |
+----------							----------
+Instance 1    						Instance 2
+
+
+
+--------------
+let's demo it
+
+
+Here's a minimal Node.js project that returns a simple JSON with name, id, and age.
+
+in /var/www/
+
+Make project
+node-json-example/
+├─ server.js
+
+server.js -- content
+--------------
+const express = require('express');
+const app = express();
+const PORT = 3000;
+
+app.get('/api', (req, res) => {
+    res.json({
+        id: 1,
+        name: "Qasim",
+        age: 25
+    });
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});
+-------------
+
+sudo apt install npm
+sudo npm init -y
+sudo npm install express
+
+node server.js
+
+runs on port 3000
+
+Test using 
+IP:3000/api
+
+Now to test reverse proxy.. make file
+
+api.com.conf
+-------------------
+upstream backend {
+        server localhost:3000;
+}
+
+server {
+        listen 8000;
+
+        server_name _;
+
+        location / {
+                proxy_pass http://backend;
+        }
+}
+-----------------
+
+go to node project and run it and test it using /api endpoint on port 8000 which forwards to 3000 
+----------------
+
+although we have running port 8000 for previous profile project but can be used as this with endpoint /api (node js endpoint of our app)
+
+This is our reverse proxy .. forwarding one port requests to another.. to deploy more apps on same server.. 
+
+-------------------------------------
+
+How to distribute requests? Load balancer?
+
+in your api.com.conf .. nginx conf wirte another port request in backend upstream of proxy_pass
+
+-------
+upstream backend {
+	server localhost:3000;
+	server localhost:3001;
+}
+---------
+
+on default nginx uses ROUND-ROBIN algo.. 
+so now we have to run an instance on 3001 port 
+update PORT line in `server.js` to allow dynamic port as default will 3000 and on pass it will run on that one
+--------------
+const PORT = process.env.PORT || 3000;
+--------------
+
+also to check which port are you getting data from .. get PORT in json too..
+
+--------------
+port: `${PORT}`
+--------------
+
+in linux you can inject env variable as
+~ PORT=3000 node server.js
+~ PORT=3001 node server.js
+
+use tmux to run both 
+tmux new -s session_name1
+PORT=3000 node server.js
+
+tmux new -s session_name2
+PORT=3001 node server.js
+
+and reload nginx and boom .. one request from 3000 and other from 3001.. just in case .. hard reload
+
+you can also add a directive in location above proxy_pass .. 
+
+---------------
+add_header Cache-Control no-store;
+---------------
+not to cache our data 
+relioad nginx and test
+
+.. so we can add more ports for laod balancing 
+
+try running on more ports and test 
+
+
+.... 
+If we want to send more requests on any port more than the other we can give weight with it.. like 
+
+upstream backend {
+	server localhost:3000 weight=2;
+	server localhost:3001; # default weight.. 1
+	server localhost:3002; # default weight.. 1
+	server localhost:3003 weight=3;
+}
+
+How requests are distributed
+Total weight = 2 + 1 + 1 + 3 = 7
+
+Probability of each server handling a request:
++-----------------------------------------+
+| Server         | Weight | % of requests |
++----------------+--------+---------------+
+| localhost:3000 | 2      | 2 / 7 ≈ 28.6% |
+| localhost:3001 | 1      | 1 / 7 ≈ 14.3% |
+| localhost:3002 | 1      | 1 / 7 ≈ 14.3% |
+| localhost:3003 | 3      | 3 / 7 ≈ 42.8% |
++-----------------------------------------+
+
+So over a large number of requests, roughly 28% go to 3000, 14% to 3001, 14% to 3002, and 43% to 3003.
+
+If you have only two servers .. it will work as weighted like
+
+upstream backend {
+	server localhost:3000 weight=3;
+	server localhost:3001;
+}
+
+3 requests to 3000 and 1 to 3001 and again 3 to 3001 and so on
+
+
+.... 
+sometimes we need a backup server ..
+like in case main server is down .. always go to backup server
+
+upstream backend {
+	server localhost:3001;
+	server localhost:3002 backup;
+}
+
+all requests to 3001 .. and if it is down .. goto 3002
+
+reload nginx and try again .. all requests are being served from port 3001 .. 
+
+
+Now, let's stop connection .. 3001 and test backup server 
+ctrl + C to port 3001 .
+.. see all requests are served from 3002
+
+Now run 3001 again and test again ..
+
+------------
+we can also mark a server down in case that one is not working is having issues...
+
+upstream backend {
+	server localhost:3001;
+	server localhost:3002 down;
+}
+
+Now, all requests will be served from 3001 .. as 3002 is down .. you can mark 3001 as down too.. just to test the endpoint
+----
+
+you can host your next app .. same way you are doing your node app
+
+
+-----------------
+Let's host a react app
+...
+
+you can avoid 404 for pages that doesn't exist by setting index as fallback
+
+location / {
+	try_files $uri $uri/ /index.html # return index if page not found
+}
+
+
+
+---------------------------------
+Let's config TLS config .. SSL
+you can purchase ssl certificate from any SSL authority
+
+or you can install it using a free platform ..like 
+Let's encrypt
+
+go to
+certbot.edd.org and follow steps
+
+
+whatever you domains choose .. it will update that domains' 
+.conf file .. and add ssl lines

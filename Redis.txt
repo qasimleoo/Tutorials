@@ -1,0 +1,530 @@
+Redis 
+
+In memory DB.. (primary storage - RAM) .. also written to DISK for backup .. can be insltalled as stand alone app.. can be used as a primary database
+user -> server -> Redis (if not exists) -> actual DB
+Stores
+user -> server -> Redis (if exists)
+
+To run in docker
+Install docker 
+Install docker-desktop to see the details of running docker containers
+
+Read redis docs (install redis stack in docker)
+
+then in terminal do
+
+~ docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:latest 
+~ docker run deamon --name pkg-name port portToUseAs:portToOpen [1 or more] package
+
+After this you can see if a container is created using 
+~ docker ps
+
+also you can see this deamon in your docker desktop with 2 ports open 
+access localhost:8001 for redis stack where you can visualize your redis with a built in cli too
+
+
+~ docker ps
+
+use container id to run the redis as
+docker exec -it <container-id> bash
+
+you will see 
+
+root@<container-id>:/# 
+
+you can try redis commands here with prefix redis-cli
+
+like
+
+root@<container-id>:/# redis-cli ping
+PONG
+
+OR just run redis-cli first and then you dont have to use prefix
+
+root@<container-id>:/# redis-cli
+root@<container-id>:/# redis-cli
+
+redirects to
+
+127.0.0.1:6379>
+
+from here 127.0.0.1:6379> is replaced with simple ~ for redis cli commands .. first starting from Strings part
+
+Redis is for caching.. in-memory db or store .. so we need data structure to store data like maps, sets, strings, bitmaps, etc...
+
+Redis Data Types
+https://redis.io/docs/latest/develop/data-types/strings
+
+redis built-in commands are case insensitive
+like
+set 
+SET 
+are same
+------------------------------------
+
+
+------------------------------------
+STRINGS
+------------------------------------
+
+~ set name qasim
+OK # tells command run successfully
+
+data is overwritten if you set again 
+~ set name Ali
+
+is different from .. creates a new key >>
+
+~ set NAME Qasim
+
+
+in production you shouldn't name your keys this way
+set them as 
+
+~ set <entity>:<id> value
+~ set name:1 Qasim
+~ set name:2 Ali
+~ set name:3 Ehmad
+
+it's the rule/suggested/recommended way .. also you can group these in your redis stack 
+
+click tree view below "+ Key" button and it will group them 
+
+as we discussed earlier .. 
+~ set key:id vaue
+will overwrite the old value if key exists 
+
+
+nx - used to set if key not exists
+so to handle the case we can pass nx at end 
+~ set key:id value nx
+(nil) # as key is already there
+
+
+xx - used to set if key exists
+~ set key:id value xx
+
+
+NX - Set key only if it does NOT exist
+XX - Set key only if it already exists
+
+
+mget - is used to get multiple keys at once .. space separated
+~ mget key:1 key:2 key:1
+~ mget name:1 name:2 user:1
+
+
+mset - is used to set multiple keys/values at once .. space separated
+~ mset key:1 value1 key:2 value2 key:3 value3
+~ mset age:1 15 age:2 20 user:4 Student
+
+
+INCR - to increment
+Strings as counters - incr
+~ set count 0
+OK
+~ incr count
+~ incr count
+~ get count 
+"2"
+
+
+incrby - a specific value to increase by like 10 .. incr increase by 1 only 
+~ incrby count 10
+
+
+similarly you can decr
+decr - to decrement
+decrby - to decrement by a specific value
+
+
+
+You can set expiration with keys in seconds
+EX - sets exiration time in seconds
+~ set key value ex time_in_sec
+~ set hello world ex 10 # will be removed after 10 seconds
+
+PX - sets time in milliseconds
+
+
+Fun fact: A single string redis can be a max of 512MB ...
+
+
+------------------
+node js
+
+to use redis in node you need to make a dirctory .. e.g., named redis-playground
+inside dir
+
+~ npm init 
+
+install ioredis 
+~ npm i ioredis
+
+make 2 files 
+client.js // to connect to redis with default port 6379
+string.js // to manipulate the redis 
+
+
+
+FILE -> client.js
+
+const { Redis } = require('ioredis');
+const client = new Redis(); // default hits on 6379
+module.exports = client;
+
+
+FILE -> string.js
+
+const client = require('./client');
+
+async function init () {
+    const result = await client.get('count');   // get key
+    const result = await client.set('counter', 10);   // set a new key counter
+    const result = await client.incr('counter');   // increment counter
+    const result = await client.expire('counter', 20); // expire counter after 20s - to invalidate the data from cache - as we have to get fresh data from db
+
+    console.log("Result => ", result); 
+}
+
+init();   
+------------------
+
+
+------------------------------------
+LISTS
+------------------------------------
+List in redis is an array .. can be used as stack and also as a queue
+
+
+LPUSH list_name value_to_be_stored # pushes at the head 
+
+~ LPUSH names Qasim | names => [Qasim]
+~ LPUSH names Ali | names => [Ali, Qasim]
+~ LPUSH names Ehamd | names => [Ehmad, Ali, Qasim]
+
+
+RPUSH list_name value_to_be_stored # pushes at the tail
+
+~ RPUSH names Nimra | names => [Ehmad, Ali, Qasim, Nimra, Aqsa]
+~ RPUSH names Aqsa | names => [Ehmad, Ali, Qasim, Nimra, Aqsa]
+
+
+LPOP list_name # remove from left
+RPOP list_name # remove from right
+
+
+QUEUE -> add from left and remove from right 
+STACK -> add from left and remove from left
+
+
+LMOVE source destination LEFT|RIGHT 
+
+The two LEFT|RIGHT specify from which end of the source list to pop, and on which end of the destination list to push.
+
+~ lmove names names2 LEFT RIGHT 
+
+also removes the list key .. if there are no elements left on the list
+
+
+BLPOP # blocking left pop
+waits for the key to exist in the redis .. like during running key was empty but a value became available after some time 
+
+
+BLPOP list_key_name duration_in_secs
+
+~ blpop names 10 # wait for 10 seconds .. if value becomes available remove otherwise contiues after the time
+removes immediately if value is there otherwise waits
+
+
+BLMOVE works the same with blocking time
+
+
+Reading list
+
+LRANGE list_name START_INDEX END_INDEX # indices can be negative/positive
+to get index values between a range
+
+
+~ lrange list_name 0 -1 # read complete list 
+
+
+Deleting a key # key can be string/list etc...
+
+~ DEL KEY  
+
+
+To get all keys STARTING with a pattern
+KEYS STARTING_PATTERN 
+~ keys key:* 		# get all keys starting with pattern key:
+~ keys * 			# get all keys 
+~ keys messages* 	# get all keys starting with messages
+
+
+To get all keys ENDING with a pattern
+KEYS ENDING_PATTERN 
+~ keys *shop 		# get all keys ENDING with shop
+~ keys *.com 		# get all keys ending with .com
+
+
+can do STARTING and ENDING both
+*key*
+
+
+To get count of keys starting or ending witn a pattern
+
+DOMAIN WHOIS SERVER EXAMPLE
+redis-cli -h 65.108.130.96 -p 6459 -a 7cUD7g6B2FqRrxKvRx73aC5T9SJ92GW8x6d3N --raw KEYS '*pf' | wc -l
+# get count of keys ending with pf or count of .pf domains in redis
+
+
+
+https://redis.io/docs/latest/develop/data-types/lists/
+ 
+see js code in the docs 
+
+
+
+The max lenght of a redis list is 2^32 - 1
+
+------------------
+node js
+
+FILE -> list.js 
+
+const client = require('./client');
+
+async function init () {
+    client.lpush('messages', "Hey")
+    client.lpush('messages', "Hi")
+    client.lpush('messages', "Hello")
+
+    const result = await client.lpop('messages');
+
+    console.log("Result => ", result);
+}
+
+init();      
+------------------ 
+
+
+
+------------------------------------
+SETS
+------------------------------------
+
+unordered collection of unique elements .. (no duplicates) .. IP addresses etc.. 
+
+SADD # add values
+SADD set_name value
+
+~ sadd ip 1.1.1.1
+~ sadd ip 8.8.8.8
+~ sadd ip 2.2.2.2
+~ sadd ip 1.1.1.1 -> can't add.. already added
+
+can be used to set multiple valus at once 
+~ sadd key_name value1 value2 value3
+# returns integer count of added values
+
+
+SREM  # remove values
+SREM set_name value_to_remove
+
+~ srem ip 2
+
+
+SISMEMBER # to check if a value exists in set
+~ sismember set_key_name value_to_check
+
+
+SINTER  # to get interection
+~ sinter key1 kye2 and so on...
+
+
+SUNION # to get union
+~ sunion key1 kye2 and so on...
+
+
+SCARD # returns the size of set aka cardinality
+~ scard set_key_name
+
+
+SMEMBERS # to get all values of a set
+~ smembers set_key_name
+
+
+LIMIT is 2^32 - 1 of sets in redis
+
+
+------------------------------------
+HASHES .. key:value
+------------------------------------
+
+
+HSET # to set/create a hash
+
+~ hset hash_key_name key1 value1 key2 value2 key3 value3 ...
+here we can say internal keys as fields 
+
+
+HGET # to get key's values
+~ hget hash_key_name field_name
+
+
+HINCRBY # to increment an integer value of a given field GIVEN THAT field is an integer
+~ hincrby hash_key_name field/key increment_count (plus/minus)
+
+
+HMGET # to get mutiple fields' values 
+hmget hash_key_name field1 field2 ... 
+
+
+HVALS # to get only values of a hashmap
+~ hvals hash_key_name
+
+
+HKEYS # to get the keys only of a hashmap
+~ hkeys hash_key_name
+
+
+HLEN # to get total size of a redis hashmap
+~ hlen hash_key_name
+
+
+# Most hash commands are O(1)
+# can store upto 2^32 - 1 field-value pairs
+
+
+------------------------------------
+SORTED SETS
+------------------------------------
+
+collection a unique values ordered by an associated score .. if more than one string has the same score they are order by the lexicographically .. 
+.. Works like a priority queue
+
+ZADD # used to add 
+# remeber SADD is for unsorted 
+zadd key_name priority_number_in_int value 
+ 
+
+ZRANGE # to get the data bw specific indices
+zrange key start_index end_index
+
+
+ZREVRANGE # to get data in reverse
+zrevrange key start end
+zrevrange score 0 -1 # gives data in reverse
+
+
+ZRANK # to get the rank of a user .. like the position of the member when list is called 
+zrank key member/value 
+
+
+------------------------------------
+STREAMS
+------------------------------------
+
+DS that acts like an append-only-log AOL 
+dump the data in a faster way 
+thorw the data in 
+- event sourcing .. tracking users actions 
+- sensot monitoring .. readings 
+- notifications ..
+
+in simple words used where data is too fast 
+
+
+XADD # add a new entry stream 
+# responses a timestamp
+
+~ xadd temp:us-ny:107 * temo_f 87.2 pressure 29.69 humidity 4
+RETURNS
+"1759681875817-0"
+timestamp in UNIX .. 0 indicates the entry id .. in case there are any other entries amde at this timestamp 
+
+
+XREAD # read
+~  xread count 100 block 1000 streams temp:us-ny:107
+read next 100 new entries with a blocking time of 1s 
+
+
+XRANGE  # get specific index values 
+~ xrange temp:us-ny:107 1759681875817-0 + count 1
+# starts from 0 to next 1 value(s)
+
+
+XLEN # length of total stream
+~ xlen key_name
+
+
+Adding - O(1) as is only append only file
+
+
+
+------------------------------------
+GEOSPATIAL 
+------------------------------------
+
+Latitude/Longitude
+
+GEOADD
+~ geoadd key long lat name_of_location
+
+
+GEOSEARCH
+~ geosearch key_name FROMLONLAT user_lon user_lat BYRADIUS 5 km WITHDIST
+
+
+
+------------------------------------
+BITMAP
+------------------------------------
+
+not an actual datatype .. but a set of bit-oriented operations defined on string which is treated like a vector
+
+
+SETBIT 
+GETBIT
+BITOP
+
+
+------------------------------------
+TIME SERIES
+------------------------------------
+
+stock markets data - some like metrics data
+
+------------------------------------
+BITFIELDS
+------------------------------------
+
+------------------------------------
+EXTRAS 
+------------------------------------
+
+To check the DATATYPE of a key we use
+type key_name
+
+
+to get all keys
+keys *
+
+
+------------------------------------
+PUB/SUB
+------------------------------------
+
+# Publish and Subscribe
+
+~ subscribe any_key_name 
+# now let it keep running 
+# try in a new terminal redis-cli
+
+~ publish same_key_name "any message"
+
+# you will see that message in the subscibed terminal
+
+
+# can do this in multiple channels 
+# used to scale microservies in real time

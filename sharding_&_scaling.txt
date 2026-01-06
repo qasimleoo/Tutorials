@@ -1,0 +1,60 @@
+**Sharding** and **scaling**, and how they relate:
+
+
+
+### **1. Sharding**
+
+* **Definition:** Sharding is **splitting a database into smaller, independent pieces called shards**, where each shard holds a subset of the data.
+* **Purpose:** To **distribute data** across multiple machines to improve performance and manage large datasets.
+* **How it works:** Each shard can be stored on a different server. Queries are routed to the correct shard.
+* **Example:** A user database could be sharded by user ID:
+
+  * Shard 1: Users 1–1,000,000
+  * Shard 2: Users 1,000,001–2,000,000
+* **Benefit:** Reduces load on a single database and improves **read/write performance**.
+* **Trade-off:** More complex queries across shards and higher management overhead.
+
+---
+
+### **2. Scaling**
+
+Scaling is about **increasing system capacity** to handle more traffic or data.
+
+**Types of Scaling:**
+
+1. **Vertical Scaling (Scale Up)**
+
+   * Add more resources to a single server (CPU, RAM, storage).
+   * Simple, but limited by hardware capacity.
+   * Example: Upgrading a MySQL server from 16GB RAM → 64GB RAM.
+
+2. **Horizontal Scaling (Scale Out)**
+
+   * Add more servers to **distribute load**.
+   * Works well with sharding or distributed databases.
+   * Example: Running multiple ClickHouse nodes, each storing part of the data.
+
+---
+
+**Quick analogy:**
+
+* **Sharding** = Splitting a huge library into multiple smaller libraries, each holding a subset of books.
+* **Scaling** = Making the library bigger (vertical) or adding more libraries (horizontal) to handle more visitors.
+
+---
+
+Not exactly, but they are **related concepts**:
+
+* **Horizontal scaling** is the **general idea of adding more machines** to handle increased load.
+* **Sharding** is **one way to achieve horizontal scaling** by splitting data across multiple machines.
+
+Think of it like this:
+
+* **Horizontal scaling** = “We need more servers to handle more users or data.”
+* **Sharding** = “Let’s split the data between those servers so each one handles only part of it.”
+
+You can also do horizontal scaling **without sharding**, for example:
+
+* Replicating the same data on multiple read-only servers to **distribute read queries** (read scaling).
+
+So: **all sharding is horizontal scaling**, but **not all horizontal scaling is sharding**.

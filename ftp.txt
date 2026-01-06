@@ -1,0 +1,140 @@
+
+
+
+FTP 
+file transfer protocol
+
+a communication protocol used for the transfer of computer files between a client and server on a computer network,
+
+Uses TCP/IP
+
+aslo used to upload/download files from webistes and servers
+
+		  FTP
+Client ------->>>> Server
+
+it is not straightforward like scp .. we need to have ftp on client and vsftpd service on the server where we wanna sent the files 
+
+
+
+Remote server Setup:
+- need root access
+- install vsftpd service (if not already)
+You can check with 
+~ rpm -qa | grep service_name (for kali)
+~ dpkg -l | grep vsftpd (for ubuntu)
+
+Check which system are you on:
+~ lsb_release -a # on ubuntu
+~ cat /etc/os-release # on any linux distribution
+
+
+Close a stuck warp terminal tab
+~ ps aux | grep ssh # look for stuck session
+~ sudo kill -9 id
+
+
+
+~  sudo apt install vsftpd
+
+Config 
+/etc/vsftpd.config # preserve|take backup  first
+
+- anonymous_enable=NO
+- Uncomment
+  - ascii_upload_enable=YES
+  - ascii_download_enable=YES
+- May add
+  - use_localtime=YES 
+
+save and exit
+
+Start and enable vsftpd ..
+~ sudo systemctl start vsftpd
+~ sudo systemctl enable vsftpd
+
+Or reload if already running check using - status
+
+Check if Firewall is there and running  otherwise Have to stop firewall as it doesn't allow vsftpd .. 
+~ sudo systemctl stop firewalld.service
+
+
+
+Client Server FTP setup:
+- need root access
+- install ftp service 
+- sudo apt install ftp
+
+~ ftp # a new shell will start with ftp
+
+
+How to transfer file?
+
+- ftp server_ip (ip of remote server) - will connect to server
+- enter password/username
+- put <file_name>
+
+
+~ ftp 172.235.173.20
+If you get error it is because firewall is blocking port 21 
+
+So allow
+On the FTP server, if you're using ufw:
+~ sudo ufw allow 21/tcp
+~ sudo ufw reload
+
+If using firewalld:
+~ sudo firewall-cmd --add-service=ftp --permanent
+~ sudo firewall-cmd --reload
+
+Try this:
+ftp 172.233.62.133
+Name: wf-blogs
+Password: take from keep notes
+
+
+ftp> put file_name
+
+If it is givig permission erors you can login with sftp
+exit 
+
+~ sftp user_name@host|IP
+ftp> put file_name
+
+for multiple files we can use mput
+ftp> mput file1 file2 file3
+
+or use
+ftp> put *
+ftp> mput *
+
+
+Downloading from remote to client
+
+ftp> get filename
+ftp> get *
+ftp> mget file1 file2
+
+For folders add -r flag
+
+
+----------
+
+
+SCP vs FTP — Summary Table
+
+| Feature       | SCP                  | FTP                             |
+| ------------- | -------------------- | ------------------------------- |
+| Encryption    | Yes (via SSH)        | No (unless FTPS/SFTP)           |
+| Security      | High                 | Low (default)                   |
+| Speed         | Usually fast         | Fast but unsafe                 |
+| Setup         | Simple if SSH exists | Requires FTP server setup       |
+| File browsing | Limited              | Full browsing + operations      |
+| Common use    | Server file transfer | Website hosting, legacy systems |
+
+
+Important notes
+
+SCP ≠ SFTP
+- SFTP is also SSH-based but works like FTP (browsing + full operations).
+- FTP can be encrypted using FTPS, but it is more complex than SCP/SFTP.
