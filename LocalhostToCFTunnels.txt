@@ -1,0 +1,36 @@
+
+
+Localhost to cloudflare tunnels
+
+any project (app) that's running on a port .. (nodejs/database/nextjs/vanilla html/css app)
+
+wanna expose 3000 to internet .. we would have to get a server and expose via that 
+
+we can use cf tunnels to expose our ports.. like ngrok and localtunnel
+
+Make an account on Cloudflare .. google sign-in
+
+
+Install locally
+
+Download cloudflared
+~ curl -LO https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
+
+Make it executeable
+~ sudo mv cloudflared-linux-amd64 /usr/local/bin/cloudflared
+~ do chmod +x /usr/local/bin/cloudflared
+
+Verify
+~ cloudflared --version
+
+Authenticate
+~ cloudflared tunnel --url http://localhost:3201
+
+A temp tunnel like ngrok/localtunnel(lt)
+
+
+Cloudflare provides a SSL by default for all domains
+
+add domain and update NS - wait for servers to be updated in registrar
+
+go to Zero Trust -> Access -> Tunnels on cloudflare 

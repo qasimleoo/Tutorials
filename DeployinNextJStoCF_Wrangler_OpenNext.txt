@@ -1,0 +1,56 @@
+
+We use OpenNext
+
+
+How Vercel and CF actually works
+
+Nextjs supports 2 runtimes .. 
+
+edge runtime - lightweight.. serverless fucntions (lambda functions) - run by cloudeflare
+
+nodejs runtime - vercel runs this one
+
+-----------------
+Serverless computing is a cloud model where developers build and run applications without managing servers
+Serverless functions (FaaS) are code snippets that run on cloud provider infrastructure in response to events, without developers managing servers, offering automatic scaling and pay-per-use pricing; they are event-driven, stateless, and ideal for dynamic tasks like APIs or data processing, with providers like AWS Lambda, Google Cloud Functions, and Azure Functions handling infrastructure, scaling, and execution for you. 
+
+How They Work:
+- Write Code: Develop small, single-purpose functions (e.g., in Node.js, Python).
+- Define Triggers: Specify what events should invoke the function (e.g., a web API call, a new message in a queue).
+- Deploy: Upload the code to a cloud service (AWS Lambda, Azure Functions, etc.).
+- Execute: The cloud provider runs the function on demand, handling scaling and infrastructure. 
+
+
+CF pages vs workers:
+Previously to run/deploy nextjs apps on cloudflare you needed to use 'edge' runtime as nodejs wouldn't work on cloudflare .. you had to use cloudflare pages..
+
+When to Choose Which
+Start with Pages: If your project is primarily a static site and you just need simple dynamic features (e.g., form handling).
+Start with Workers: If you're building an API, a full-stack application, or need advanced edge logic, even if you have static assets. 
+
+Cloudflare Pages is for easy deployment of static sites (JAMstack) with integrated CI/CD, while Cloudflare Workers is a powerful, general-purpose serverless platform for APIs, dynamic logic, and complex apps, using the same underlying runtime
+
+
+JAMstack stands for JavaScript, APIs, and Markup. It's a cutting-edge web development architecture that can significantly enhance your projects. Consider using JAMstack for building websites when you need high performance, enhanced security, and scalability.
+
+
+-----------------
+
+but recently .. Opennext allowed to run/deploy everywhere .. they created compatibility for nodejs on cloudflare workers.. (an environment which is like nodejs but not exactly nodejs) 
+
+wrangler (a CF tool) -- makes sure the pkgs you use on nodejs .. they can be used in `edge runtime`.. still some issues .. `fs` can't work 
+Given an edge runtime to run locally for testing
+
+https://opennext.js.org/cloudflare/get-started 
+
+skipped 2 dashes .. as they don't let work the experimental
+npm create cloudflare@latest my-next-app --framework=next --platform=workers
+
+OR first create nextjs project..and install wrangler and opennext
+
+Workers KV to cache .. KeyValue pair
+
+You can test locally with preview.. but for projects greater thans size 1MB you need to have a paid account
+
+
+---------------------------------------------------

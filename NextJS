@@ -1,3 +1,6 @@
+----------------------------------------------------------------------------------------------------------------------------------------
+Sec 1: Intro
+
 Babel
 RSC
 
@@ -11,6 +14,9 @@ Hydration error
 SEO
 React v next 
 React static .. next dynamic 
+
+----------------------------------------------------------------------------------------------------------------------------------------
+Sec 2: Rotuing
 
 routing .. nested routing (how)
 entry point - layout
@@ -95,8 +101,8 @@ https://www.youtube.com/watch?v=00v5W01qHAM
 (.) same level      (..) one level above   (..)(..) two level above    (...) from root app dir
 
 
-
-Rendering Paradigms
+----------------------------------------------------------------------------------------------------------------------------------------
+Sec 3: Rendering Paradigms
 Express - SSR
 React - CSR
 Next - 4 (all)
@@ -162,3 +168,164 @@ Another method to make dynamic is getting searchParams in fun ({searchParams})
 just passing keeps it client side .. you have to await and consume it to make dynamic - other methods are
 using cookies/headers from next/headers
 fetch with revalidate: 0 .. fetch without caching no-store
+
+
+Streaming (high speed flow of data whenever it is ready rather than storing and sending in one go)
+Suspense (wrap the code that will take time) ..  data will be fetched in streams
+always wrap promise/fetch api inside a suspense 
+try a loader comp with children .. like layout you can pass children
+<Loader children=''Str"/> // OR
+<Loader>Str</Loading>
+
+
+Client Components vs Server Components (By default they all are server ...rsc)
+server ones executes only on server but client ones render on both - first on server then code is sent to browser (anything that can be done on browser only - window)
+server clg doesn't show on browser unlike dev mode
+"use client" // called directive - whole page becomes client side  - Top of file
+SourceMaps (shows jsx otherwise compiled code)- for debugging 
+clg(window) error on server .. "use client" error on server .. use check typeof
+"use strict" // for strict rules
+wanna make anything client side Make a seprate comp instead of making whold page client side
+
+Hydration processing
+adding interactivity to our pre rendered pages (event listeners)
+anchor tags/links are also event listeners
+hydration errors - when server sent html doesn't match client
+
+hydration error can be created using typeof (returns a string) for window in client component .. will show even in prod mode (html will be seen being changed)
+slow internet and see the issue - also throws error in console ..
+Date.now() Math.random() .. which will change causes hydration error
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+Sec 4: Data Fetching and State Management
+
+Data Fetching (differs in client vs server components)
+Client component
+like fetching in useEffect will be client side obviously 
+Server component
+fetch api on fucntion level (it's not js one it's exteneded version with extra things)
+cache, revalidate 
+
+Loading state using 
+loading.jsx or wrap inside Suspense (used for blocking comps) // when to use what 
+Use slow apis with multiple suspense .. (suspense work on comps) .. for parallel fetching 
+loading .. works on whole page - (don't wanna breakdown) .. here fetching becomes sequential if we don't handle it.. 'cause we are using await for each fetch .. 
+to solve this we use Promise.all([all fetches]).. with a single await 
+you need to await twice with data here one for fetching and other for json 
+ or you can make a function .. remember are for parallel 
+
+
+Rendering Server components inside client components as SSR
+strict mode (twice clg 'cause runs on server and client both)
+pass your child as props and it will render as server 
+
+Server Actions (asynchronous functions that run securely on the server, allowing you to handle data mutations, form submissions, and database interactions directly from your React components without the need to create separate API routes)
+
+The Wrangler CLI is the command-line interface for the Cloudflare Developer Platform, primarily used to create, develop, test, and deploy Cloudflare Workers and Cloudflare Pages projects.  (for /api/ routes)  npx wrangler pages dev . .. make fucntions/api outside app
+Context API - Redux (state management across all comp/pages) can't be used on client components only 
+context/____Context.jsx // at root level - outside app
+wrap layout in provider and use context in any component 
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+Sec 5: Error Handling
+
+1 - STDOUT | 2 - STDERR
+npm start > server.log // Same as: npm start 1> server.log | only standard output
+npm start > server.log 2>&1 // send STDERR/2 to where STDOUT/1 is going 
+npm start 1> server.log 2> error.log // separate
+Discard
+npm start > /dev/null | npm start 2> /dev/null | npm start > /dev/null 2>&1
+Run in background like a daemon  but closes when terminal dies 
+npm start > server.log 2>&1 & 
+
+error.js to handle erros - needs to be client comp
+export default function Error({ error }) // can't be arrow function
+// error.message  | error.digest | error
+nested error handling by making a error.js gloablly or on parent 
+
+Recovering from erros (un predictable case)
+1. ask user to reload .. // not recommended
+2. give a btn with window.location.reload()  // not recommended
+3. useRouter from next/navigation with reset() inside startTransition(() => {reset(); router.refresh()}) // recommended
+
+Error handling in nested routing
+making an error.js in parent will handle erros of parent as well as childrens'
+but error.js in parent will override the layout.js of children as it will have higher order .. otherwise inside childrens layout.js will have higher order than of the same children level error.js
+But what if there is an error inside layout.js.. in this case we will have to move error.js boundry at upper level .. in above atleast one parent level
+How to handle error of root level layout..  we use a global error handler for that
+
+
+Handling Client Side Exceptions
+till now we have seen SSR errors .. as the errors were being thrown on server code (inside SSR code) .. happens when there is issue in rederning not console errors - needs to hard reload for other pages 
+So wheh CS (not rendering error) throws/causes error .. out whole page doesn't go blank .. it just shows error in console (dev and prod mode both) or as a notification (in dev mode)
+there won't be any error on server - not a critical error
+But let's throw a client side RENDERING error  .. here we don't have Digest property
+<button onClick={() => setFruits(null)}>Set to null</button> 
+erros.js handles both sides errors (client and server)
+we use {error, reset} inside props of error.js component
+To hanlde CS errors we can only reset (as props) .. no need to useRouter or startTransition
+
+
+Global error handling (at root level) - global-error.js at root level
+error.js won't work for root layout .. for that next js provides global-error.js .. this has higher level than layout so we need to provide html/body to it alonge with error handler
+global handler just shows the error in dev mode... to see error page we habe to build and start .. try to keep minimal code here as much as you can
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+Sec 6: Styling
+
+Global styles and CSS Modules
+suppose we import a file in index as ./home.css and it has styles ..  once loaded will be applied to all pages matching tags (body, p, h1, etc..) .. unless we hard reload 
+
+React CSS Modules
+normally .. importing a css file to any page applies to all components .. or all tags whereever they are present in the page .. what if we wanna apply only to component where it is being imported
+we have to make files as ___.module.css and not import as simpel `import file.css` but `import anyName from file.module.css` and anyName is object with a unique class name of style .. to use we do className = {anyName.proprty}
+to access dash separated properties like btn-cls we use className=anyName['btn-cls'] for multiple classes we use list and join .. className={[anyName.cls1, anyName.cls2].join(' ')}
+styles applied to tags are applied actually no need to access them via imported object 
+you can destructure the style direclty while importing like `import {title} from file.modulde.css` // not recommended
+
+SCSS (sassy cascading style sheets) uses brackets to styles ... SASS (Syntactically Awesome styles sheets) uses spaces for identation
+to `import './style.scss'` we need `npm i --save-dev sass` (to run in dev as in prod sass/scss auto converts to css) 
+can also sass/scss as module 
+
+
+Setting up Tailwind
+no tailwind.config.js in version 4 .. we have to setup in css  .. to add anything custom we used this file ..  and inside extend.. writing outsie extend would overwrite exisiting tailwind properties
+
+Setting up tailwind in an existing project
+https://tailwindcss.com/docs/installation/framework-guides/nextjs
+
+
+Image optimization using next/image
+https://nextjs.org/docs/app/getting-started/images
+quality={} // attribute to manage quality.. decrease initrisic size of image 
+adds `srcset` for responsive screens ..  based on next deviceSizes defined .. picks closest and sets in srcset
+try to set highet based on width .. to persist the aspect ratio (set width in img not Image and get required highet)
+unoptimized - to disallow compression
+
+on default nextjs doesn't allow external images with https or any other protocol .. we have to allow in `next.config.mjs` file
+images: {
+  remotePatterns: [
+    {
+      hostname: 'images.unsplash.com' // website hostname - allows regex 
+      protocol: 'https' // or any other
+      pathname: '/path1/path1x' 
+    }, 
+    // more websites
+  ]
+}
+
+another attribute is `loader` that gets props loader={(props) => {console.log(props)}} .. needs to be client side
+loader={({src, quality, width}) => {
+  return "src" // for src where we control everyhting from external srcs like s3 bucket, cdn, cloudnary
+}}
+
+behind the scenes Image/nextjs uses sharp library to optimize images
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+Sec 7: Backend
+api routes -> renamed to -> route handlers 
+
