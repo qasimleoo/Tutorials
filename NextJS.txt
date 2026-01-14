@@ -1,21 +1,23 @@
-----------------------------------------------------------------------------------------------------------------------------------------
+---
+
 Sec 1: Intro
 
 Babel
 RSC
 
-Client vs Server 
-Production mode .. build 
+Client vs Server
+Production mode .. build
 Strictmode - Twice log
-Ctrl shift p 
+Ctrl shift p
 Bundler - webpack
 Interactivity... useClient
 Hydration error
 SEO
-React v next 
-React static .. next dynamic 
+React v next
+React static .. next dynamic
 
-----------------------------------------------------------------------------------------------------------------------------------------
+---
+
 Sec 2: Rotuing
 
 routing .. nested routing (how)
@@ -31,7 +33,7 @@ destruct directly or using props
 searchParams ? (query params)
 await ? async ? props allow it?
 slug
-params inside a [slug] comp .. 
+params inside a [slug] comp ..
 getting slug name (destruct params it self or access using dot)
 
 nested dynamic routes
@@ -40,12 +42,12 @@ example
 1+ level routes
 we get access to parent and child params both
 
-catch all routes - does it affect other routes that are already there 
+catch all routes - does it affect other routes that are already there
 what's in the params?
 how much nesting?
 required vs optional catch all
 optional chaining operator
-optional catch all at root level - how to allow it at root 
+optional catch all at root level - how to allow it at root
 
 Layout
 requires html/body
@@ -62,7 +64,8 @@ template and default values in title metadata %s (get from page.js metadata and 
 how to make dynamic metadata? for dynamic pages ..
 generateMetadata .. takes {params}
 absolute in title (to override the whole title even of layout that was set using %s
-- you can add all other seo/meta tags here like desc
+
+-   you can add all other seo/meta tags here like desc
 
 custom 404
 next built in notFound() from next/navigation
@@ -71,20 +74,20 @@ more than one - allowed in sub pages
 
 getting path name in not-found - can't use params .. have to make it client side with usePathname()
 
-Route groups () 
+Route groups ()
 jsx fragment <>
 cache?
 own layouts.. metadata etc.. in groups
 
-Private folders _
+Private folders \_
 page.js is required to make a page as route
-https://www.ascii-code.com/ 
+https://www.ascii-code.com/
 to enforce a page with udnerscore we can use URI encoded value (% hex)
-URI - special chars to hex ascii 
-
+URI - special chars to hex ascii
 
 {{}}
 const myStyles = { color: 'red', fontSize: '16px' };
+
 <div style={myStyles}>
   Hello World!
 </div>
@@ -98,10 +101,10 @@ https://www.youtube.com/watch?v=05jrkY2UuxQ
 
 Intercepting routes
 https://www.youtube.com/watch?v=00v5W01qHAM
-(.) same level      (..) one level above   (..)(..) two level above    (...) from root app dir
+(.) same level (..) one level above (..)(..) two level above (...) from root app dir
 
+---
 
-----------------------------------------------------------------------------------------------------------------------------------------
 Sec 3: Rendering Paradigms
 Express - SSR
 React - CSR
@@ -110,56 +113,54 @@ Next - 4 (all)
 server side in early 90s 20s
 client was introduced after .. 1st framework was angular than react, vue
 website/web-app
-CSR | SSR - SSG and ISR 
+CSR | SSR - SSG and ISR
 vite??
-dev mode .. all files - no bundling 
+dev mode .. all files - no bundling
 prod mode.. only a few files that are needed (in both csr and ssr)
-_rsc comes for only pages that are behind the scenes .. for current page server sends html itself.. you can modify rsc files in .next/server and see the behaviour by directly accessing a file or indirectly thru links
+\_rsc comes for only pages that are behind the scenes .. for current page server sends html itself.. you can modify rsc files in .next/server and see the behaviour by directly accessing a file or indirectly thru links
 
-next ... loads rsc data of those links that are visible in the screen 
+next ... loads rsc data of those links that are visible in the screen
 rsc is loaded using fetch (with x-component as content-type)
 
-reconciliation 
-virtual dom 
+reconciliation
+virtual dom
 diffing (get the difference bw two things) algo
 console.dir (to get as object)
-const h1_virtual = <h1>Hello</h1> # simple properties 
-const h1_real = document.createElement('h1'); # detailed properties 
+const h1_virtual = <h1>Hello</h1> # simple properties
+const h1_real = document.createElement('h1'); # detailed properties
 h1_real.innerText = 'Hello'
 
 'cause of diffing .. react always creates virtual dom
 to see virtual dom .. you can console component name (as in SSR)
-computing/doing diffing of virtual doms is called reconciliation 
-
+computing/doing diffing of virtual doms is called reconciliation
 
 static/dynamic rendering
-server side/ client side  (on these rendering - both)
+server side/ client side (on these rendering - both)
 ~ npm run build (o, f) console runs (static vs dynamic)
 build time vs run time
 
-SSG - making pages at build time 
+SSG - making pages at build time
 export function generateStaticParams() {
-  return  [{id: 1}, {id: 2}] //  using jsonplaceholder as example for  many pages 
+return [{id: 1}, {id: 2}] // using jsonplaceholder as example for many pages
 }
 build will take this function and make pages outta of it (filled circles on build pages)
 
 for first request. dynamic pages are generated and placed inside ssr for ssg pages
 to stop this from happening we can do `export const dynamicParams = false;`
 in dev all pages are dynamic .. no static page
-it will start giving 404 for new dynamic pages 
+it will start giving 404 for new dynamic pages
 
 ISR extended version of SSG
 routes/pages where we do SSG can be ISR
 once a page is made using SSG can't be refereshed with new data unless we rebuild it .. But we can regenerate using ISR after some time using a varible like
-dynamicParamas .. revalidate (regenrate) default is false 
+dynamicParamas .. revalidate (regenrate) default is false
 `export const revalidate = false` // never regenerate - at whole page level
 `export const revalidate = 5` // regenerate after 5s when a user comes
-remains same for the time but when user comes it revalidates after given time and regenerates page and shows update content on next reload .. not on same 
+remains same for the time but when user comes it revalidates after given time and regenerates page and shows update content on next reload .. not on same
 
 can pass in fetch .. fetch('endpoint', {next: {revalidate: 5}}) // works at fetch level
 
-
-Rendering static pages - dynamically 
+Rendering static pages - dynamically
 by default static pages without [] names are statically rendered and with [] are dynamically rendered .. we can force static to be generated dynamically too
 like consoling anything in static runs once on build .. never again.. to make dynamic
 `export const dynamic = "force-dynamic"` // auto (based on other methods) | force-static (even using other methods) | error (if other methods are used - throw)
@@ -169,20 +170,18 @@ just passing keeps it client side .. you have to await and consume it to make dy
 using cookies/headers from next/headers
 fetch with revalidate: 0 .. fetch without caching no-store
 
-
 Streaming (high speed flow of data whenever it is ready rather than storing and sending in one go)
-Suspense (wrap the code that will take time) ..  data will be fetched in streams
-always wrap promise/fetch api inside a suspense 
+Suspense (wrap the code that will take time) .. data will be fetched in streams
+always wrap promise/fetch api inside a suspense
 try a loader comp with children .. like layout you can pass children
 <Loader children=''Str"/> // OR
 <Loader>Str</Loading>
 
-
 Client Components vs Server Components (By default they all are server ...rsc)
 server ones executes only on server but client ones render on both - first on server then code is sent to browser (anything that can be done on browser only - window)
 server clg doesn't show on browser unlike dev mode
-"use client" // called directive - whole page becomes client side  - Top of file
-SourceMaps (shows jsx otherwise compiled code)- for debugging 
+"use client" // called directive - whole page becomes client side - Top of file
+SourceMaps (shows jsx otherwise compiled code)- for debugging
 clg(window) error on server .. "use client" error on server .. use check typeof
 "use strict" // for strict rules
 wanna make anything client side Make a seprate comp instead of making whold page client side
@@ -196,136 +195,131 @@ hydration error can be created using typeof (returns a string) for window in cli
 slow internet and see the issue - also throws error in console ..
 Date.now() Math.random() .. which will change causes hydration error
 
+---
 
-----------------------------------------------------------------------------------------------------------------------------------------
 Sec 4: Data Fetching and State Management
 
 Data Fetching (differs in client vs server components)
 Client component
-like fetching in useEffect will be client side obviously 
+like fetching in useEffect will be client side obviously
 Server component
 fetch api on fucntion level (it's not js one it's exteneded version with extra things)
-cache, revalidate 
+cache, revalidate
 
-Loading state using 
-loading.jsx or wrap inside Suspense (used for blocking comps) // when to use what 
-Use slow apis with multiple suspense .. (suspense work on comps) .. for parallel fetching 
-loading .. works on whole page - (don't wanna breakdown) .. here fetching becomes sequential if we don't handle it.. 'cause we are using await for each fetch .. 
-to solve this we use Promise.all([all fetches]).. with a single await 
-you need to await twice with data here one for fetching and other for json 
- or you can make a function .. remember are for parallel 
-
+Loading state using
+loading.jsx or wrap inside Suspense (used for blocking comps) // when to use what
+Use slow apis with multiple suspense .. (suspense work on comps) .. for parallel fetching
+loading .. works on whole page - (don't wanna breakdown) .. here fetching becomes sequential if we don't handle it.. 'cause we are using await for each fetch ..
+to solve this we use Promise.all([all fetches]).. with a single await
+you need to await twice with data here one for fetching and other for json
+or you can make a function .. remember are for parallel
 
 Rendering Server components inside client components as SSR
 strict mode (twice clg 'cause runs on server and client both)
-pass your child as props and it will render as server 
+pass your child as props and it will render as server
 
 Server Actions (asynchronous functions that run securely on the server, allowing you to handle data mutations, form submissions, and database interactions directly from your React components without the need to create separate API routes)
 
-The Wrangler CLI is the command-line interface for the Cloudflare Developer Platform, primarily used to create, develop, test, and deploy Cloudflare Workers and Cloudflare Pages projects.  (for /api/ routes)  npx wrangler pages dev . .. make fucntions/api outside app
-Context API - Redux (state management across all comp/pages) can't be used on client components only 
-context/____Context.jsx // at root level - outside app
-wrap layout in provider and use context in any component 
+The Wrangler CLI is the command-line interface for the Cloudflare Developer Platform, primarily used to create, develop, test, and deploy Cloudflare Workers and Cloudflare Pages projects. (for /api/ routes) npx wrangler pages dev . .. make fucntions/api outside app
+Context API - Redux (state management across all comp/pages) can't be used on client components only
+context/\_\_\_\_Context.jsx // at root level - outside app
+wrap layout in provider and use context in any component
 
+---
 
-----------------------------------------------------------------------------------------------------------------------------------------
 Sec 5: Error Handling
 
 1 - STDOUT | 2 - STDERR
 npm start > server.log // Same as: npm start 1> server.log | only standard output
-npm start > server.log 2>&1 // send STDERR/2 to where STDOUT/1 is going 
+npm start > server.log 2>&1 // send STDERR/2 to where STDOUT/1 is going
 npm start 1> server.log 2> error.log // separate
 Discard
 npm start > /dev/null | npm start 2> /dev/null | npm start > /dev/null 2>&1
-Run in background like a daemon  but closes when terminal dies 
-npm start > server.log 2>&1 & 
+Run in background like a daemon but closes when terminal dies
+npm start > server.log 2>&1 &
 
 error.js to handle erros - needs to be client comp
 export default function Error({ error }) // can't be arrow function
-// error.message  | error.digest | error
-nested error handling by making a error.js gloablly or on parent 
+// error.message | error.digest | error
+nested error handling by making a error.js gloablly or on parent
 
 Recovering from erros (un predictable case)
+
 1. ask user to reload .. // not recommended
-2. give a btn with window.location.reload()  // not recommended
+2. give a btn with window.location.reload() // not recommended
 3. useRouter from next/navigation with reset() inside startTransition(() => {reset(); router.refresh()}) // recommended
 
 Error handling in nested routing
 making an error.js in parent will handle erros of parent as well as childrens'
 but error.js in parent will override the layout.js of children as it will have higher order .. otherwise inside childrens layout.js will have higher order than of the same children level error.js
 But what if there is an error inside layout.js.. in this case we will have to move error.js boundry at upper level .. in above atleast one parent level
-How to handle error of root level layout..  we use a global error handler for that
-
+How to handle error of root level layout.. we use a global error handler for that
 
 Handling Client Side Exceptions
-till now we have seen SSR errors .. as the errors were being thrown on server code (inside SSR code) .. happens when there is issue in rederning not console errors - needs to hard reload for other pages 
+till now we have seen SSR errors .. as the errors were being thrown on server code (inside SSR code) .. happens when there is issue in rederning not console errors - needs to hard reload for other pages
 So wheh CS (not rendering error) throws/causes error .. out whole page doesn't go blank .. it just shows error in console (dev and prod mode both) or as a notification (in dev mode)
 there won't be any error on server - not a critical error
-But let's throw a client side RENDERING error  .. here we don't have Digest property
-<button onClick={() => setFruits(null)}>Set to null</button> 
+But let's throw a client side RENDERING error .. here we don't have Digest property
+<button onClick={() => setFruits(null)}>Set to null</button>
 erros.js handles both sides errors (client and server)
 we use {error, reset} inside props of error.js component
 To hanlde CS errors we can only reset (as props) .. no need to useRouter or startTransition
-
 
 Global error handling (at root level) - global-error.js at root level
 error.js won't work for root layout .. for that next js provides global-error.js .. this has higher level than layout so we need to provide html/body to it alonge with error handler
 global handler just shows the error in dev mode... to see error page we habe to build and start .. try to keep minimal code here as much as you can
 
+---
 
-----------------------------------------------------------------------------------------------------------------------------------------
 Sec 6: Styling
 
 Global styles and CSS Modules
-suppose we import a file in index as ./home.css and it has styles ..  once loaded will be applied to all pages matching tags (body, p, h1, etc..) .. unless we hard reload 
+suppose we import a file in index as ./home.css and it has styles .. once loaded will be applied to all pages matching tags (body, p, h1, etc..) .. unless we hard reload
 
 React CSS Modules
 normally .. importing a css file to any page applies to all components .. or all tags whereever they are present in the page .. what if we wanna apply only to component where it is being imported
-we have to make files as ___.module.css and not import as simpel `import file.css` but `import anyName from file.module.css` and anyName is object with a unique class name of style .. to use we do className = {anyName.proprty}
+we have to make files as \_\_\_.module.css and not import as simpel `import file.css` but `import anyName from file.module.css` and anyName is object with a unique class name of style .. to use we do className = {anyName.proprty}
 to access dash separated properties like btn-cls we use className=anyName['btn-cls'] for multiple classes we use list and join .. className={[anyName.cls1, anyName.cls2].join(' ')}
-styles applied to tags are applied actually no need to access them via imported object 
+styles applied to tags are applied actually no need to access them via imported object
 you can destructure the style direclty while importing like `import {title} from file.modulde.css` // not recommended
 
 SCSS (sassy cascading style sheets) uses brackets to styles ... SASS (Syntactically Awesome styles sheets) uses spaces for identation
-to `import './style.scss'` we need `npm i --save-dev sass` (to run in dev as in prod sass/scss auto converts to css) 
-can also sass/scss as module 
-
+to `import './style.scss'` we need `npm i --save-dev sass` (to run in dev as in prod sass/scss auto converts to css)
+can also sass/scss as module
 
 Setting up Tailwind
-no tailwind.config.js in version 4 .. we have to setup in css  .. to add anything custom we used this file ..  and inside extend.. writing outsie extend would overwrite exisiting tailwind properties
+no tailwind.config.js in version 4 .. we have to setup in css .. to add anything custom we used this file .. and inside extend.. writing outsie extend would overwrite exisiting tailwind properties
 
 Setting up tailwind in an existing project
 https://tailwindcss.com/docs/installation/framework-guides/nextjs
 
-
 Image optimization using next/image
 https://nextjs.org/docs/app/getting-started/images
-quality={} // attribute to manage quality.. decrease initrisic size of image 
-adds `srcset` for responsive screens ..  based on next deviceSizes defined .. picks closest and sets in srcset
+quality={} // attribute to manage quality.. decrease initrisic size of image
+adds `srcset` for responsive screens .. based on next deviceSizes defined .. picks closest and sets in srcset
 try to set highet based on width .. to persist the aspect ratio (set width in img not Image and get required highet)
 unoptimized - to disallow compression
 
 on default nextjs doesn't allow external images with https or any other protocol .. we have to allow in `next.config.mjs` file
 images: {
-  remotePatterns: [
-    {
-      hostname: 'images.unsplash.com' // website hostname - allows regex 
-      protocol: 'https' // or any other
-      pathname: '/path1/path1x' 
-    }, 
-    // more websites
-  ]
+remotePatterns: [
+{
+hostname: 'images.unsplash.com' // website hostname - allows regex
+protocol: 'https' // or any other
+pathname: '/path1/path1x'
+},
+// more websites
+]
 }
 
 another attribute is `loader` that gets props loader={(props) => {console.log(props)}} .. needs to be client side
 loader={({src, quality, width}) => {
-  return "src" // for src where we control everyhting from external srcs like s3 bucket, cdn, cloudnary
+return "src" // for src where we control everyhting from external srcs like s3 bucket, cdn, cloudnary
 }}
 
 behind the scenes Image/nextjs uses sharp library to optimize images
 
+---
 
-----------------------------------------------------------------------------------------------------------------------------------------
 Sec 7: Backend
-api routes -> renamed to -> route handlers 
-
+api routes -> renamed to -> route handlers
