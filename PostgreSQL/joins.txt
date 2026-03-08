@@ -1,0 +1,49 @@
+
+
+SQL JOINs
+
+A JOIN clause is used to combine data from two or more tables based on related columns between them.
+
+How much amount was paid by customer "Ali", what was mode of payment and payment data.
+
+
+Types: Inner, Left Right, Full (in order of usage but may vary from dev to dev)
+
+Inner: Common between two (intersection)
+
+
+SELECT column_name(s)  
+FROM tableA
+INNER JOIN tableB
+ON tableA.col_name=tableB.col_name; (value should be same in both tables' columns)
+
+SELECT u.id, a.user_id, a.api_key_value 
+FROM users as u
+INNER JOIN api_key as a
+ON u.id = a.user_id;
+
+
+LEFT Join:
+everything of left and common between both
+
+
+SELECT column_name(s)
+FROM tableA as a
+LEFT JOIN tableB as b
+ON a.column_name = b.column_name
+
+
+Right Join:
+everything of right and common between both
+
+
+Full JOIN:
+returns all records
+
+SELECT * 
+FROM tableA
+FULL OUTER JOIN tableB
+ON tableA.col_name = tableB.col_name
+
+
+wfdb=# select u.username, u.id, a.api_key_value from users u join api_key a on a.user_id = u.id where u.username like 'qasim%';

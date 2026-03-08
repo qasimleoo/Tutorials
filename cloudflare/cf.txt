@@ -1,0 +1,1200 @@
+
+# Creating a cloudflare application - in a new repo run
+~ npm create cloudflare
+
+# Ok to proceed? (y)  
+~ y
+
+# Choose directory - App name - choose your own or let it be default
+
+# Type of applciation - for now 
+~ Hello world script
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+leo@qasim:~/RESOURCES/cloudflare$ npm create cloudflare
+Need to install the following packages:
+create-cloudflare@2.62.2
+Ok to proceed? (y)  y
+
+
+> npx
+> create-cloudflare
+
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────────
+👋 Welcome to create-cloudflare v2.62.2!
+🧡 Let's get started.
+📊 Cloudflare collects telemetry about your usage of Create-Cloudflare.
+
+Learn more at: https://github.com/cloudflare/workers-sdk/blob/main/packages/create-cloudflare/telemetry.md
+──────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+╭ Create an application with Cloudflare Step 1 of 3
+│
+├ In which directory do you want to create your application?
+│ dir ./workers-getting-started
+│
+├ What would you like to start with?
+│ category Hello World example
+│
+├ Which template would you like to use?
+│ type SSR / full-stack app
+│
+├ Which language do you want to use?
+│ lang TypeScript
+│
+├ Copying template files
+│ files copied to project directory
+│
+├ Updating name in `package.json`
+│ updated `package.json`
+│
+├ Installing dependencies
+│ installed via `npm install`
+│
+╰ Application created 
+
+╭ Configuring your application for Cloudflare Step 2 of 3
+│
+├ Installing wrangler A command line tool for building Cloudflare Workers
+│ installed via `npm install wrangler --save-dev`
+│
+├ Retrieving current workerd compatibility date
+│ compatibility date  Could not find workerd date, falling back to 2025-09-27
+│
+├ Generating types for your application
+│ generated to `./worker-configuration.d.ts` via `npm run cf-typegen`
+│
+├ You're in an existing git repository. Do you want to use git for version control?
+│ no git
+│
+╰ Application configured 
+
+╭ Deploy with Cloudflare Step 3 of 3
+│
+├ Do you want to deploy your application?
+│ no deploy via `npm run deploy`
+│
+╰ Done 
+
+────────────────────────────────────────────────────────────
+🎉  SUCCESS  Application created successfully!
+
+💻 Continue Developing
+Change directories: cd workers-getting-started
+Deploy: npm run deploy
+
+📖 Explore Documentation
+https://developers.cloudflare.com/workers
+
+🐛 Report an Issue
+https://github.com/cloudflare/workers-sdk/issues/new/choose
+
+💬 Join our Community
+https://discord.cloudflare.com
+────────────────────────────────────────────────────────────
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+leo@qasim:~/RESOURCES/cloudflare$  cd workers-getting-started/
+
+leo@qasim:~/RESOURCES/cloudflare/workers-getting-started$ ls
+node_modules  package.json  package-lock.json  public  src  test  tsconfig.json  vitest.config.mts  worker-configuration.d.ts  wrangler.jsonc
+
+leo@qasim:~/RESOURCES/cloudflare/workers-getting-started$ ls -all
+total 588
+drwxrwxr-x  7 leo leo   4096 Jan 17 20:28 .
+drwxrwxr-x  3 leo leo   4096 Jan 17 20:27 ..
+-rw-rw-r--  1 leo leo    185 Jan 17 20:27 .editorconfig
+-rw-rw-r--  1 leo leo   2056 Jan 17 20:27 .gitignore
+drwxrwxr-x 94 leo leo   4096 Jan 17 20:28 node_modules
+-rw-rw-r--  1 leo leo    377 Jan 17 20:28 package.json
+-rw-rw-r--  1 leo leo 130268 Jan 17 20:28 package-lock.json
+-rw-rw-r--  1 leo leo     78 Jan 17 20:27 .prettierrc
+drwxrwxr-x  2 leo leo   4096 Jan 17 20:27 public
+drwxrwxr-x  2 leo leo   4096 Jan 17 20:27 src
+drwxrwxr-x  2 leo leo   4096 Jan 17 20:27 test
+-rw-rw-r--  1 leo leo   1591 Jan 17 20:28 tsconfig.json
+-rw-rw-r--  1 leo leo    225 Jan 17 20:27 vitest.config.mts
+drwxrwxr-x  2 leo leo   4096 Jan 17 20:28 .vscode
+-rw-rw-r--  1 leo leo 411043 Jan 17 20:28 worker-configuration.d.ts
+-rw-rw-r--  1 leo leo   1494 Jan 17 20:28 wrangler.jsonc
+
+leo@qasim:~/RESOURCES/cloudflare/workers-getting-started$ npm run dev
+
+> workers-getting-started@0.0.0 dev
+> wrangler dev
+
+
+Cloudflare collects anonymous telemetry about your usage of Wrangler. Learn more at https://github.com/cloudflare/workers-sdk/tree/main/packages/wrangler/telemetry.md
+
+ ⛅️ wrangler 4.59.2
+───────────────────
+╭──────────────────────────────────────────────────────────────────────╮
+│  [b] open a browser [d] open devtools [c] clear console [x] to exit  │
+╰──────────────────────────────────────────────────────────────────────╯
+⎔ Starting local server...
+[wrangler:info] Ready on http://localhost:8787
+
+
+
+What is wrangler??
+dependencies intalled in packge.json
+a command line  tool to manage all of the cloudflare stuff.. like to deploy .. to test... to run and other kinda things related to cloudflare .. pages/workers.. kv.. 
+
+~ npx wrangler 
+to access all the things related to cf
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+leo@qasim:~/RESOURCES/cloudflare/workers-getting-started$ npx wrangler
+wrangler
+
+COMMANDS
+  wrangler docs [search..]        📚 Open Wrangler's command documentation in your browser
+
+ACCOUNT
+  wrangler auth                   🔐 Manage authentication
+  wrangler login                  🔓 Login to Cloudflare
+  wrangler logout                 🚪 Logout from Cloudflare
+  wrangler whoami                 🕵️ Retrieve your user information
+
+COMPUTE & AI
+  wrangler ai                     🤖 Manage AI models
+  wrangler containers             📦 Manage Containers [open beta]
+  wrangler delete [script]        🗑️ Delete a Worker from Cloudflare
+  wrangler deploy [script]        🆙 Deploy a Worker to Cloudflare
+  wrangler deployments            🚢 List and view the current and past deployments for your Worker
+  wrangler dev [script]           👂 Start a local server for developing your Worker
+  wrangler dispatch-namespace     🏗️ Manage dispatch namespaces
+  wrangler init [name]            📥 Initialize a basic Worker
+  wrangler pages                  ⚡️ Configure Cloudflare Pages
+  wrangler pubsub                 📮 Manage Pub/Sub brokers [private beta]
+  wrangler queues                 📬 Manage Workers Queues
+  wrangler rollback [version-id]  🔙 Rollback a deployment for a Worker
+  wrangler secret                 🤫 Generate a secret that can be referenced in a Worker
+  wrangler setup                  🪄 Setup a project to work on Cloudflare [experimental]
+  wrangler tail [worker]          🦚 Start a log tailing session for a Worker
+  wrangler triggers               🎯 Updates the triggers of your current deployment [experimental]
+  wrangler types [path]           📝 Generate types from your Worker configuration
+  wrangler versions               🫧 List, view, upload and deploy Versions of your Worker to Cloudflare
+  wrangler vpc                    🌐 Manage VPC [open beta]
+  wrangler workflows              🔁 Manage Workflows
+
+STORAGE & DATABASES
+  wrangler d1                     🗄️ Manage Workers D1 databases
+  wrangler hyperdrive             🚀 Manage Hyperdrive databases
+  wrangler kv                     🗂️ Manage Workers KV Namespaces
+  wrangler pipelines              🚰 Manage Cloudflare Pipelines [open beta]
+  wrangler r2                     📦 Manage R2 buckets & objects
+  wrangler secrets-store          🔐 Manage the Secrets Store [open beta]
+  wrangler vectorize              🧮 Manage Vectorize indexes
+
+NETWORKING & SECURITY
+  wrangler cert                   🪪 Manage client mTLS certificates and CA certificate chains used for secured connections [open beta]
+  wrangler mtls-certificate       🪪 Manage certificates used for mTLS connections
+
+GLOBAL FLAGS
+  -c, --config    Path to Wrangler configuration file  [string]
+      --cwd       Run as if Wrangler was started in the specified directory instead of the current working directory  [string]
+  -e, --env       Environment to use for operations, and for selecting .env and .dev.vars files  [string]
+      --env-file  Path to an .env file to load - can be specified multiple times - values from earlier files are overridden by values in later files  [array]
+  -h, --help      Show help  [boolean]
+  -v, --version   Show version number  [boolean]
+
+Please report any issues to https://github.com/cloudflare/workers-sdk/issues/new/choose
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+So let's login now using command
+~ npx wrangler login # will open a session in browser and ask for login access
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+leo@qasim:~/RESOURCES/cloudflare/workers-getting-started$ npx wrangler login
+
+ ⛅️ wrangler 4.59.2
+───────────────────
+Attempting to login via OAuth...
+Opening a link in your default browser: https://dash.cloudflare.com/oauth2/auth?response_type=code&client_id=54d11594-84e4-41aa-b438-e81b8fa78ee7&redirect_uri=http%3A%2F%2Flocalhost%3A8976%2Foauth%2Fcallback&scope=account%3Aread%20user%3Aread%20workers%3Awrite%20workers_kv%3Awrite%20workers_routes%3Awrite%20workers_scripts%3Awrite%20workers_tail%3Aread%20d1%3Awrite%20pages%3Awrite%20zone%3Aread%20ssl_certs%3Awrite%20ai%3Awrite%20queues%3Awrite%20pipelines%3Awrite%20secrets_store%3Awrite%20containers%3Awrite%20cloudchamber%3Awrite%20connectivity%3Aadmin%20offline_access&state=W4d5~opC~76CsnR5ifH6xSZaUHSL9urp&code_challenge=mVgDrGUFR99NgM2oRqbUXM850Ug5-RnQwvsUbW2xl28&code_challenge_method=S256
+Successfully logged in.
+
+
+leo@qasim:~/RESOURCES/cloudflare/workers-getting-started$ npx wrangler whoami
+
+ ⛅️ wrangler 4.59.2
+───────────────────
+Getting User settings...
+👋 You are logged in with an OAuth Token, associated with the email qasimmirza8968807@gmail.com.
+┌──────────────┬──────────────────────────────────┐
+│ Account Name │ Account ID                       │
+├──────────────┼──────────────────────────────────┤
+│ Qasim        │ 9464a016c1a689654871661f52b2734a │
+└──────────────┴──────────────────────────────────┘
+🔓 Token Permissions:
+Scope (Access)
+- account (read)
+- user (read)
+- workers (write)
+- workers_kv (write)
+- workers_routes (write)
+- workers_scripts (write)
+- workers_tail (read)
+- d1 (write)
+- pages (write)
+- zone (read)
+- ssl_certs (write)
+- ai (write)
+- queues (write)
+- pipelines (write)
+- secrets_store (write)
+- containers (write)
+- cloudchamber (write)
+- connectivity (admin)
+- offline_access 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Let's deploy now using command
+~ npx wrangler deploy
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+leo@qasim:~/RESOURCES/cloudflare/workers-getting-started$ npx wrangler deploy
+
+ ⛅️ wrangler 4.59.2
+───────────────────
+🌀 Building list of assets...
+✨ Read 1 file from the assets directory /home/leo/RESOURCES/cloudflare/workers-getting-started/public
+🌀 Starting asset upload...
+🌀 Found 1 new or modified static asset to upload. Proceeding with upload...
++ /index.html
+Uploaded 1 of 1 asset
+✨ Success! Uploaded 1 file (2.32 sec)
+
+Total Upload: 0.43 KiB / gzip: 0.26 KiB
+Uploaded workers-getting-started (14.14 sec)
+Deployed workers-getting-started triggers (7.25 sec)
+  https://workers-getting-started.qasimmirza8968807.workers.dev
+Current Version ID: dc847a7d-6e2f-44d2-8e66-456f8a4e4d63
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+you can see the deployed project on your dashboard too
+
+
+to run and test locally we usally do
+~ npx wrangler dev
+
+# or
+~ npm start
+# which builds as wrangler cli
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------leo@qasim:~/RESOURCES/cloudflare/workers-getting-started$ npm start
+
+> workers-getting-started@0.0.0 start
+> wrangler dev
+
+
+ ⛅️ wrangler 4.59.2
+───────────────────
+╭──────────────────────────────────────────────────────────────────────╮
+│  [b] open a browser [d] open devtools [c] clear console [x] to exit  │
+╰──────────────────────────────────────────────────────────────────────╯
+⎔ Starting local server...
+[wrangler:info] Ready on http://localhost:8787
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+which is bts same as:
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+leo@qasim:~/RESOURCES/cloudflare/workers-getting-started$ npx wrangler dev
+
+ ⛅️ wrangler 4.59.2
+───────────────────
+╭──────────────────────────────────────────────────────────────────────╮
+│  [b] open a browser [d] open devtools [c] clear console [x] to exit  │
+╰──────────────────────────────────────────────────────────────────────╯
+⎔ Starting local server...
+[wrangler:info] Ready on http://localhost:8787
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+you can change files while server is running and reload to see the chnages .. even you can add console.log() to see anything related to console or for debugging purpose actually
+for extras you can add a log 
+
+in your /src or /app .. inside async fetch func of .ts or .js .. whichever you are using .. just add consoles ... 
+console.log(JSON.stringify(request.cf));
+
+constains the info .. like location .. you isp provider .. your network details .. request types .. etc.. just the way it shows the details or shows the captchas
+in the object you will see an kv {score:99} .. that tells 99% surely I am not a bot
+
+
+if we are in .ts ... it gives us an Env interface .. to add all kinda bindings like R2Bucket, KV, namespaces, Queues, we can add text as well as secret values inside this file
+
+inside /src/worker.ts # might be index.ts instead 
+
+export interface Env {
+	# Bindings
+}
+
+
+for Cronjobs we have `scheduled` inside our async function (for reference - https://youtu.be/H7Qe96fqg1M?t=1293)
+
+we can return files/json/any typpa content from Response as in index.ts
+
+Hono ecosystem allows you to return things with much better way.. 
+
+
+
+--------------------------------------
+so let's deploy the things that we just changed
+
+~ npm run deploy 
+# OR
+~ npx wrangler deploy
+
+Let's look into wrangler.toml or wrangler.jsonc # jsonc is actually json with comments as by default json doens't allow json so it was made to ease humans
+
+wrangler.jsonc 
+contains the entrypoint .. compatibility_date etc..
+
+name="title" # you can change it as you want the url to be 
+main="src/index.ts" # path to entry file
+compatibility_date="" # date when the project was made
+
+{
+  "compatibility_date": "2024-11-01"
+}
+This means: "Run my Worker using the Workers runtime behavior as of Nov 1, 2024."
+
+or you can add custom compatibility_flags = ["", ""] .. the changes you may need after the compatibility_date [compatibility_flags let you opt into (or out of) specific runtime changes without moving the compatibility_date.]
+
+
+{
+  "compatibility_date": "2024-08-01",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "streams_enable_constructors"
+  ]
+}
+
+
+This means:
+- Use Aug 1, 2024 runtime behavior
+- Also enable specific newer (or optional) features
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CACHE LATEST TOOLS' REQUESTS - START
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+For **“store last 100 requests per page and drop the oldest”**, the **correct Cloudflare solution is a Durable Object**, not KV.
+
+KV is:
+
+* eventually consistent
+* slow for frequent writes
+* bad at ordered lists
+
+Durable Objects are:
+
+* strongly consistent
+* perfect for queues / rolling logs
+* fast for this exact use case
+
+Below is a **clean, minimal design**.
+
+---
+
+## Architecture
+
+* 1 Durable Object
+* 3 keys inside it (one per page)
+* Each key stores an array of requests
+* On every request:
+
+  * push new entry
+  * if length > 100 → shift oldest
+
+---
+
+## Wrangler config
+
+```toml
+durable_objects.bindings = [
+  { name = "REQUEST_CACHE", class_name = "RequestCache" }
+]
+```
+
+---
+
+## Worker
+
+```js
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url)
+    const page =
+      url.pathname === "/a" ? "a" :
+      url.pathname === "/b" ? "b" :
+      url.pathname === "/c" ? "c" :
+      null
+
+    if (!page) return new Response("Not tracked")
+
+    const id = env.REQUEST_CACHE.idFromName("global")
+    const obj = env.REQUEST_CACHE.get(id)
+
+    await obj.fetch("https://cache/store", {
+      method: "POST",
+      body: JSON.stringify({
+        page,
+        ip: request.headers.get("cf-connecting-ip"),
+        ua: request.headers.get("user-agent"),
+        ts: Date.now()
+      })
+    })
+
+    return new Response("OK")
+  }
+}
+```
+
+---
+
+## Durable Object
+
+```js
+export class RequestCache {
+  constructor(state) {
+    this.state = state
+  }
+
+  async fetch(request) {
+    if (request.method !== "POST") return new Response("Method not allowed")
+
+    const { page, ...data } = await request.json()
+    const key = `page:${page}`
+
+    let list = (await this.state.storage.get(key)) || []
+    list.push(data)
+
+    if (list.length > 100) {
+      list = list.slice(-100)
+    }
+
+    await this.state.storage.put(key, list)
+    return new Response("Stored")
+  }
+}
+```
+
+---
+
+## Result
+
+* Each page keeps **exactly the latest 100 requests**
+* Oldest entries are automatically removed
+* Writes are consistent and ordered
+* Extremely fast
+
+---
+
+## Why NOT KV for this
+
+* No atomic updates
+* Race conditions
+* Expensive for frequent writes
+* Hard to keep order
+
+---
+
+Great — let’s **add a read endpoint** so you can **fetch the last 100 requests per page**.
+
+I’ll keep it simple and clean.
+
+---
+
+## What you’ll get
+
+* `POST /track` → store request
+* `GET  /last?page=a|b|c` → return last 100 requests for that page
+
+---
+
+## Worker (router)
+
+```js
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url)
+    const id = env.REQUEST_CACHE.idFromName("global")
+    const obj = env.REQUEST_CACHE.get(id)
+
+    if (url.pathname === "/track") {
+      const page = url.searchParams.get("page")
+      if (!["a", "b", "c"].includes(page)) {
+        return new Response("Invalid page", { status: 400 })
+      }
+
+      await obj.fetch("https://cache/store", {
+        method: "POST",
+        body: JSON.stringify({
+          page,
+          ip: request.headers.get("cf-connecting-ip"),
+          ua: request.headers.get("user-agent"),
+          ts: Date.now()
+        })
+      })
+
+      return new Response("Tracked")
+    }
+
+    if (url.pathname === "/last") {
+      const page = url.searchParams.get("page")
+      if (!["a", "b", "c"].includes(page)) {
+        return new Response("Invalid page", { status: 400 })
+      }
+
+      return obj.fetch(`https://cache/read?page=${page}`)
+    }
+
+    return new Response("Not found", { status: 404 })
+  }
+}
+```
+
+---
+
+## Durable Object
+
+```js
+export class RequestCache {
+  constructor(state) {
+    this.state = state
+  }
+
+  async fetch(request) {
+    const url = new URL(request.url)
+
+    if (request.method === "POST" && url.pathname === "/store") {
+      const { page, ...data } = await request.json()
+      const key = `page:${page}`
+
+      let list = (await this.state.storage.get(key)) || []
+      list.push(data)
+
+      if (list.length > 100) {
+        list = list.slice(-100)
+      }
+
+      await this.state.storage.put(key, list)
+      return new Response("Stored")
+    }
+
+    if (request.method === "GET" && url.pathname === "/read") {
+      const page = url.searchParams.get("page")
+      const key = `page:${page}`
+      const list = (await this.state.storage.get(key)) || []
+
+      return new Response(JSON.stringify(list), {
+        headers: { "content-type": "application/json" }
+      })
+    }
+
+    return new Response("Not found", { status: 404 })
+  }
+}
+```
+
+---
+
+## Example usage
+
+### Track request
+
+```
+/track?page=a
+```
+
+### Get last 100
+
+```
+/last?page=a
+```
+
+Response:
+
+```json
+[
+  { "ip": "1.2.3.4", "ua": "...", "ts": 1700000000000 },
+  ...
+]
+```
+
+---
+
+## Optional upgrades (easy next steps)
+
+* Limit by **time window** (last 10 minutes)
+* Store **request path + method**
+* Per-IP rolling cache
+* Add **auth token** to protect `/last`
+* Persist only **hashed IPs**
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CACHE LATEST TOOLS' REQUESTS - END
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+You can visit hono
+https://hono.dev/docs/
+
+Hono - means flame🔥 in Japanese - is a small, simple, and ultrafast web framework built on Web Standards. It works on any JavaScript runtime: Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Netlify, AWS Lambda, Lambda@Edge, and Node.js.
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/pages vs /app router
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---
+
+## 1️⃣ What “Pages” vs “App” actually mean in Next.js
+
+They are **two different routing systems**, not deployment targets.
+
+### Pages Router (`pages/`)
+
+* Old / legacy Next.js
+* File-based routing
+* API routes live in `pages/api/*`
+* **APIs here expect a Node.js server**
+
+### App Router (`app/`)
+
+* New (Next 13+)
+* Server Components + Edge
+* API routes live in `app/api/*/route.ts`
+* **Designed to run on Edge runtimes**
+
+---
+
+## 2️⃣ Why `pages/api` does NOT work on Cloudflare
+
+Cloudflare:
+
+* ❌ does NOT run Node.js
+* ❌ does NOT support `req` / `res`
+* ❌ no Express-style APIs
+
+But `pages/api/*`:
+
+* uses Node’s `http` server
+* depends on Node internals
+
+➡️ **Cloudflare Pages cannot execute them**
+
+---
+
+## 3️⃣ Why `app/api` DOES work on Cloudflare
+
+`app/api/*/route.ts`:
+
+* uses **Web Fetch API**
+* returns `Response`
+* compatible with Workers runtime
+
+Example:
+
+```ts
+export const runtime = "edge"
+
+export async function POST(request: Request) {
+  return new Response("OK")
+}
+```
+
+This runs perfectly on Cloudflare Pages.
+
+---
+
+## 4️⃣ “Cloudflare Pages” vs “Next.js Pages” (name clash)
+
+This causes confusion.
+
+| Term                   | Meaning               |
+| ---------------------- | --------------------- |
+| **Next.js Pages**      | Old router (`pages/`) |
+| **Cloudflare Pages**   | Hosting platform      |
+| **Next.js App Router** | New router (`app/`)   |
+
+👉 Cloudflare Pages **supports Next.js App Router**, not Next.js Pages APIs.
+
+---
+
+## 5️⃣ Summary in one sentence
+
+> **Cloudflare Pages runs Edge Functions, so only Next.js App Router APIs work — Pages Router APIs require Node and are not allowed.**
+
+---
+
+## 6️⃣ What to do if you already have `pages/api`
+
+You must **rewrite them**.
+
+### Before (Node – not allowed)
+
+```ts
+export default function handler(req, res) {
+  res.json({ ok: true })
+}
+```
+
+### After (Edge – allowed)
+
+```ts
+export const runtime = "edge"
+
+export async function GET() {
+  return Response.json({ ok: true })
+}
+```
+
+---
+
+## 7️⃣ Mental model (easy to remember)
+
+* `pages/api` → **Node backend**
+* `app/api` → **Edge backend**
+* Cloudflare → **Edge only**
+
+---
+
+cf for pages/api/*
+https://blog.cloudflare.com/next-on-pages
+https://developers.cloudflare.com/pages/functions
+https://opennext.js.org/cloudflare
+
+--------------------------------------------------------------------------------------------------------
+| Feature      | Next.js App Router (Edge)  | Next.js Pages Router (Node) | Deployment on CF Pages     |
+| ------------ | -------------------------- | --------------------------- | -------------------------- |
+| API routes   | ✔️ via edge route handlers | ❌ needs Node               | ✔️ via edge                |
+| SSR          | ✔️ with edge               | ❌ with Node                | ✔️ edge only               |
+| Node modules | ❌                         | ✔️                          | ❌ without adapters        |
+| Adapter path | Built-in                   | Only via OpenNext           | Pages Functions or Workers |
+--------------------------------------------------------------------------------------------------------
+
+- Next.js App Router route handlers (app/api/.../route.ts) are built to work with the Edge Runtime
+- pages/api/* routes (Node.js style) require a Node server and don’t run on Cloudflare Pages by default
+- You can deploy Node-style Next.js on Cloudflare Workers using adapters like OpenNext, but that’s a different toolchain and not native Pages deployment.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CF Pages vs Workers
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Here’s a **clear, side-by-side comparison** of **Cloudflare Pages** vs **Cloudflare Workers**, especially in the context of Next.js and backend APIs:
+
+---
+
+## 1️⃣ What they are
+----------------------------------------------------------------------------------------------------------------------------------------
+| Feature         | Cloudflare Pages                                         | Cloudflare Workers                                      |
+| --------------- | -------------------------------------------------------- | ------------------------------------------------------- |
+| Purpose         | Static + frontend hosting (React, Next.js, static sites) | Serverless edge runtime for dynamic logic/APIs          |
+| Runtime         | Edge Functions (V8 isolates)                             | Edge Functions (V8 isolates)                            |
+| Node.js support | ❌ Only Edge (no Node APIs)                              | ❌ Only Edge (no Node APIs)                             |
+| Typical use     | Hosting React/Next.js frontend, static assets            | APIs, middleware, dynamic responses, KV/Durable Objects |
+----------------------------------------------------------------------------------------------------------------------------------------
+
+---
+
+## 2️⃣ File structure
+
+| Feature              | Cloudflare Pages                  | Cloudflare Workers                                     |
+| -------------------- | --------------------------------- | ------------------------------------------------------ |
+| Next.js frontend     | ✅ Pages + App Router              | ❌ Workers don’t run full Next.js (except via OpenNext) |
+| API routes           | ✅ `app/api/*` only (Edge Runtime) | ✅ Fully custom APIs (Hono, plain fetch)                |
+| KV / Durable Objects | ✅ via Functions                   | ✅ full access                                          |
+| Static assets        | ✅ automatic                       | ❌ must serve manually                                  |
+
+---
+
+## 3️⃣ Pros & cons
+
+### **Cloudflare Pages**
+
+**Pros:**
+
+* Easy Next.js + frontend deployment
+* Built-in CI/CD
+* Global caching, fast static pages
+* Automatic Edge Function support for `app/api/*`
+
+**Cons:**
+
+* Limited backend capability
+* Cannot use `pages/api/*` Node APIs
+* Middleware limited to Edge Functions
+
+### **Cloudflare Workers**
+
+**Pros:**
+
+* Full backend control
+* Use Hono, raw Workers, Durable Objects, KV, D1
+* Edge-native, very fast
+* Works as standalone API or microservice
+
+**Cons:**
+
+* Must serve frontend separately (or via static assets)
+* No built-in Next.js integration
+
+---
+
+## 4️⃣ When to use which
+
+| Use case                                         | Recommended                |
+| ------------------------------------------------ | -------------------------- |
+| Next.js frontend (static + SSR)                  | Pages                      |
+| Full backend API, DB access, KV, Durable Objects | Workers (Hono, raw Worker) |
+| Small API attached to frontend                   | Pages `app/api/*`          |
+| Large API, multiple endpoints, middleware        | Workers + Hono             |
+
+---
+
+### Key mental model
+
+* **Pages = frontend + small Edge functions**
+* **Workers = backend + full Edge logic**
+
+You can combine both in **one project**, but usually it’s cleaner to do:
+
+```
+repo/
+ ├─ frontend/ → Cloudflare Pages (Next.js)
+ └─ backend/ → Cloudflare Workers (Hono or raw Worker)
+```
+
+---
+
+Here’s a **diagrammatic explanation** of how **Cloudflare Pages vs Workers** work, and where **Next.js frontend** and **Hono backend APIs** fit together.
+
+---
+
+```
+                    ┌──────────────────────────────┐
+                    │          Users / Clients      │
+                    └───────────────┬──────────────┘
+                                    │
+                              HTTPS requests
+                                    |
+                                    ▼
+       ┌────────────────────────────┐        ┌────────────────────────────┐
+       │    Cloudflare Pages        │        │   Cloudflare Workers       │
+       │  (Frontend + Edge Funcs)   │        │   (Backend APIs / Hono)    │
+       └───────────────┬────────────┘        └───────────────┬────────────┘
+                       │                                     │
+           ┌───────────┴───────────┐          ┌──────────────┴─────────────┐
+           │ Next.js Frontend      │          │ Hono / Raw Worker API      │
+           │ (React, RSC, App      │          │ (Dynamic API, KV, DO, D1)  │
+           │ Router, Edge Runtime) │          └────────────────────────────┘
+           └───────────────────────┘
+                       │
+              Fetch to backend API 
+                       ▼
+           ┌──────────────────────────────┐
+           │  KV / Durable Objects / D1   │
+           │  (shared storage, DB, cache) │
+           └──────────────────────────────┘
+```
+
+---
+
+### 🔹 How it works in practice
+
+1. **Frontend**
+
+   * Next.js deployed on **Cloudflare Pages**
+   * Handles UI, static assets, and optionally small API via `app/api/*`
+
+2. **Backend API**
+
+   * Hono (or Worker) deployed on **Cloudflare Workers**
+   * Handles business logic, authentication, database access, queues
+   * Can interact with **KV, Durable Objects, D1, R2**
+
+3. **Communication**
+
+   * Frontend calls backend via `fetch("https://api.example.com/endpoint")`
+   * Responses come back edge-fast
+
+---
+
+### 🔹 Key advantages of this setup
+
+* Separation of concerns: UI vs backend
+* Edge-native: both are super fast
+* Scalability: backend can grow independently
+* Reuse: multiple frontends (Next.js, static sites) can call the same backend
+
+---
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Replacing index.ts with hono for requesting data
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+leo@qasim:~/RESOURCES/cloudflare/workers-getting-started$ npm install hono
+
+https://hono.dev/docs/getting-started/basic
+
+// Update your index.tsx
+
+```ts
+import { Hono } from 'hono'
+
+const app = new Hono()
+
+app.get('/message', (c) => {
+  return c.text('Hello Hono!')
+})
+
+app.get('/random', (c) => {
+  return c.text(crypto.randomUUID())
+})
+
+export default app
+```
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Integarting bindings - Cloudflare AI
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+`npm install @cloudflare/ai`
+
+now inside wrangler.toml/.jsonc
+add new binding
+
+
+in `wrangler.jsonc` add
+```
+"services": [
+    {
+      "binding": "AI",
+      "service": "AI",
+    }
+  ],
+```
+
+import in index.ts
+import { Ai } from '@cloudflare/ai'
+
+add 
+export interface Env{
+  AI: any
+}
+
+and use
+
+const ai = new Ai(c.env.AI)
+ai.run("@cf/baai/bge-base-en-v1.5", "inputs")
+
+reference - https://developers.cloudflare.com/workers-ai/models/
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Below are **clear, end-to-end steps** to create and use a **Cloudflare Durable Object with Cloudflare Pages**. This is the **officially supported architecture**.
+
+You will create:
+
+1. A **Worker that owns the Durable Object**
+2. A **Pages project** that binds to and uses it
+
+---
+
+## Part 1: Create the Durable Object (Worker)
+
+### 1. Install Wrangler
+
+```bash
+npm install -g wrangler
+wrangler login
+```
+
+---
+
+### 2. Create a Worker project
+
+```bash
+wrangler init durable-worker
+cd durable-worker
+```
+
+Choose:
+
+* TypeScript or JavaScript (either is fine)
+* Workers (not Pages)
+
+---
+
+### 3. Define the Durable Object
+
+`src/index.ts`
+
+```ts
+export class Counter {
+  state
+  constructor(state) {
+    this.state = state
+  }
+
+  async fetch() {
+    const value = (await this.state.storage.get("count")) || 0
+    const next = value + 1
+    await this.state.storage.put("count", next)
+    return new Response(next.toString())
+  }
+}
+
+export default {
+  fetch() {
+    return new Response("Durable Object Worker")
+  }
+}
+```
+
+---
+
+### 4. Configure Durable Object in `wrangler.toml`
+
+```toml
+name = "durable-worker"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+
+[durable_objects]
+bindings = [
+  { name = "COUNTER", class_name = "Counter" }
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["Counter"]
+```
+
+---
+
+### 5. Deploy the Worker
+
+```bash
+wrangler deploy
+```
+
+This creates the **Durable Object namespace**.
+
+---
+
+## Part 2: Bind Durable Object to Cloudflare Pages
+
+### 6. Create or use an existing Pages project
+
+You may already have one deployed from GitHub.
+
+Your Pages project must use **Pages Functions**.
+
+Directory structure:
+
+```
+/functions
+  /api
+    counter.ts
+```
+
+---
+
+### 7. Add Durable Object binding to Pages
+
+In **Cloudflare Dashboard**:
+
+1. Go to **Pages → Your Project → Settings**
+2. Open **Functions**
+3. Add **Durable Object binding**
+
+   * Variable name: `COUNTER`
+   * Select the namespace created by `durable-worker`
+
+No Wrangler required for Pages.
+
+---
+
+## Part 3: Use the Durable Object in Pages
+
+### 8. Call the Durable Object from a Pages Function
+
+`functions/api/counter.ts`
+
+```ts
+export async function onRequest(context) {
+  const id = context.env.COUNTER.idFromName("global")
+  const stub = context.env.COUNTER.get(id)
+  return await stub.fetch("https://counter")
+}
+```
+
+---
+
+## Result
+
+* Pages serves your frontend
+* Pages Function calls the Durable Object
+* Durable Object stores state globally and consistently
+
+Visiting:
+
+```
+/api/counter
+```
+
+will increment and return the counter value.
+
+---
+
+## Architecture Overview
+
+```
+Browser
+  ↓
+Cloudflare Pages
+  ↓
+Pages Function
+  ↓
+Durable Object (Worker)
+```
+
+---
+
+## Important Rules to Remember
+
+* Durable Objects **cannot live inside Pages**
+* They **must be deployed as a Worker**
+* Pages can **only bind to them**
+* Wrangler is required **only for the Worker**, not Pages
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

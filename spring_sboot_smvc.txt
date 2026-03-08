@@ -11,9 +11,9 @@ MVC does things the better way in a more speciailized way .. for building scalea
 Spring frameword is a framework app for general purpose apps for enterprise java apps.. apps that are for an enterprise like college/university LMS 
 
 
-Spring Framework can do anything  but needs to much configurations (any reciepe but with details steps)
-Sprint boot will do things more fastly with minimal configurations (2 mints Nooldes)
-Spring MVC does things in specialized way but what it can do will do it more efficient way like (will make chicken but best ever)
+Spring Framework can do anything  but needs too much configurations (any reciepe but with details steps)
+Sprint boot will do things more fastly with minimal configurations (2 mints Noodles)
+Spring MVC does things in specialized way but what it can do it more efficient way like (will make chicken but best ever)
 
 
 
@@ -242,3 +242,352 @@ Minimum code
 * **Spring** = Base engine
 * **Spring MVC** = Web framework
 * **Spring Boot** = Ready-made car with engine + web + fuel
+
+
+
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+Layered architecture of spring boot application
+--------------------------------------------------------------------------------------
+
+            
+
+                    DTO                    Utility                      Entity                     Config
+                     |                        |                           |                           |
+            --------------------------------------------------------------------------------------------------------------
+            |                                                                                                            |
+            |                                                                                                            |
+Client  ---------->> Controller layer -------------->> Service Layer ------------>> Repository Layer --------            |
+            |                                                                                                |           |
+            |                                                                                                |           |
+            --------------------------------------------------------------------------------------------------------------
+                                                                                                             |
+                                                                                                   DB <<------
+
+
+
+Client
+   |
+Controller
+   |   (DTO)
+   v
+Service  <------ Model (Entity)
+   |
+DAO/Repository <---- Model (Entity)
+   |
+DB
+
+
+
+
+Classic MVC (Simple & Common)
+
+Client
+  |
+  v
+Controller  <---------------- View (JSON / UI)
+  |
+  v
+Model (Entity) - DAO/Repository
+  |
+  v
+Database
+
+
+            
+Entry point
+endpoints/apis/controllers
+1. Controller (@RestController - @Controller)
+get the request .. process it .. and return the response (no business operations here)
+
+2. Service
+controller forwards the request to service (business operations happen in service layer - all data operations .. populations .. processing)
+
+3. Repository
+Service layer fetches data from repositoy layer (that connects to DB to get the requested/resepctive data)
+
+Servive layer can directly get the data from DB .. but that's not ideal and breaks the layers functionality
+
+
+Now let's talk about above four things
+
+i. DTO (data transfer object)
+let's say client can request a post request with a request body (json, toon).. so that body/data should be converted to some java object inside controller which we call as DTO 
+
+ii. Entity
+a mapping to db (details of your db tables or any other things inside data)
+
+for a response Entity is converted to DTO inside service layer
+
+iii. Utility
+Something common between all the layers 
+
+iv. Config (third party or something that is insdie properties files)
+@Value
+
+
+
+
+---------------------------------------------------------------
+---------------------------------------------------------------
+
+10 mistakes that java dev make
+
+i.
+foreach loop
+you can't break it
+can't remvoe elements while looping it
+
+to remove you have to use iterator
+
+```
+ArrayList<String> words = new ArrayList<>(
+    Array.asList("1","2","3","4")
+)
+
+// INLVAID
+words.forEach(word -> {
+    if (word.equals("1")) {
+        words.remove(word);
+    }
+})
+
+// VALID
+Iterator<String> iterator = words.iterator();
+while (iterator.hasNext()) {
+    String word = iterator.next();
+    if (word.equals("1")) {
+        iterator.remove();
+    }
+}
+
+// or we can replace while loop here with Collections.removeIf()
+words.removeIf(word -> word.equals("1"));
+```
+
+----------------
+
+ii.
+
+never use ArrayList = new ArrayList
+instead use
+List = new ArrayList 
+and use generics (String, Integer, Boolean) while defining
+
+// NOT recommended
+List arr = new ArrayList()
+
+// recommended
+List<Integer> arr = new ArrayList<>() 
+
+-----------------
+
+iii.
+equals()
+
+Never compare strings with `==` as they compare memory in String pool and you will get false for same strings .. always use .equals()
+
+-----------------
+
+iv.
+ifs with bool
+
+if(bool)
+instead of
+if (bool == true)
+
+-----------------
+
+v. 
+use ternary operator
+
+return age >= 18 ? "Adult" : "Child";
+
+
+-----------------
+
+vi.
+statics
+you can't use a non-static method inside static method
+you will have to make a new Instace of class
+
+```
+public static String method() {
+    // statics(); // not allowed
+    // new EmployeeDto().statics(); // allowed
+    return "Hello";
+}
+
+public String statics() {
+    return "hello";
+}
+```
+Or you can make your method static
+
+
+-----------------
+
+vii.
+switch statements
+what if you miss a break, it will run next conditions too
+so don't miss
+
+-----------------
+
+viii.
+close files after opening them to read
+
+```
+FileInputStream input = new FileInputStream("file.txt");
+
+int data = input.read();
+
+while(int != -1) {
+    System.out.print((char) data);
+    data = input.read();
+}
+ 
+// close file
+input.close();
+
+But we can forget this close();
+that's why we can use try and with resources
+
+try (InputFileStream input = new  FileInputStream("file.txt")) { // auto closes
+    
+}
+
+-----------------
+
+ix. 
+
+excessive_garbage_collection
+
+```
+String out = "";
+for (int i = 0; i < 1_000_000, i++) {
+    out += i;
+}
+System.out.print(out);
+```
+
+instead use string builder
+as strings are immutable .. so under the hood it makes a new string builder copies content discards new string .. appends new and makes it O(n^2)
+
+
+- Few concatenations, known at compile time → String
+- Loops / large / unknown size → StringBuilder
+- Multithreaded shared builder → StringBuffer (rare)
+
+-----------------
+
+x. 
+nulls optionals
+
+```
+Character func() {
+    String name = null;
+    if (name == null) {
+        return null;
+    }
+    return name.charAt(0);   
+}
+
+// replace with
+Optional<Character> func() {
+    String name = null;    
+    if (name == null) {
+        return Optional.empty();
+    }
+    return Optional.of(name.charAt(0));
+}
+``` 
+and for usage supply value
+-----------------
+
+xi.
+Libraries
+
+a. If you wanna make something new .. search for it first..
+
+b. don't use a library if you need a single thing from it like a single annotation from @lombok
+
+
+
+---------------------------------------------------------------
+---------------------------------------------------------------
+
+Best practices in REST APIs
+
+@RequestMapping("/users") // always write in plural on class
+
+
+return correct status codes always
+like for creation of resources HttpsStatus.Created
+
+
+Never expose your entities to models/client/
+use DTOs 
+and make records to get request body
+
+
+Instead of checking values using ifs.. use bean validation 
+@NotBlank
+Integer id
+and then on receiving request 
+use @Valid
+
+
+Controller accepts incoming requests
+Service handles business logic
+Repository handles the data 
+
+
+Pagination while returning data to our client 
+like we have millions data coming from repository
+what you can do is:
+
+```
+
+
+- No — Pageable does NOT paginate already-fetched data.
+- It paginates at the database query level, not in memory.
+❌ Fetch all → paginate in app
+✅ Paginate in SQL → fetch only needed rows
+
+Page<User> findByAgeGreaterThan(int age, Pageable pageable);
+```
+
+and then you can acess using 
+http://localhost:8080/users?size=1&page=10&sort
+
+
+GlobalExceptionHandler - to accept all typpa exceptions
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    
+    @ExcpetionHandler({
+        MethodArgumentNotValidExcepction.class
+        // add more
+    })
+    public ResponseEntity<?> handleValidationError() {
+        reurn null;
+    }
+}
+
+
+Security
+OAuth, JWT
+
+
+Versioning
+you can keep old version like  /api/v1/users
+and run new version in parallel /api/v2/users
+and slowly move users to new
+
+
+Use OpenAPI and swagger for docs
+
+
+

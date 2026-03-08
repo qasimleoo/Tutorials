@@ -1,1 +1,7 @@
-NodeJS
+node_modules/
+.env*
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/

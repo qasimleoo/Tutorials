@@ -1,0 +1,93 @@
+
+
+JWT
+json web token
+
+Stateless (isn't stored anywhere - just given to the user unlike a stateful (where data is stored like in DBs)) works like cytpo where we have public key to share and private key to decypt data
+
+jwt is jibberish .. with three strings seprated by dots
+first string (algo used - commonly HS256) has many others - Header (tells algo used and token type)
+second string (contains content/information) - payload 
+iat - issued at (time at which it was issued) - also can add expiry here 
+
+URL safe token (no & + or any char that can create issues in URL)
+
+third (checks if there was manipualtion in sending resposne string or algorithm) first two + a secret key - signature
+
+visit https://jwt.io for more info
+
+
+Authentication (verifying if username/email/password is correct) vs Authorized (if you are authorized to access anything)
+
+
+How to store jwt securly on client side??
+it is short lived - use cookies with expiry date
+
+Refresh token -  a backup token for each token stored anywhere (makes stateful) .. if main one expires like after 15 mins .. we fetch refresh token
+we can whitelist/blacklist
+
+
+JWT vs Sessions
+
+Client          Server             DB
+
+Stateless (JWT based) mechanism
+
+we authenticate user .. with username/password from 
+CLIENT to --> validate on SERVER --> check in DATABASE 
+		  <--	issue JWT        <-- credentials valid 
+API reuest (JWT) --> validate token on server (NO DB need here)
+
+if (REFRESH token) needs to be stored on DB --> DB
+Invalid token 			<--
+Request again
+
+
+Sessions Mechanism
+we need stateful here - and to authenticate we need to check session id on each request
+
+
+-------------------------
+"Bearer" means possession: Anyone with the token can use it.
+
+Bearer (tokens which can be used by anyone to access any src) real world - like losing your cash and someone else picks that up and uses that to buy something and store won't ask is it actually your money
+
+
+pass jwt in headers
+we use libraries to create, store, authenticate and validate tokens 
+
+
+
+
+
+
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+JWT vs OAuth
+--------------------------------------------------------------------------------------
+
+json web token - token given to an authorized request
+
+
+header payload and signature 
+auhtentication vs authorization
+
+OAuth - a protocol
+open authorization (covers all steps for a user to access some resources like Client to access Google photos needs to get access from Google - )
+google might give the user a jwt 
+
+jwt:
+is a thing 
+is like an id card
+both work in sync (they are not opposite)
+can be used in an non-Oauth env
+
+Oauth: (Open authorization)
+is a process (framework/protocol)
+it is like a valet key (like you give your car key to driver to drive car .. you avoid all other keys to give him)
+the mechanism which uses that jwt
+can have any other token other than jwt actually
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+
+
